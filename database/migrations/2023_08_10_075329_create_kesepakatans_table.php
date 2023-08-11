@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('kesepakatans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pengaduan_id')->constrained(
+                table: 'pengaduans',
+                column: 'id',
+                indexName: 'mediasis_pengaduan_id',
+            );
             $table->timestamps();
         });
     }

@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('pengaduans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('nasabah_id')->constrained(
+                table: 'nasabahs',
+                column: 'id',
+                indexName: 'pengaduans_nasabah_id',
+            );
+            $table->foreignId('pialang_id')->constrained(
+                table: 'pialangs',
+                column: 'id',
+                indexName: 'pengaduans_pialang_id',
+            );
+            $table->foreignId('bursa_id')->constrained(
+                table: 'bursas',
+                column: 'id',
+                indexName: 'pengaduans_bursa_id',
+            );
             $table->timestamps();
         });
     }

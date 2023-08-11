@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('musyawarahs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pengaduan_id')->constrained(
+                table: 'pengaduans',
+                column: 'id',
+                indexName: 'musyawarahs_pengaduan_id',
+            );
             $table->timestamps();
         });
     }
