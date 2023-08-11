@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('nasabahs', function (Blueprint $table) {
             $table->id();
+            $table->string("nama_lengkap");
+            $table->string("tempat_lahir");
+            $table->date("tanggal_lahir");
+            $table->string("identitas");
+            $table->string("nomor_identitas");
+            $table->string("gender");
+            $table->string("alamat");
+            $table->string("provinsi");
+            $table->string("kota_kabupaten");
+            $table->string("nomor_hp");
+            $table->foreignId('user_id')->constrained(
+                table: 'users',
+                column: 'id',
+                indexName: 'nasabahs_user_id',
+            );
             $table->timestamps();
         });
     }

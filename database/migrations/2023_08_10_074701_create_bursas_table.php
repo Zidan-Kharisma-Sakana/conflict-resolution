@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('bursas', function (Blueprint $table) {
             $table->id();
+            $table->string("nama_bursa");
+            $table->string("status");
+            $table->text("alamat_lengkap");
+            $table->text("deskripsi");
+            $table->foreignId('user_id')->constrained(
+                table: 'users',
+                column: 'id',
+                indexName: 'bursas_user_id',
+            );
             $table->timestamps();
         });
     }
