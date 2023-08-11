@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string("provinsi");
             $table->string("kota_kabupaten");
             $table->string("nomor_hp");
+            $table->string("pekerjaan");
+            $table->string("jabatan");
             $table->foreignId('user_id')->constrained(
                 table: 'users',
                 column: 'id',
