@@ -10,7 +10,9 @@ class Musyawarah extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
+    protected $casts = [
+        'tanggal_waktu' => 'datetime',
+    ];
     public function pengaduan(): BelongsTo
     {
         return $this->belongsTo(Pengaduan::class);

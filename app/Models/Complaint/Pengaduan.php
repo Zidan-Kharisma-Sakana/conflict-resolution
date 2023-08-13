@@ -15,6 +15,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Pengaduan extends Model
 {
     use HasFactory;
+    protected $casts = [
+        'terlapor' => 'array',
+        'waktu_dibuat' => 'datetime',
+        'waktu_expires_bappebti' => 'datetime',
+        'waktu_disetujui' => 'datetime',
+        'waktu_expires_pialang' => 'datetime',
+        'waktu_expires_bursa' => 'datetime',
+        'waktu_selesai' => 'datetime',
+    ];
     protected $guarded = [];
 
     public function nasabah(): BelongsTo

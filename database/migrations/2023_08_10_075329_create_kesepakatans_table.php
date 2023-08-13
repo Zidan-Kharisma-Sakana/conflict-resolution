@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('kesepakatans', function (Blueprint $table) {
             $table->id();
+            $table->boolean("dari_musyawarah");
+            $table->string("pembuat");
+            $table->text("isi");
             $table->foreignId('pengaduan_id')->constrained(
                 table: 'pengaduans',
                 column: 'id',
