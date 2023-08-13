@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('mediasis', function (Blueprint $table) {
             $table->id();
+            $table->dateTime("waktu_selesai")->nullable();
             $table->string("file_undangan")->nullable();
             $table->dateTime("tanggal_waktu");
             $table->text("hasil");
@@ -22,7 +23,6 @@ return new class extends Migration
                 column: 'id',
                 indexName: 'mediasis_pengaduan_id',
             );
-            $table->timestamps();
         });
     }
 

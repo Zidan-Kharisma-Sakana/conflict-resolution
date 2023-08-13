@@ -12,6 +12,7 @@ class Musyawarah extends Model
     protected $guarded = [];
     protected $casts = [
         'tanggal_waktu' => 'datetime',
+        'waktu_selesai'=>'datetime',
     ];
     public function pengaduan(): BelongsTo
     {

@@ -20,7 +20,6 @@ return new class extends Migration
                 column: 'id',
                 indexName: 'mediasis_pengaduan_id',
             );
-            $table->timestamps();
         });
     }
 

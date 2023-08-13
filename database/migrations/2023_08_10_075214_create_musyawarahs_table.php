@@ -22,7 +22,7 @@ return new class extends Migration
                 column: 'id',
                 indexName: 'musyawarahs_pengaduan_id',
             );
-            $table->timestamps();
+            $table->dateTime("waktu_selesai")->nullable();
         });
     }
 
