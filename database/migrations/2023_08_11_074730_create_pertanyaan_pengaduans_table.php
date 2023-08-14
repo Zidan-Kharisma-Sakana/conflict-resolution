@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('pengaduan_id')->constrained(
                 table: 'pengaduans',
                 column: 'id',
-                indexName: 'mediasis_pengaduan_id',
+                indexName: 'pertanyaan_pengaduans_pengaduan_id',
             );
         });
     }
