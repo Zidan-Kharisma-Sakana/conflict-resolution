@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bappebtis', function (Blueprint $table) {
             $table->id();
-            $table->string("nip");
+            $table->string("nip")->nullable();
             $table->foreignId('user_id')->constrained(
                 table: 'users',
                 column: 'id',

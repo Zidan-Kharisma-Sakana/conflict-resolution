@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('nasabahs', function (Blueprint $table) {
             $table->id();
-            $table->string("tempat_lahir");
-            $table->date("tanggal_lahir");
-            $table->string("identitas");
-            $table->string("nomor_identitas");
-            $table->string("gender");
-            $table->string("alamat");
-            $table->string("provinsi");
-            $table->string("kota_kabupaten");
-            $table->string("nomor_hp");
-            $table->string("pekerjaan");
-            $table->string("jabatan");
+            $table->string("tempat_lahir")->nullable();
+            $table->date("tanggal_lahir")->nullable();
+            $table->string("identitas")->nullable();
+            $table->string("nomor_identitas")->nullable();
+            $table->string("gender")->nullable();
+            $table->string("alamat")->nullable();
+            $table->string("provinsi")->nullable();
+            $table->string("kota_kabupaten")->nullable();
+            $table->string("nomor_hp")->nullable();
+            $table->string("pekerjaan")->nullable();
+            $table->string("jabatan")->nullable();
             $table->foreignId('user_id')->constrained(
                 table: 'users',
                 column: 'id',

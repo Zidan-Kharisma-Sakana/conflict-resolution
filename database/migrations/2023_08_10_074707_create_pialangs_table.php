@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('pialangs', function (Blueprint $table) {
             $table->id();
-            $table->string("status");
-            $table->text("alamat_lengkap");
-            $table->text("deskripsi");
-            $table->integer("aduan_bulanan");
-            $table->integer("aduan_tahunan");
+            $table->string("status")->default('aktif');
+            $table->text("alamat_lengkap")->nullable();
+            $table->text("deskripsi")->nullable();
+            $table->integer("aduan_bulanan")->default(0);
+            $table->integer("aduan_tahunan")->default(0);
             $table->foreignId('user_id')->constrained(
                 table: 'users',
                 column: 'id',
