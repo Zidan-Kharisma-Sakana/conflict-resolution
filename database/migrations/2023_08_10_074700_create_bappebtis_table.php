@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bappebtis', function (Blueprint $table) {
             $table->id();
             $table->string("nip")->nullable();
-            $table->foreignId('user_id')->constrained(
+            $table->foreignId('user_id')->unique()->constrained(
                 table: 'users',
                 column: 'id',
                 indexName: 'bappebtis_user_id',

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text("deskripsi")->nullable();
             $table->integer("aduan_bulanan")->default(0);
             $table->integer("aduan_tahunan")->default(0);
-            $table->foreignId('user_id')->constrained(
+            $table->foreignId('user_id')->unique()->constrained(
                 table: 'users',
                 column: 'id',
                 indexName: 'pialangs_user_id',

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("status")->default("aktif");
             $table->text("alamat_lengkap")->nullable();
             $table->text("deskripsi")->nullable();
-            $table->foreignId('user_id')->constrained(
+            $table->foreignId('user_id')->unique()->constrained(
                 table: 'users',
                 column: 'id',
                 indexName: 'bursas_user_id',

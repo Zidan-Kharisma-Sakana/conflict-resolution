@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string("nomor_hp")->nullable();
             $table->string("pekerjaan")->nullable();
             $table->string("jabatan")->nullable();
-            $table->foreignId('user_id')->constrained(
+            $table->foreignId('user_id')->unique()->constrained(
                 table: 'users',
                 column: 'id',
                 indexName: 'nasabahs_user_id',
