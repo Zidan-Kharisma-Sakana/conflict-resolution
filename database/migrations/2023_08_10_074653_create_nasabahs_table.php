@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('nasabahs', function (Blueprint $table) {
             $table->id();
-            $table->string("nama_lengkap");
             $table->string("tempat_lahir");
             $table->date("tanggal_lahir");
             $table->string("identitas");

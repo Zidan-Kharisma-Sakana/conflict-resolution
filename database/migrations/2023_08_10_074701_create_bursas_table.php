@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('bursas', function (Blueprint $table) {
             $table->id();
-            $table->string("nama_bursa");
             $table->string("status");
             $table->text("alamat_lengkap");
             $table->text("deskripsi");

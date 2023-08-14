@@ -70,4 +70,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Bursa::class);
     }
+
+    public const IS_NASABAH = 'nasabah';
+    public const IS_PIALANG = 'pialang';
+    public const IS_BURSA = 'bursa';
+    public const IS_BAPPEBTI = 'bappebti';
 }
