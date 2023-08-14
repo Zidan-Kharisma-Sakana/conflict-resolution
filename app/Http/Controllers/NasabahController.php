@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorenasabahRequest;
 use App\Http\Requests\UpdatenasabahRequest;
-use App\Models\nasabah;
+use App\Models\Profile\Nasabah;
 
 class NasabahController extends Controller
 {
@@ -35,7 +35,7 @@ class NasabahController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(nasabah $nasabah)
+    public function show(Nasabah $nasabah)
     {
         //
     }
@@ -43,7 +43,7 @@ class NasabahController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(nasabah $nasabah)
+    public function edit(Nasabah $nasabah)
     {
         //
     }

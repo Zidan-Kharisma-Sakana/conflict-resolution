@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorebursaRequest;
 use App\Http\Requests\UpdatebursaRequest;
-use App\Models\bursa;
+use App\Models\Profile\Bursa;
 
 class BursaController extends Controller
 {
@@ -35,7 +35,7 @@ class BursaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(bursa $bursa)
+    public function show(Bursa $bursa)
     {
         //
     }
@@ -43,7 +43,7 @@ class BursaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(bursa $bursa)
+    public function edit(Bursa $bursa)
     {
         //
     }
@@ -52,14 +52,6 @@ class BursaController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdatebursaRequest $request, bursa $bursa)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(bursa $bursa)
     {
         //
     }

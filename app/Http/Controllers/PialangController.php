@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorepialangRequest;
 use App\Http\Requests\UpdatepialangRequest;
-use App\Models\pialang;
+use App\Models\Profile\Pialang;
 
 class PialangController extends Controller
 {
@@ -35,7 +35,7 @@ class PialangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(pialang $pialang)
+    public function show(Pialang $pialang)
     {
         //
     }
@@ -43,7 +43,7 @@ class PialangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(pialang $pialang)
+    public function edit(Pialang $pialang)
     {
         //
     }
@@ -51,15 +51,7 @@ class PialangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatepialangRequest $request, pialang $pialang)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(pialang $pialang)
+    public function update(UpdatepialangRequest $request, Pialang $pialang)
     {
         //
     }
