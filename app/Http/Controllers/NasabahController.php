@@ -59,7 +59,7 @@ class NasabahController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(nasabah $nasabah)
+    public function destroy(Nasabah $nasabah)
     {
         //
     }

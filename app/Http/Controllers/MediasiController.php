@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorepialangRequest;
-use App\Http\Requests\UpdatepialangRequest;
-use App\Models\Profile\Pialang;
+use App\Http\Requests\StoreMediasiRequest;
+use App\Http\Requests\UpdateMediasiRequest;
+use App\Models\Complaint\Mediasi;
 
-class PialangController extends Controller
+class MediasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class PialangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorepialangRequest $request)
+    public function store(StoreMediasiRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class PialangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pialang $pialang)
+    public function show(Mediasi $mediasi)
     {
         //
     }
@@ -43,7 +43,7 @@ class PialangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pialang $pialang)
+    public function edit(Mediasi $mediasi)
     {
         //
     }
@@ -51,7 +51,7 @@ class PialangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatepialangRequest $request, pialang $pialang)
+    public function update(UpdateMediasiRequest $request, Mediasi $mediasi)
     {
         //
     }
@@ -59,7 +59,7 @@ class PialangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pialang $pialang)
+    public function destroy(Mediasi $mediasi)
     {
         //
     }

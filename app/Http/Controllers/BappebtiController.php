@@ -55,4 +55,12 @@ class BappebtiController extends Controller
     {
         //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Bappebti $bappebti)
+    {
+        //
+    }
 }
