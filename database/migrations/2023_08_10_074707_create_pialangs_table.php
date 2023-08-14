@@ -23,7 +23,7 @@ return new class extends Migration
                 column: 'id',
                 indexName: 'pialangs_user_id',
             );
-            $table->foreignId('bursa_id')->constrained(
+            $table->foreignId('bursa_id')->nullable()->constrained(
                 table: 'bursas',
                 column: 'id',
                 indexName: 'pialangs_bursa_id',
