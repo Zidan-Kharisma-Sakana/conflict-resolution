@@ -13,13 +13,13 @@
         @csrf
         @method('patch')
         <div class="flex justify-between gap-x-8 w-full">
-            <div>
+            <div class="w-1/2">
                 <x-form.input-label for="pekerjaan" :value="__('pekerjaan')" />
                 <x-form.input.text-input id="pekerjaan" name="pekerjaan" type="text" class="mt-1 block w-full"
                     :value="old('pekerjaan', $user->nasabah->pekerjaan)" required autofocus />
             </div>
 
-            <div>
+            <div class="w-1/2">
                 <x-form.input-label for="jabatan" :value="__('jabatan')" />
                 <x-form.input.text-input id="jabatan" name="jabatan" type="text" class="mt-1 block w-full"
                     :value="old('jabatan', $user->nasabah->jabatan)" required autofocus />
@@ -32,13 +32,13 @@
         </div>
 
         <div class="flex justify-between gap-x-8 w-full">
-            <div>
+            <div class="w-1/2">
                 <x-form.input-label for="provinsi" :value="__('provinsi')" />
                 <x-form.input.text-input id="provinsi" name="provinsi" type="text" class="mt-1 block w-full"
                     :value="old('provinsi', $user->nasabah->provinsi)" required autofocus />
             </div>
 
-            <div>
+            <div class="w-1/2">
                 <x-form.input-label for="kota_kabupaten" :value="__('kota_kabupaten')" />
                 <x-form.input.text-input id="kota_kabupaten" name="kota_kabupaten" type="text"
                     class="mt-1 block w-full" :value="old('kota_kabupaten', $user->nasabah->kota_kabupaten)" required autofocus />
