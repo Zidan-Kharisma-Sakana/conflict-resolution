@@ -9,14 +9,17 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 w-full">
+    <form method="post" action="{{ route('account.update') }}" class="mt-6 space-y-6 w-full">
         @csrf
         @method('patch')
         <div>
-            <x-form.input-label for="nip" :value="__('nip')" />
-            <x-form.input.text-input id="nip" name="nip" type="text" class="mt-1 block w-full"
-                :value="old('nip', $user->bappebti->nip)" required autofocus />
+            <x-form.input-label for="alamat" :value="__('alamat')" />
+            <x-form.input.text-input id="alamat" name="alamat" type="text" class="mt-1 block w-full"
+                :value="old('alamat', $user->pialang->alamat)" required autofocus />
         </div>
+        <textarea class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+
+        </textarea>
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

@@ -9,7 +9,7 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 w-full">
+    <form method="post" action="{{ route('account.update') }}" class="mt-6 space-y-6 w-full">
         @csrf
         @method('patch')
         <div class="flex justify-between gap-x-8 w-full">
@@ -64,7 +64,7 @@
                 <x-form.input-label for="identitas" :value="__('Identitas')" />
                 <select id="identitas" name="identitas"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
-                    <option value="" disabled>Not Selected</option>
+                    <option value="" disabled selected>Not Selected</option>
                     <option value="PASPORT"
                         {{ old('identitas', $user->nasabah->identitas) == 'PASSPORT' ? 'selected' : '' }}>
                         PASSPORT</option>
@@ -85,7 +85,7 @@
             <x-form.input-label for="gender" :value="__('gender')" />
             <select id="gender" name="gender"
                 class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
-                <option value="" disabled>Not Selected</option>
+                <option value="" disabled selected>Not Selected</option>
                 <option value="PASPORT" {{ old('gender', $user->nasabah->gender) == 'Laki-Laki' ? 'selected' : '' }}>
                     Laki-Laki</option>
                 <option value="KTP" {{ old('gender', $user->nasabah->gender) == 'Perempuan' ? 'selected' : '' }}>
