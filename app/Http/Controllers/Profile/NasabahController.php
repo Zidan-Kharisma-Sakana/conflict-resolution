@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Profile;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorenasabahRequest;
 use App\Http\Requests\UpdatenasabahRequest;
 use App\Models\Profile\Nasabah;
+use Illuminate\Support\Facades\Redirect;
 
 class NasabahController extends Controller
 {
@@ -12,22 +13,6 @@ class NasabahController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorenasabahRequest $request)
     {
         //
     }
@@ -51,9 +36,10 @@ class NasabahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatenasabahRequest $request, nasabah $nasabah)
+    public function update(UpdatenasabahRequest $request)
     {
-        //
+        $request->user()->nasabah()->update($request->validated());
+        return Redirect::route('account.edit')->with('status', 'profile-updated');
     }
 
     /**

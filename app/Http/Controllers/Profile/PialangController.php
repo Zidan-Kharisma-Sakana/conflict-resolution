@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StorepialangRequest;
+use App\Http\Requests\UpdatepialangRequest;
+use App\Models\Profile\Pialang;
 
-use App\Http\Requests\StorebursaRequest;
-use App\Http\Requests\UpdatebursaRequest;
-use App\Models\Profile\Bursa;
-
-class BursaController extends Controller
+class PialangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class BursaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorebursaRequest $request)
+    public function store(StorepialangRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class BursaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bursa $bursa)
+    public function show(Pialang $pialang)
     {
         //
     }
@@ -43,7 +43,7 @@ class BursaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bursa $bursa)
+    public function edit(Pialang $pialang)
     {
         //
     }
@@ -51,7 +51,7 @@ class BursaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatebursaRequest $request, bursa $bursa)
+    public function update(UpdatepialangRequest $request, pialang $pialang)
     {
         //
     }
@@ -59,7 +59,7 @@ class BursaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bursa $bursa)
+    public function destroy(Pialang $pialang)
     {
         //
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StorebursaRequest;
+use App\Http\Requests\UpdatebursaRequest;
+use App\Models\Profile\Bursa;
 
-use App\Http\Requests\StoreBappebtiRequest;
-use App\Http\Requests\UpdateBappebtiRequest;
-use App\Models\Profile\Bappebti;
-
-class BappebtiController extends Controller
+class BursaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class BappebtiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBappebtiRequest $request)
+    public function store(StorebursaRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class BappebtiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bappebti $bappebti)
+    public function show(Bursa $bursa)
     {
         //
     }
@@ -43,7 +43,7 @@ class BappebtiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bappebti $bappebti)
+    public function edit(Bursa $bursa)
     {
         //
     }
@@ -51,7 +51,7 @@ class BappebtiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBappebtiRequest $request, Bappebti $bappebti)
+    public function update(UpdatebursaRequest $request, bursa $bursa)
     {
         //
     }
@@ -59,7 +59,7 @@ class BappebtiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bappebti $bappebti)
+    public function destroy(Bursa $bursa)
     {
         //
     }
