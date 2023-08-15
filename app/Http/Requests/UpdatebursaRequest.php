@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdatebursaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize(Request $request): bool
     {
-        return false;
+        return $request->user()->role == User::IS_BURSA;
     }
 
     /**
@@ -22,7 +24,8 @@ class UpdatebursaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "alamat" => ["string", "required"],
+            "deskripsi" => ["string", "required"],
         ];
     }
 }

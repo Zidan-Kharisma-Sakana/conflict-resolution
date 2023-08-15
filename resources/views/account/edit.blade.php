@@ -15,7 +15,23 @@
             </div>
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    @include('account.partials.update-nasabah-form')
+                    @switch($user->role)
+                        @case('nasabah')
+                            @include('account.partials.update-nasabah-form')
+                        @break
+
+                        @case('pialang')
+                            @include('account.partials.update-pialang-form')
+                        @break
+
+                        @case('bursa')
+                            @include('account.partials.update-bursa-form')
+                        @break
+
+                        @case('bappebti')
+                            @include('account.partials.update-bappebti-form')
+                        @break
+                    @endswitch
                 </div>
             </div>
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">

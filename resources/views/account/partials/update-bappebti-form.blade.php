@@ -1,21 +1,22 @@
 <section class="w-full">
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Nasabah Information') }}
+            {{ __('Bappebti Information') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('Update your Nasabah informations.') }}
+            {{ __('Update your Bappebti informations.') }}
         </p>
     </header>
 
-    <form method="post" action="{{ route('account.update') }}" class="mt-6 space-y-6 w-full">
+    <form method="post" action="{{ route('bappebti.update') }}" class="mt-6 space-y-6 w-full">
         @csrf
         @method('patch')
         <div>
             <x-form.input-label for="nip" :value="__('nip')" />
             <x-form.input.text-input id="nip" name="nip" type="text" class="mt-1 block w-full"
                 :value="old('nip', $user->bappebti->nip)" required autofocus />
+            <x-form.input-error class="mt-2" :messages="$errors->get('nip')" />
         </div>
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

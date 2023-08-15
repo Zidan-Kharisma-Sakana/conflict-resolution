@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdateBappebtiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize(Request $request): bool
     {
-        return false;
+        return $request->user()->role == User::IS_BAPPEBTI;
     }
 
     /**
@@ -22,7 +24,7 @@ class UpdateBappebtiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nip' => ['string', 'required']
         ];
     }
 }
