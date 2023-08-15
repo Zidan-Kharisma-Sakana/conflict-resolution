@@ -17,7 +17,6 @@ class BursaFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama_bursa' => '',
             'status' => 'aktif',
             'alamat_lengkap' => fake()->address(),
             'deskripsi' => fake()->text(),

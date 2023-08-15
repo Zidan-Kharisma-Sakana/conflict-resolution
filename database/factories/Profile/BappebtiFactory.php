@@ -17,7 +17,6 @@ class BappebtiFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama_lengkap'=> fake()->name(),
             'nip'=> fake()->numberBetween(999999,1000000)
         ];
     }

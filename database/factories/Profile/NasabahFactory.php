@@ -17,7 +17,6 @@ class NasabahFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama_lengkap' => fake()->name(),
             'tempat_lahir' => fake()->city(),
             'tanggal_lahir' => fake()->date(),
             'identitas' => 'KTP',

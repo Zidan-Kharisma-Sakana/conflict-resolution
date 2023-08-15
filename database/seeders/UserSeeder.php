@@ -20,16 +20,16 @@ class UserSeeder extends Seeder
         Nasabah::factory()->for(User::factory()->setRole("nasabah"))->create();
         Bappebti::factory()->for(User::factory()->setRole("bappebti"))->create();
 
-        $bursaJFX = User::factory()->setRole("bursa")->has(
-            Bursa::factory()->state(['nama_bursa' => 'Jakarta Futures Exchange (JFX)'])
+        $bursaJFX = User::factory()->setRole("bursa")->state(['name' => 'Jakarta Futures Exchange (JFX)'])->has(
+            Bursa::factory()
         )->create();
 
         for ($i = 0; $i < 3; $i++) {
             Pialang::factory()->for(User::factory()->setRole("pialang"))->for($bursaJFX->bursa)->create();
         }
 
-        $bursaICDX = User::factory()->setRole("bursa")->has(
-            Bursa::factory()->state(['nama_bursa' => 'Indonesia Commodity & Derivatives Exchange (ICDX)'])
+        $bursaICDX = User::factory()->setRole("bursa")->state(['name' => 'Indonesia Commodity & Derivatives Exchange (ICDX)'])->has(
+            Bursa::factory()
         )->create();
 
         for ($i = 0; $i < 3; $i++) {
