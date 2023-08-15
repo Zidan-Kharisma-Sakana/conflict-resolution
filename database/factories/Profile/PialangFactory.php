@@ -17,7 +17,7 @@ class PialangFactory extends Factory
     public function definition(): array
     {
         return [
-            'alamat_lengkap' => fake()->address(),
+            'alamat' => fake()->address(),
             'status'=> "aktif",
             'deskripsi' => fake()->text(100),
             'aduan_bulanan'=>0,

@@ -18,7 +18,7 @@ class BursaFactory extends Factory
     {
         return [
             'status' => 'aktif',
-            'alamat_lengkap' => fake()->address(),
+            'alamat' => fake()->address(),
             'deskripsi' => fake()->text(),
         ];
     }

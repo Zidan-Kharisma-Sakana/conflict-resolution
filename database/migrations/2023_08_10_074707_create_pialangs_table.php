@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pialangs', function (Blueprint $table) {
             $table->id();
             $table->string("status")->default('aktif');
-            $table->text("alamat_lengkap")->nullable();
+            $table->text("alamat")->nullable();
             $table->text("deskripsi")->nullable();
             $table->integer("aduan_bulanan")->default(0);
             $table->integer("aduan_tahunan")->default(0);
