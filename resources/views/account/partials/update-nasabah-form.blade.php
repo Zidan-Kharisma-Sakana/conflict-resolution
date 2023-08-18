@@ -72,7 +72,7 @@
                 <select id="identitas" name="identitas"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
                     <option value="" disabled selected>Not Selected</option>
-                    <option value="PASPORT"
+                    <option value="PASSPORT"
                         {{ old('identitas', $user->nasabah->identitas) == 'PASSPORT' ? 'selected' : '' }}>
                         PASSPORT</option>
                     <option value="KTP" {{ old('identitas', $user->nasabah->identitas) == 'KTP' ? 'selected' : '' }}>

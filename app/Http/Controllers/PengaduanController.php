@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePengaduanRequest;
 use App\Http\Requests\UpdatePengaduanRequest;
 use App\Models\Complaint\Pengaduan;
+use App\Models\Profile\Pialang;
+use Illuminate\Http\Request;
 
 class PengaduanController extends Controller
 {
@@ -19,9 +21,12 @@ class PengaduanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return view('pengaduan.form.create', [
+            'user' => $request->user(),
+            'companies'=> Pialang::with("user")->get()
+        ]);
     }
 
     /**
