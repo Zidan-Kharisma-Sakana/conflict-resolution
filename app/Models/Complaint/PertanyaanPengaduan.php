@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PertanyaanPengaduan extends Model
 {
+    public $timestamps = false;
+
     use HasFactory;
-    protected $guarded = [];
+    protected $guarded = ["id"];
     public function pengaduan(): BelongsTo
     {
         return $this->belongsTo(Pengaduan::class);
