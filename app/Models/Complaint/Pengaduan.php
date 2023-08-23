@@ -15,14 +15,20 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Pengaduan extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
     protected $casts = [
         'terlapor' => 'array',
         'waktu_dibuat' => 'datetime',
         'waktu_expires_bappebti' => 'datetime',
-        'waktu_disetujui' => 'datetime',
+        'waktu_selesai_bappebti' => 'datetime',
         'waktu_expires_pialang' => 'datetime',
+        'waktu_selesai_pialang' => 'datetime',
         'waktu_expires_bursa' => 'datetime',
-        'waktu_selesai' => 'datetime',
+        'waktu_selesai_bursa' => 'datetime',
+        'waktu_selesai_pengecekan' => 'datetime',
+        'waktu_kesepakatan' => 'datetime',
+        'ada_kesepakatan' => 'boolean'
     ];
     protected $guarded = [];
 
@@ -58,4 +64,12 @@ class Pengaduan extends Model
     {
         return $this->hasOne(Kesepakatan::class);
     }
+
+    public const STATUS_CREATED = 'created';
+    public const STATUS_REJECTED = 'rejected';
+    public const STATUS_DISPOSISI_PIALANG = 'disposisi_pialang';
+    public const STATUS_DISPOSISI_BURSA = 'disposisi_bursa';
+    public const STATUS_FINISHED = 'finished';
+    public const STATUS_CLOSED = 'closed';
+
 }

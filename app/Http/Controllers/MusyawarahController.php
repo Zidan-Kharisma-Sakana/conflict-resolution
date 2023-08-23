@@ -4,10 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMusyawarahRequest;
 use App\Http\Requests\UpdateMusyawarahRequest;
+use App\Interfaces\MusyawarahServiceInterface;
 use App\Models\Complaint\Musyawarah;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class MusyawarahController extends Controller
 {
+    private MusyawarahServiceInterface $musyawarahService;
+
+    public function __construct(MusyawarahServiceInterface $musyawarahService)
+    {
+        $this->musyawarahService = $musyawarahService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -27,17 +37,21 @@ class MusyawarahController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMusyawarahRequest $request)
+    public function store(StoreMusyawarahRequest $request, $id)
     {
-        //
+        $musyawarah = $this->musyawarahService->createMusyawarah($request, $id);
+        return Redirect::route('pengaduan.show', $id)->with('status', 'musyawarah-created');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Musyawarah $musyawarah)
+    public function show(Request $request, $id)
     {
-        //
+        return view('musyawarah.show', [
+            'user' => $request->user(),
+            'musyawarah' => Musyawarah::findOrFail((int) $id)
+        ]);
     }
 
     /**

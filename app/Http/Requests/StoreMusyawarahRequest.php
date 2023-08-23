@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreMusyawarahRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize(Request $request): bool
     {
-        return false;
+        return $request->user()->role == User::IS_PIALANG;
     }
 
     /**
@@ -22,7 +24,10 @@ class StoreMusyawarahRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'tanggal_waktu' => ['required', 'string'],
+            'tempat' => ['required', 'string'],
+            'link_pertemuan' => [''],
+            'file_undangan' => ['mimes:jpeg,pdf,jpg,png']
         ];
     }
 }
