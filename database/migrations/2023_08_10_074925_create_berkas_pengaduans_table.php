@@ -18,11 +18,10 @@ return new class extends Migration
                 column: 'id',
                 indexName: 'berkas_pengaduans_pengaduan_id',
             );
-            $table->integer("urutan");
+            $table->string("type");
             $table->string("filekeyname");
             $table->string("file_name");
             $table->string("file_type");
-            $table->string("judul");
             $table->string("keterangan")->nullable();
             $table->timestamps();
         });

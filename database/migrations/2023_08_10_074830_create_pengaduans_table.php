@@ -18,7 +18,6 @@ return new class extends Migration
             $table->bigInteger("kerugian");
             $table->string("status");
             $table->string("alasan_penolakan")->nullable();
-            $table->string("file_kronologi")->nullable();
             $table->foreignId('nasabah_id')->constrained(
                 table: 'nasabahs',
                 column: 'id',
@@ -34,12 +33,15 @@ return new class extends Migration
                 column: 'id',
                 indexName: 'pengaduans_bursa_id',
             );
-            $table->dateTime("waktu_dibuat");
-            $table->dateTime("waktu_expires_bappebti");
-            $table->dateTime("waktu_disetujui")->nullable();
+            $table->dateTime("waktu_kesepakatan")->nullable();
+            $table->dateTime("waktu_dibuat")->nullable();
+            $table->dateTime("waktu_expires_bappebti")->nullable();
+            $table->dateTime("waktu_selesai_bappebti")->nullable();
             $table->dateTime("waktu_expires_pialang")->nullable();
+            $table->dateTime("waktu_selesai_pialang")->nullable();
             $table->dateTime("waktu_expires_bursa")->nullable();
-            $table->dateTime("waktu_selesai")->nullable();
+            $table->dateTime("waktu_selesai_bursa")->nullable();
+            $table->dateTime("waktu_selesai_pengecekan")->nullable();
         });
     }
 

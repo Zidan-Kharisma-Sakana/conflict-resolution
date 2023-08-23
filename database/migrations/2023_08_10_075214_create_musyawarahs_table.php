@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('musyawarahs', function (Blueprint $table) {
             $table->id();
-            $table->string("file_undangan")->nullable();
+            $table->string("tempat");
             $table->dateTime("tanggal_waktu");
-            $table->text("hasil");
+            $table->string("link_pertemuan")->nullable();
+            $table->string("file_undangan")->nullable();
+            $table->text("hasil")->nullable();
             $table->string("file_hasil")->nullable();
             $table->foreignId('pengaduan_id')->constrained(
                 table: 'pengaduans',
                 column: 'id',
                 indexName: 'musyawarahs_pengaduan_id',
             );
-            $table->dateTime("waktu_selesai")->nullable();
+            $table->timestamps();
         });
     }
 
