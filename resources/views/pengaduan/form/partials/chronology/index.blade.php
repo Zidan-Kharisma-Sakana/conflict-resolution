@@ -17,18 +17,25 @@
                         diketik rapi
                         dan tersusun secara historical, disertai oleh pihak - pihak yang menyebabkan kerugian
                     </p>
-                    <textarea name="kronologi.description" id="kronologi"
-                        class="mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('pertanyaan.exchange') }}</textarea>
-
+                    <textarea name="kronologi[description]" id="kronologi"
+                        class="mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('kronologi.description') }}</textarea>
+                    @error('kronologi.description')
+                        <x-form.input-error class="mt-2" messages="this field is required" />
+                    @enderror
                 </div>
                 <table>
                     <tr>
                         <td>
-                            <x-form.input-label for="kronologi.lampiran" :value="__('Lampiran Kronologi (opsional)')" />
+                            <x-form.input-label for="kronologi[lampiran]" :value="__('Lampiran Kronologi (opsional)')" />
                         </td>
                         <td>
-                            <input type="file" id="kronologi.lampiran" name="kronologi.lampiran"
-                                accept="image/*,.pdf" />
+                            <div>
+                                <input type="file" id="documents[kronologi]" name="documents[kronologi]"
+                                    accept="image/*,.pdf" />
+                                @error('documents.kronologi')
+                                    <x-form.input-error class="mt-2" messages="this field only accept pdf & image" />
+                                @enderror
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -36,9 +43,17 @@
                             <x-form.input-label for="kerugian" :value="__('Kerugian dalam rupiah')" />
                         </td>
                         <td>
-                            <x-form.input.text-input id="kerugian" name="kerugian" type="number"
-                            class="mt-1 block w-full" :value="old('kerugian')" required autofocus />
+                            <div>
+                                <x-form.input.text-input id="kerugian" name="kerugian" type="number"
+                                    class="mt-1 block w-full" :value="old('kerugian')" autofocus />
+                                @error('kerugian')
+                                    <x-form.input-error class="mt-2" messages="this field is required" />
+                                @enderror
+                            </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td></td>
                     </tr>
                 </table>
             </div>
