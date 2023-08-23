@@ -57,7 +57,7 @@ class PengaduanController extends Controller
             ['nasabah', 'pialang', 'bursa', 'berkasPengaduans', 'pertanyaanPengaduans', 'musyawarahs', 'mediasis', 'kesepakatan']
         )
             ->findOrFail($id);
-        // dd($pengaduan);
+
         return view('pengaduan.show.index', [
             'user' => $request->user(),
             'pengaduan' => $pengaduan

@@ -6,6 +6,7 @@ use App\Models\Profile\Bursa;
 use App\Models\Profile\Nasabah;
 use App\Models\Profile\Pialang;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -66,7 +67,36 @@ class Pengaduan extends Model
     public const STATUS_REJECTED = 'rejected';
     public const STATUS_DISPOSISI_PIALANG = 'disposisi_pialang';
     public const STATUS_DISPOSISI_BURSA = 'disposisi_bursa';
+    public const STATUS_DISPOSISI_BURSA_EXPIRED = 'disposisi_bursa_expired';
     public const STATUS_FINISHED = 'finished';
     public const STATUS_CLOSED = 'closed';
+    public const STATUS_MEANING = [
+        'created' => "Menunggu Pengecekan Bappebti",
+        'rejected' => "Berkas Pengaduan Ditolak Bappebti",
+        'disposisi_pialang' => "Diproses Pialang",
+        'disposisi_bursa' => "Diproses Bursa",
+        'finished' => "Kesepakatan Sudah Dibuat",
+        'closed' => "Pengaduan Ditutup"
+    ];
 
+    public function getStatusMeaning()
+    {
+        return $this::STATUS_MEANING[$this->status];
+    }
+    public function getDeadline()
+    {
+        switch ($this->status) {
+            case $this::STATUS_CREATED:
+                return 'Verifikasi oleh Bappebti hingga ' . Carbon::parse($this->waktu_expires_bappebti)->isoFormat('dddd, D MMMM Y HH:mm');
+            case $this::STATUS_DISPOSISI_PIALANG:
+                return 'Pialang Mengupayakan Kesepakatan hingga ' . Carbon::parse($this->waktu_expires_pialang)->isoFormat('dddd, D MMMM Y HH:mm');
+            case $this::STATUS_DISPOSISI_BURSA:
+                return 'Bursa Mengupayakan Kesepakatan hingga ' . Carbon::parse($this->waktu_expires_bursa)->isoFormat('dddd, D MMMM Y HH:mm');
+            default:
+                return '-';
+        }
+    }
+    public function closestDeadlineTime()
+    {
+    }
 }
