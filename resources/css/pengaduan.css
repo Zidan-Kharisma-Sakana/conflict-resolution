@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+td:nth-child(1){
+    min-width: 200px;
+}
+td:nth-child(2){
+    padding-left: 8px;
+}
+td > a{
+    color: blue;
+    text-decoration: underline;
+}
+
+.jadwal tr, .jadwal td{
+    border-color: inherit;
+    border: 1px solid;
+}
+.jadwal td:nth-child(1){
+    min-width: 0px;
+    padding: 4px 8px;
+}
+.jadwal td{
+    padding: 4px 8px;
+}
