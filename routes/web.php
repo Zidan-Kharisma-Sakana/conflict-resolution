@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MediasiController;
+use App\Http\Controllers\MusyawarahController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\Profile\AccountController;
 use App\Http\Controllers\Profile\BappebtiController;
@@ -32,8 +34,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'edit'])->name('account.edit');
     Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
     Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
+
+
     Route::get('/pengaduan/add', [PengaduanController::class, 'create'])->name('pengaduan.create');
+    Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+    Route::get('/pengaduan/{id}', [PengaduanController::class, 'show'])->name('pengaduan.show');
+    Route::patch('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');
+
+
+    Route::post('/musyawarah/{id}', [MusyawarahController::class, 'store'])->name('musyawarah.store');
+    Route::get('/musyawarah/{id}', [MusyawarahController::class, 'show'])->name('musyawarah.show');
+    Route::patch('/musyawarah/{id}', [MusyawarahController::class, 'update'])->name('musyawarah.update');
+
+
+    Route::post('/mediasi/{id}', [MediasiController::class, 'store'])->name('mediasi.store');
+    Route::get('/mediasi/{id}', [MediasiController::class, 'show'])->name('mediasi.show');
+    Route::patch('/mediasi/{id}', [MediasiController::class, 'update'])->name('mediasi.update');
+
+
 });
+
 
 require __DIR__ . '/account.php';
 require __DIR__ . '/auth.php';
