@@ -48,7 +48,6 @@ class PengaduanService implements PengaduanServiceInterface
     {
         $pengaduan = Pengaduan::where('id', $id)->where('status', Pengaduan::STATUS_CREATED)->firstOrFail();
         $pengaduan->status = Pengaduan::STATUS_DISPOSISI_PIALANG;
-        $pengaduan->waktu_selesai_bappebti = Carbon::now();
         $pengaduan->waktu_expires_pialang = Carbon::now()->addWeekdays(21);
         $pengaduan->save();
         return $pengaduan;
@@ -59,7 +58,6 @@ class PengaduanService implements PengaduanServiceInterface
         $pengaduan = Pengaduan::where('id', $id)->where('status', Pengaduan::STATUS_CREATED)->firstOrFail();
         $pengaduan->status = Pengaduan::STATUS_REJECTED;
         $pengaduan->alasan_penolakan = $pengaduan->alasan_penolakan;
-        $pengaduan->waktu_selesai_bappebti = Carbon::now();
         $pengaduan->save();
         return $pengaduan;
     }

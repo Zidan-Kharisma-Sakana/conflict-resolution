@@ -13,13 +13,18 @@ return new class extends Migration
     {
         Schema::create('kesepakatans', function (Blueprint $table) {
             $table->id();
-            $table->boolean("dari_musyawarah");
-            $table->string("pembuat");
             $table->text("isi");
+            $table->string("file")->nullable();
+            $table->boolean("confirmed")->default(false);
             $table->foreignId('pengaduan_id')->constrained(
                 table: 'pengaduans',
                 column: 'id',
                 indexName: 'kesepakatans_pengaduan_id',
+            );
+            $table->foreignId('user_id')->constrained(
+                table: 'users',
+                column: 'id',
+                indexName: 'kesepakatans_user_id',
             );
             $table->timestamps();
         });

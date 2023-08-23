@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\AuthServiceInterface;
+use App\Interfaces\KesepakatanServiceInterface;
 use App\Interfaces\MediasiServiceInterface;
 use App\Interfaces\MusyawarahServiceInterface;
 use App\Interfaces\PengaduanServiceInterface;

@@ -33,15 +33,12 @@ return new class extends Migration
                 column: 'id',
                 indexName: 'pengaduans_bursa_id',
             );
-            $table->dateTime("waktu_kesepakatan")->nullable();
             $table->dateTime("waktu_dibuat")->nullable();
             $table->dateTime("waktu_expires_bappebti")->nullable();
-            $table->dateTime("waktu_selesai_bappebti")->nullable();
             $table->dateTime("waktu_expires_pialang")->nullable();
-            $table->dateTime("waktu_selesai_pialang")->nullable();
             $table->dateTime("waktu_expires_bursa")->nullable();
-            $table->dateTime("waktu_selesai_bursa")->nullable();
-            $table->dateTime("waktu_selesai_pengecekan")->nullable();
+            $table->dateTime("waktu_kesepakatan")->nullable();
+            $table->dateTime("waktu_selesai")->nullable();
         });
     }
 

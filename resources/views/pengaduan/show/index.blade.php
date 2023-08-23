@@ -37,27 +37,31 @@
             </div>
         @endif
 
+        @include('kesepakatan.partials.show-kesepakatan', ['kesepakatan' => $pengaduan->kesepakatan])
+
         @switch($user->role)
             @case('nasabah')
             @break
 
             @case('pialang')
                 {{-- ahow form tambah musyawarah --}}
-                @include('musyawarah.partials.add-musyawarah')
-                @include('kesepakatan.partials.add-kesepakatan')
+                @if ($pengaduan->status != App\Models\Complaint\Pengaduan::STATUS_CREATED)
+                    @include('musyawarah.partials.add-musyawarah')
+                    @include('kesepakatan.partials.add-kesepakatan')
+                @endif
             @break
 
             @case('bursa')
                 {{-- ahow form tambah mediasi --}}
-                @include('mediasi.partials.add-mediasi')
-                @include('kesepakatan.partials.add-kesepakatan')
+                @if ($pengaduan->status != App\Models\Complaint\Pengaduan::STATUS_CREATED)
+                    @include('mediasi.partials.add-mediasi')
+                    @include('kesepakatan.partials.add-kesepakatan')
+                @endif
             @break
 
             @case('bappebti')
                 @if ($pengaduan->status == App\Models\Complaint\Pengaduan::STATUS_CREATED)
                     @include('pengaduan.form.partials.approval.index')
-                @elseif ($pengaduan->status == App\Models\Complaint\Pengaduan::STATUS_FINISHED)
-                    @include('kesepakatan.partials.cek-kesepakatan')
                 @endif
             @break
 

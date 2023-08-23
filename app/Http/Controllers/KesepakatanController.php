@@ -4,10 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreKesepakatanRequest;
 use App\Http\Requests\UpdateKesepakatanRequest;
+use App\Interfaces\KesepakatanServiceInterface;
 use App\Models\Complaint\Kesepakatan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class KesepakatanController extends Controller
 {
+    private KesepakatanServiceInterface $kesepakatanService;
+
+    public function __construct(KesepakatanServiceInterface $kesepakatanService)
+    {
+        $this->kesepakatanService = $kesepakatanService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -27,9 +37,11 @@ class KesepakatanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreKesepakatanRequest $request)
+    public function store(StoreKesepakatanRequest $request, $id)
     {
         //
+        $kesepakatan = $this->kesepakatanService->createKesepakatan($request, $id);
+        return Redirect::route('pengaduan.show', $id)->with('status', 'kesepakatan-created');
     }
 
     /**
@@ -51,9 +63,10 @@ class KesepakatanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKesepakatanRequest $request, Kesepakatan $kesepakatan)
+    public function update(Request $request, $id)
     {
-        //
+        $pengaduan = $this->kesepakatanService->confirmKesepakatan($request, $id);
+        return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'kesepakatan-updated');
     }
 
     /**

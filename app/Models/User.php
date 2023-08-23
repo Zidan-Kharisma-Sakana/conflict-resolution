@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Complaint\Kesepakatan;
 use App\Models\Profile\Bappebti;
 use App\Models\Profile\Bursa;
 use App\Models\Profile\Nasabah;
 use App\Models\Profile\Pialang;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -69,6 +71,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function bursa(): HasOne
     {
         return $this->hasOne(Bursa::class);
+    }
+
+    public function kesepakatans(): HasMany
+    {
+        return $this->hasMany(Kesepakatan::class);
     }
 
     public const IS_NASABAH = 'nasabah';

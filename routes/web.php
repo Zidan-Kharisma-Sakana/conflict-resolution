@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KesepakatanController;
 use App\Http\Controllers\MediasiController;
 use App\Http\Controllers\MusyawarahController;
 use App\Http\Controllers\PengaduanController;
@@ -51,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/mediasi/{id}', [MediasiController::class, 'show'])->name('mediasi.show');
     Route::patch('/mediasi/{id}', [MediasiController::class, 'update'])->name('mediasi.update');
 
+    Route::post('/kesepakatan/{id}', [KesepakatanController::class, 'store'])->name('kesepakatan.store');
+    Route::patch('/kesepakatan/{id}', [KesepakatanController::class, 'update'])->name('kesepakatan.update');
 
 });
 

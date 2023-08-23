@@ -21,12 +21,9 @@ class Pengaduan extends Model
         'terlapor' => 'array',
         'waktu_dibuat' => 'datetime',
         'waktu_expires_bappebti' => 'datetime',
-        'waktu_selesai_bappebti' => 'datetime',
         'waktu_expires_pialang' => 'datetime',
-        'waktu_selesai_pialang' => 'datetime',
         'waktu_expires_bursa' => 'datetime',
-        'waktu_selesai_bursa' => 'datetime',
-        'waktu_selesai_pengecekan' => 'datetime',
+        'waktu_selesai' => 'datetime',
         'waktu_kesepakatan' => 'datetime',
         'ada_kesepakatan' => 'boolean'
     ];
