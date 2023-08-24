@@ -65,9 +65,10 @@ class MusyawarahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMusyawarahRequest $request, Musyawarah $musyawarah)
+    public function update(UpdateMusyawarahRequest $request, $id)
     {
-        //
+        $musyawarah = $this->musyawarahService->updateMusyawarah($request, $id);
+        return Redirect::route('musyawarah.show', $id)->with('status', 'musyawarah-updated');
     }
 
     /**

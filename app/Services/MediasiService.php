@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\StoreMediasiRequest;
+use App\Http\Requests\UpdateMediasiRequest;
 use App\Interfaces\MediasiServiceInterface;
 use App\Models\Complaint\Mediasi;
 use Carbon\Carbon;
@@ -23,6 +24,17 @@ class MediasiService implements MediasiServiceInterface
             'file_undangan' => $file_undangan,
             'pengaduan_id' => (int) $id
         ]);
+        return $mediasi;
+    }
+
+    public function updateMediasi(UpdateMediasiRequest $request, $id): Mediasi
+    {
+        $mediasi = Mediasi::findOrFail($id);
+        $mediasi->hasil = $request->validated()['hasil'];
+        if ($request->file('file_hasil')) {
+            $mediasi->file_hasil =  $request->file('file_hasil')->store('pengaduan');
+        }
+        $mediasi->save();
         return $mediasi;
     }
 }

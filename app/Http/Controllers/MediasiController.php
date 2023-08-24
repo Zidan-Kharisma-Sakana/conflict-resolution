@@ -66,9 +66,10 @@ class MediasiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMediasiRequest $request, Mediasi $mediasi)
+    public function update(UpdateMediasiRequest $request, $id)
     {
-        //
+        $mediasi = $this->mediasiService->updateMediasi($request, $id);
+        return Redirect::route('mediasi.show', $id)->with('status', 'mediasi-updated');
     }
 
     /**

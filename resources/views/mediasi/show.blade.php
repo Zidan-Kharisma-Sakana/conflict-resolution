@@ -16,6 +16,23 @@
                 </h2>
                 <table>
                     <tr>
+                        <td>Status</td>
+                        <td>{{ ': ' . $musyawarah->getStatus() }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pihak</td>
+                        <td>
+                            <div class="flex gap-x-4">
+                                <p>:</p>
+                                <ul class="list-inside list-disc">
+                                    <li>{{ $musyawarah->pengaduan->nasabah->user->name . ' (Nasabah)' }}</li>
+                                    <li>{{ $musyawarah->pengaduan->pialang->user->name . ' (Pialang)' }}</li>
+                                    <li>{{ $musyawarah->pengaduan->bursa->user->name . ' (Bursa)' }}</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Tanggal</td>
                         <td>{{ ': ' . \Carbon\Carbon::parse($mediasi->tanggal_waktu)->isoFormat('dddd, D MMMM Y') }}
                         </td>
@@ -33,8 +50,7 @@
                         <td>Link Pertemuan</td>
                         <td>
                             @if (!empty($mediasi->link_pertemuan))
-                                <a target="_blank" rel="noopener noreferrer"
-                                    href="{{ $mediasi->link_pertemuan }}">
+                                <a target="_blank" rel="noopener noreferrer" href="{{ $mediasi->link_pertemuan }}">
                                     : [Link Pertemuan]
                                 </a>
                             @else
@@ -57,13 +73,22 @@
                     </tr>
                     <tr>
                         <td>Dibuat Pada</td>
-                        <td>{{ ': '. \Carbon\Carbon::parse($mediasi->created_at)->isoFormat("dddd, D MM YYYY") }}</td>
+                        <td>{{ ': ' . \Carbon\Carbon::parse($mediasi->created_at)->isoFormat('dddd, D MM YYYY') }}</td>
                     </tr>
-                    <tr></tr>
+                    <tr>
+                        <td>
+                            <h4>Hasil *</h4>
+                        </td>
+                        <td>:
+                            @if (!empty($musyawarah->file_hasil))
+                                <a href="{{ '/storage/' . $musyawarah->file_hasil }}">[Berkas Hasil]</a>
+                            @else
+                                <span>-</span>
+                            @endif
+                        </td>
+                    </tr>
                 </table>
-                <h4>Hasil:</h4>
-                <textarea name="kronologi[description]" disabled
-                class="mt-1 w-full border-gray-300 rounded-md shadow-sm max-w-4xl">{{ $mediasi->hasil }}</textarea>
+                @include('mediasi.partials.edit-mediasi')
             </div>
         </div>
 

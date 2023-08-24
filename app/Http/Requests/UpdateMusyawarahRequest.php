@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdateMusyawarahRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize(Request $request): bool
     {
-        return false;
+        return $request->user()->role == User::IS_PIALANG;
     }
 
     /**
@@ -22,7 +24,8 @@ class UpdateMusyawarahRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'hasil' => ['required', 'string'],
+            "file_hasil" => ['mimes:jpeg,pdf,jpg,png'],
         ];
     }
 }
