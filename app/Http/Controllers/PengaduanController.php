@@ -23,9 +23,12 @@ class PengaduanController extends Controller
         $this->pengaduanService = $pengaduanService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('pengaduan.index', [
+            'user' => $request->user(),
+            'pengaduans' => Pengaduan::all()
+        ]);
     }
 
     /**

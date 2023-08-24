@@ -37,17 +37,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
 
 
+    Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
     Route::get('/pengaduan/add', [PengaduanController::class, 'create'])->name('pengaduan.create');
     Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
     Route::get('/pengaduan/{id}', [PengaduanController::class, 'show'])->name('pengaduan.show');
     Route::patch('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');
 
-
+    Route::get('/musyawarah', [MusyawarahController::class, 'index'])->name('musyawarah.index');
     Route::post('/musyawarah/{id}', [MusyawarahController::class, 'store'])->name('musyawarah.store');
     Route::get('/musyawarah/{id}', [MusyawarahController::class, 'show'])->name('musyawarah.show');
     Route::patch('/musyawarah/{id}', [MusyawarahController::class, 'update'])->name('musyawarah.update');
 
-
+    Route::get('/mediasi', [MediasiController::class, 'index'])->name('mediasi.index');
     Route::post('/mediasi/{id}', [MediasiController::class, 'store'])->name('mediasi.store');
     Route::get('/mediasi/{id}', [MediasiController::class, 'show'])->name('mediasi.show');
     Route::patch('/mediasi/{id}', [MediasiController::class, 'update'])->name('mediasi.update');

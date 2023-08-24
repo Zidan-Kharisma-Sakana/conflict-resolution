@@ -21,9 +21,12 @@ class MediasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('mediasi.index', [
+            'user' => $request->user(),
+            'mediasis' => Mediasi::all()
+        ]);
     }
 
     /**
@@ -41,7 +44,7 @@ class MediasiController extends Controller
     {
         //
         $mediasi = $this->mediasiService->createMediasi($request, $id);
-        return Redirect::route('pengaduan.show', $id)->with('status', 'mediasi-created');
+        return Redirect::route('musyawarah.show', $mediasi->id)->with('status', 'mediasi-created');
     }
 
     /**

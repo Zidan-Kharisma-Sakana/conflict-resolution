@@ -21,9 +21,12 @@ class MusyawarahController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('musyawarah.index', [
+            'user' => $request->user(),
+            'musyawarahs' => Musyawarah::all()
+        ]);
     }
 
     /**
@@ -40,7 +43,7 @@ class MusyawarahController extends Controller
     public function store(StoreMusyawarahRequest $request, $id)
     {
         $musyawarah = $this->musyawarahService->createMusyawarah($request, $id);
-        return Redirect::route('pengaduan.show', $id)->with('status', 'musyawarah-created');
+        return Redirect::route('musyawarah.show', $musyawarah->id)->with('status', 'musyawarah-created');
     }
 
     /**

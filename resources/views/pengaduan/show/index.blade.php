@@ -2,16 +2,25 @@
     <x-slot name="cssFile">
         @vite(['resources/css/pengaduan.css', 'resources/js/app.js'])
     </x-slot>
-    <div class="py-12">
+    <div class="py-8">
         <div>
             @foreach ($errors->all() as $error)
                 <p>{{ $error }}</p>
             @endforeach
         </div>
+        <a href="{{ route('pengaduan.index') }}">
+            <div
+                class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center gap-x-4 font-semibold text-lg text-gray-800 leading-tight mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Daftar Pengaduan</span>
+            </div>
+        </a>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-
-
                 <div class="max-w-6xl grid grid-cols-1 gap-y-6">
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                         Detail Pengaduan
@@ -35,6 +44,19 @@
                                 <td>Tenggat Waktu</td>
                                 <td>{{ ': ' . $pengaduan->getDeadline() }}</td>
                             </tr>
+                            <tr>
+                                <td>Pihak</td>
+                                <td>
+                                    <div class="flex gap-x-4">
+                                        <p>:</p>
+                                        <ul class="list-inside list-disc">
+                                            <li>{{ $pengaduan->nasabah->user->name . ' (Nasabah)' }}</li>
+                                            <li>{{ $pengaduan->pialang->user->name . ' (Pialang)' }}</li>
+                                            <li>{{ $pengaduan->bursa->user->name . ' (Bursa)' }}</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -54,7 +76,7 @@
         @if ($pengaduan->status != App\Models\Complaint\Pengaduan::STATUS_CREATED)
             {{-- <div>show table mediasi & musyawarah</div> --}}
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-8">
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg grid grid-cols-1 gap-4">
                     @include('musyawarah.partials.list-musyawarah', ['items' => $pengaduan->musyawarahs])
                     @include('mediasi.partials.list-mediasi', ['items' => $pengaduan->mediasis])
                 </div>
@@ -78,9 +100,9 @@
             @case('bursa')
                 {{-- ahow form tambah mediasi --}}
                 @if (in_array($pengaduan->status, [
-                            App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_BURSA,
-                            App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED,
-                        ]))
+                        App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_BURSA,
+                        App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED,
+                    ]))
                     @include('mediasi.partials.add-mediasi')
                     @include('kesepakatan.partials.add-kesepakatan')
                 @endif

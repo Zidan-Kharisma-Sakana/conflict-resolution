@@ -10,7 +10,10 @@
                 <td>No</td>
                 <td>Tanggal</td>
                 <td>Waktu</td>
-                <td >Action</td>
+                <td>Tempat</td>
+                <td>Status</td>
+                <td>Hasil</td>
+                <td>Action</td>
             </tr>
         </thead>
         <tbody>
@@ -20,19 +23,28 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('H:mm') . '  WIB' }}</td>
+                        <td>{{ $item->tempat }}</td>
+                        <td>{{ $item->getStatus() }}</td>
+                        <td>{{ $item->hasil ?? '-' }}</td>
                         <td>
                             <a href="{{ route('musyawarah.show', $item->id) }}">
                                 <x-secondary-button>
                                     <p>Detail &#128065;</p>
                                 </x-secondary-button>
                             </a>
-
+                            @if ($user->role == \App\Models\User::IS_PIALANG)
+                                <a>
+                                    <x-danger-button>
+                                        <p>Batal</p>
+                                    </x-danger-button>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4" class="text-center">Belum Ada Musyawarah Terjadwalkan</td>
+                    <td colspan="7" class="text-center">Belum Ada Musyawarah Terjadwalkan</td>
                 </tr>
             @endif
 
