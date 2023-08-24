@@ -17,7 +17,8 @@ return new class extends Migration
             $table->dateTime("tanggal_waktu");
             $table->string("link_pertemuan")->nullable();
             $table->string("file_undangan")->nullable();
-            $table->text("hasil")->nullable();
+            $table->string("hasil")->nullable();
+            $table->text("rangkuman")->nullable();
             $table->string("file_hasil")->nullable();
             $table->foreignId('pengaduan_id')->constrained(
                 table: 'pengaduans',

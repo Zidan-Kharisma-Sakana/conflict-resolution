@@ -72,24 +72,18 @@
                     </tr>
                     <tr>
                         <td>Dibuat Pada</td>
-                        <td>{{ ': ' . \Carbon\Carbon::parse($musyawarah->created_at)->isoFormat('dddd, D MM YYYY') }}
+                        <td>{{ ': ' . \Carbon\Carbon::parse($musyawarah->created_at)->isoFormat('dddd, D MMMM YYYY') }}
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <h4>Hasil *</h4>
-                        </td>
-                        <td>:
-                            @if (!empty($musyawarah->file_hasil))
-                                <a href="{{ '/storage/' . $musyawarah->file_hasil }}">[Berkas Hasil]</a>
-                            @else
-                                <span>-</span>
-                            @endif
-                        </td>
-                    </tr>
-
                 </table>
-                @include('musyawarah.partials.edit-musyawarah')
+
+                <form class="" action="{{ route('musyawarah.update', $musyawarah->id) }}" method="post"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('patch')
+                    @include('musyawarah.partials.edit-musyawarah')
+                </form>
+
             </div>
         </div>
 

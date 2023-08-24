@@ -12,12 +12,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
-                    Form Pembuatan Pengaduan
+                    Detail Mediasi
                 </h2>
                 <table>
                     <tr>
                         <td>Status</td>
-                        <td>{{ ': ' . $musyawarah->getStatus() }}</td>
+                        <td>{{ ': ' . $mediasi->getStatus() }}</td>
                     </tr>
                     <tr>
                         <td>Pihak</td>
@@ -25,9 +25,9 @@
                             <div class="flex gap-x-4">
                                 <p>:</p>
                                 <ul class="list-inside list-disc">
-                                    <li>{{ $musyawarah->pengaduan->nasabah->user->name . ' (Nasabah)' }}</li>
-                                    <li>{{ $musyawarah->pengaduan->pialang->user->name . ' (Pialang)' }}</li>
-                                    <li>{{ $musyawarah->pengaduan->bursa->user->name . ' (Bursa)' }}</li>
+                                    <li>{{ $mediasi->pengaduan->nasabah->user->name . ' (Nasabah)' }}</li>
+                                    <li>{{ $mediasi->pengaduan->pialang->user->name . ' (Pialang)' }}</li>
+                                    <li>{{ $mediasi->pengaduan->bursa->user->name . ' (Pialang)' }}</li>
                                 </ul>
                             </div>
                         </td>
@@ -73,22 +73,18 @@
                     </tr>
                     <tr>
                         <td>Dibuat Pada</td>
-                        <td>{{ ': ' . \Carbon\Carbon::parse($mediasi->created_at)->isoFormat('dddd, D MM YYYY') }}</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>Hasil *</h4>
-                        </td>
-                        <td>:
-                            @if (!empty($musyawarah->file_hasil))
-                                <a href="{{ '/storage/' . $musyawarah->file_hasil }}">[Berkas Hasil]</a>
-                            @else
-                                <span>-</span>
-                            @endif
+                        <td>{{ ': ' . \Carbon\Carbon::parse($mediasi->created_at)->isoFormat('dddd, D MMMM YYYY') }}
                         </td>
                     </tr>
                 </table>
-                @include('mediasi.partials.edit-mediasi')
+
+                <form class="" action="{{ route('mediasi.update', $mediasi->id) }}" method="post"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('patch')
+                    @include('mediasi.partials.edit-mediasi')
+                </form>
+
             </div>
         </div>
 

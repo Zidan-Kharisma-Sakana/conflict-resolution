@@ -25,6 +25,7 @@ class UpdateMusyawarahRequest extends FormRequest
     {
         return [
             'hasil' => ['required', 'string'],
+            'rangkuman' => ['required', 'string'],
             "file_hasil" => ['mimes:jpeg,pdf,jpg,png'],
         ];
     }

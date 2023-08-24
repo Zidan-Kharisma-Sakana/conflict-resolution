@@ -19,7 +19,7 @@ class MediasiService implements MediasiServiceInterface
         $validated = $request->validated();
         $mediasi = Mediasi::create([
             'tempat' => $validated['tempat'],
-            'tanggal_waktu' => Carbon::now(),
+            'tanggal_waktu' => Carbon::parse($validated['tanggal_waktu']),
             'link_pertemuan' => $validated['link_pertemuan'] ?? '',
             'file_undangan' => $file_undangan,
             'pengaduan_id' => (int) $id
@@ -31,6 +31,7 @@ class MediasiService implements MediasiServiceInterface
     {
         $mediasi = Mediasi::findOrFail($id);
         $mediasi->hasil = $request->validated()['hasil'];
+        $mediasi->rangkuman = $request->validated()['rangkuman'];
         if ($request->file('file_hasil')) {
             $mediasi->file_hasil =  $request->file('file_hasil')->store('pengaduan');
         }

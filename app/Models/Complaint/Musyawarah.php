@@ -19,7 +19,7 @@ class Musyawarah extends Model
         return $this->belongsTo(Pengaduan::class);
     }
     public function getStatus(){
-        $time  = Carbon::parse($this->tanggal_pertemuan);
+        $time  = Carbon::parse($this->tanggal_waktu);
         if($time->isPast() && !empty($this->hasil)){
             return "Selesai";
         }
