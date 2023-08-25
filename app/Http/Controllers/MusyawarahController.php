@@ -25,7 +25,7 @@ class MusyawarahController extends Controller
     {
         return view('musyawarah.index', [
             'user' => $request->user(),
-            'musyawarahs' => Musyawarah::all()
+            'musyawarahs' => $request->user()->getRelatedMusyawarahs()
         ]);
     }
 

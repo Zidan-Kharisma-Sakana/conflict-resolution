@@ -66,6 +66,7 @@
         <script>
             document.addEventListener("DOMContentLoaded", function(event) {
                 let table = new DataTable('#myTable', {
+                    "ordering": false,
                     "columnDefs": [{
                         "targets": [0, 2, 3, 4, 5, 6, 7],
                         "orderable": false
@@ -78,7 +79,7 @@
                     }],
                     initComplete: function() {
                         this.api()
-                            .columns([ 3, 4, 5])
+                            .columns([3, 4, 5])
                             .every(function() {
                                 let column = this;
                                 // console.log(this)

@@ -28,7 +28,7 @@ class PengaduanController extends Controller
     {
         return view('pengaduan.index', [
             'user' => $request->user(),
-            'pengaduans' => Pengaduan::all()
+            'pengaduans' => $request->user()->getRelatedPengaduans()
         ]);
     }
 

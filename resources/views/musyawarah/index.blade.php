@@ -63,6 +63,7 @@
         <script>
             document.addEventListener("DOMContentLoaded", function(event) {
                 let table = new DataTable('#myTable', {
+                    "ordering": false,
                     "columnDefs": [{
                         "targets": [0, 2, 3, 4, 5],
                         "orderable": false

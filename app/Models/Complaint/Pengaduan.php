@@ -32,15 +32,15 @@ class Pengaduan extends Model
 
     public function nasabah(): BelongsTo
     {
-        return $this->belongsTo(Nasabah::class);
+        return $this->belongsTo(Nasabah::class)->with("user");
     }
     public function pialang(): BelongsTo
     {
-        return $this->belongsTo(Pialang::class);
+        return $this->belongsTo(Pialang::class)->with("user");
     }
     public function bursa(): BelongsTo
     {
-        return $this->belongsTo(Bursa::class);
+        return $this->belongsTo(Bursa::class)->with("user");
     }
     public function berkasPengaduans(): HasMany
     {
