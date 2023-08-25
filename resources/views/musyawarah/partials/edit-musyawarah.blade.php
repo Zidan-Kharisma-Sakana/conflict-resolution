@@ -5,26 +5,20 @@
         </td>
         <td class="flex gap-x-1">
             <span>:</span>
+            @php
+                $options = collect(['sepakat', 'belum sepakat', 'reschedule']);
+            @endphp
             <div>
                 <ul>
-                    <li>
-                        <input required type="radio" id="sepakat" name="hasil" value="sepakat"
-                            {{ old('hasil', $musyawarah->hasil) == 'sepakat' ? 'checked' : '' }}
-                            {{ empty($musyawarah->hasil) ? '' : 'disabled' }} />
-                        <label for="sepakat">Bersepakat</label>
-                    </li>
-                    <li>
-                        <input required type="radio" id="belum_sepakat" name="hasil"
-                            value="belum_sepakat"{{ old('hasil', $musyawarah->hasil) == 'belum_sepakat' ? 'checked' : '' }}
-                            {{ empty($musyawarah->hasil) ? '' : 'disabled' }} />
-                        <label for="belum_sepakat">Belum Sepakat</label>
-                    </li>
-                    <li>
-                        <input required type="radio" id="reschedule" name="hasil"
-                            value="reschedule"{{ old('hasil', $musyawarah->hasil) == 'reschedule' ? 'checked' : '' }}
-                            {{ empty($musyawarah->hasil) ? '' : 'disabled' }} />
-                        <label for="reschedule">Reschedule</label>
-                    </li>
+                    @foreach ($options as $option)
+                        <li>
+                            <input required type="radio" id="{{ $option }}" name="hasil"
+                                value="{{ $option }}"
+                                {{ old('hasil', $musyawarah->hasil) == $option ? 'checked' : '' }}
+                                {{ !empty($musyawarah->hasil) || $user->role != \App\Models\User::IS_PIALANG ? 'disabled' : '' }} />
+                            <label for={{ $option }} class="capitalize">{{ $option }}</label>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </td>
@@ -64,7 +58,9 @@
     @enderror
     @if (empty($musyawarah->hasil))
         @if (\Carbon\Carbon::parse($musyawarah->tanggal_waktu)->isPast())
-            <x-primary-button class="w-fit mt-4">Save</x-primary-button>
+            @if ($user->role == \App\Models\User::IS_PIALANG)
+                <x-primary-button class="w-fit mt-4">Save</x-primary-button>
+            @endif
         @else
             <x-danger-button disabled class="w-fit mt-4">Belum Dimulai</x-danger-button>
         @endif
