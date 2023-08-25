@@ -75,8 +75,9 @@ class Pengaduan extends Model
         'rejected' => "Berkas Pengaduan Ditolak Bappebti",
         'disposisi_pialang' => "Diproses Pialang",
         'disposisi_bursa' => "Diproses Bursa",
+        'disposisi_bursa_expired' => 'Bursa Terlambat',
         'finished' => "Kesepakatan Sudah Dibuat",
-        'closed' => "Pengaduan Ditutup"
+        'closed' => "Pengaduan Ditutup",
     ];
 
     public function getStatusMeaning()
@@ -87,11 +88,28 @@ class Pengaduan extends Model
     {
         switch ($this->status) {
             case $this::STATUS_CREATED:
-                return 'Verifikasi oleh Bappebti hingga ' . Carbon::parse($this->waktu_expires_bappebti)->isoFormat('dddd, D MMMM Y HH:mm');
+                return 'Verifikasi oleh Bappebti hingga ' . Carbon::parse($this->waktu_expires_bappebti)->isoFormat('dddd, D MMMM Y');
             case $this::STATUS_DISPOSISI_PIALANG:
-                return 'Pialang Mengupayakan Kesepakatan hingga ' . Carbon::parse($this->waktu_expires_pialang)->isoFormat('dddd, D MMMM Y HH:mm');
+                return 'Pialang Mengupayakan Kesepakatan hingga ' . Carbon::parse($this->waktu_expires_pialang)->isoFormat('dddd, D MMMM Y');
             case $this::STATUS_DISPOSISI_BURSA:
-                return 'Bursa Mengupayakan Kesepakatan hingga ' . Carbon::parse($this->waktu_expires_bursa)->isoFormat('dddd, D MMMM Y HH:mm');
+                return 'Bursa Mengupayakan Kesepakatan hingga ' . Carbon::parse($this->waktu_expires_bursa)->isoFormat('dddd, D MMMM Y');
+            case $this::STATUS_DISPOSISI_BURSA_EXPIRED:
+                return 'Bursa Terlambat Mengupayakan Kesepakatan';
+            default:
+                return '-';
+        }
+    }
+    public function getDeadlineDate()
+    {
+        switch ($this->status) {
+            case $this::STATUS_CREATED:
+                return  Carbon::parse($this->waktu_expires_bappebti)->isoFormat('dddd, D MMMM Y');
+            case $this::STATUS_DISPOSISI_PIALANG:
+                return Carbon::parse($this->waktu_expires_pialang)->isoFormat('dddd, D MMMM Y');
+            case $this::STATUS_DISPOSISI_BURSA:
+                return  Carbon::parse($this->waktu_expires_bursa)->isoFormat('dddd, D MMMM Y');
+            case $this::STATUS_DISPOSISI_BURSA_EXPIRED:
+                return  Carbon::parse($this->waktu_expires_bursa)->isoFormat('dddd, D MMMM Y');
             default:
                 return '-';
         }

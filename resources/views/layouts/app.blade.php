@@ -40,5 +40,8 @@
         </main>
     </div>
 </body>
+@if (isset($script))
+    {{ $script }}
+@endif
 
 </html>

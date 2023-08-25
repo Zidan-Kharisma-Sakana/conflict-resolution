@@ -25,7 +25,7 @@ class MediasiController extends Controller
     {
         return view('mediasi.index', [
             'user' => $request->user(),
-            'mediasis' => Mediasi::all()
+            'mediasis' => Mediasi::query()
         ]);
     }
 
