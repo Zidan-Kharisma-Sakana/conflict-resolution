@@ -18,22 +18,29 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         Nasabah::factory()->for(User::factory()->setRole("nasabah"))->create();
+        Nasabah::factory()->for(User::factory()->setRole("nasabah"))->create();
+
         Bappebti::factory()->for(User::factory()->setRole("bappebti"))->create();
 
-        $bursaJFX = User::factory()->setRole("bursa")->state(['name' => 'Jakarta Futures Exchange (JFX)'])->has(
-            Bursa::factory()
-        )->create();
+        $bursaJFX = User::factory()->setRole("bursa")
+            ->setName("Jakarta Futures Exchange (JFX)")->has(
+                Bursa::factory()
+            )->create();
 
         for ($i = 0; $i < 3; $i++) {
-            Pialang::factory()->for(User::factory()->setRole("pialang"))->for($bursaJFX->bursa)->create();
+            Pialang::factory()->for(User::factory()->setRole("pialang")->setName(fake()->company()))
+                ->for($bursaJFX->bursa)
+                ->create();
         }
 
-        $bursaICDX = User::factory()->setRole("bursa")->state(['name' => 'Indonesia Commodity & Derivatives Exchange (ICDX)'])->has(
-            Bursa::factory()
-        )->create();
+        $bursaICDX = User::factory()->setRole("bursa")
+            ->setName('Indonesia Commodity & Derivatives Exchange (ICDX)')->has(
+                Bursa::factory()
+            )->create();
 
         for ($i = 0; $i < 3; $i++) {
-            Pialang::factory()->for(User::factory()->setRole("pialang"))->for($bursaICDX->bursa)->create();
+            Pialang::factory()->for(User::factory()->setRole("pialang")->setName(fake()->company()))->for($bursaICDX->bursa)
+                ->create();
         }
     }
 }

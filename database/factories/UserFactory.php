@@ -19,9 +19,10 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->name();
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $name,
+            'email' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name))) . '@gmail.com',
             'role' => 'nasabah',
             'email_verified_at' => now(),
             'password' => Hash::make("password"), // password
@@ -36,5 +37,11 @@ class UserFactory extends Factory
         ]);
     }
 
-
+    public function setName($name): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => $name,
+            'email' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name))) . '@gmail.com',
+        ]);
+    }
 }
