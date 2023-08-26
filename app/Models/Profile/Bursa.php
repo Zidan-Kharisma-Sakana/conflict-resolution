@@ -22,4 +22,8 @@ class Bursa extends Model
     {
         return $this->hasMany(Pialang::class);
     }
+    public function pengaduans(): HasMany
+    {
+        return $this->hasMany(Pengaduan::class);
+    }
 }
