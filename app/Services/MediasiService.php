@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateMediasiRequest;
 use App\Interfaces\MediasiServiceInterface;
 use App\Models\Complaint\Mediasi;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class MediasiService implements MediasiServiceInterface
 {
@@ -35,6 +36,13 @@ class MediasiService implements MediasiServiceInterface
         if ($request->file('file_hasil')) {
             $mediasi->file_hasil =  $request->file('file_hasil')->store('pengaduan');
         }
+        $mediasi->save();
+        return $mediasi;
+    }
+    public function cancelMediasi(Request $request, $id) : Mediasi
+    {
+        $mediasi = Mediasi::findOrFail($id);
+        $mediasi->hasil = Mediasi::HASIL_BATAL;
         $mediasi->save();
         return $mediasi;
     }

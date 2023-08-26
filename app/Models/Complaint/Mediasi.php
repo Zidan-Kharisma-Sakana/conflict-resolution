@@ -20,12 +20,19 @@ class Mediasi extends Model
     }
     public function getStatus(){
         $time  = Carbon::parse($this->tanggal_waktu);
+        if($this->hasil == $this::HASIL_BATAL){
+            return "Dibatalkan";
+        }
         if($time->isPast() && !empty($this->hasil)){
             return "Selesai";
         }
-        elseif($time->isPast()){
+        if($time->isPast()){
             return "Hasil Belum Diisi";
         }
         return "Belum Dimulai";
     }
+    public const HASIL_BATAL = "BATAL";
+    public const HASIL_SEPAKAT = "SEPAKAT";
+    public const HASIL_BELUM_SEPAKAT = "BELUM SEPAKAT";
+    public const HASIL_RESCHEDULE = "RESCHEDULE";
 }

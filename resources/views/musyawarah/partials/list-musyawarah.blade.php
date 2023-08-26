@@ -19,26 +19,19 @@
         <tbody>
             @if (!$items->isEmpty())
                 @foreach ($items as $item)
-                    <tr>
+                    <tr class="capitalize">
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('H:mm') . '  WIB' }}</td>
                         <td>{{ $item->tempat }}</td>
                         <td>{{ $item->getStatus() }}</td>
-                        <td>{{ $item->hasil ?? '-' }}</td>
+                        <td>{{ strtolower($item->hasil ?? '-') }}</td>
                         <td>
                             <a href="{{ route('musyawarah.show', $item->id) }}">
                                 <x-secondary-button>
                                     <p>Detail &#128065;</p>
                                 </x-secondary-button>
                             </a>
-                            @if ($user->role == \App\Models\User::IS_PIALANG)
-                                <a>
-                                    <x-danger-button>
-                                        <p>Batal</p>
-                                    </x-danger-button>
-                                </a>
-                            @endif
                         </td>
                     </tr>
                 @endforeach

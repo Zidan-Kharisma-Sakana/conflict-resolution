@@ -47,11 +47,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/musyawarah/{id}', [MusyawarahController::class, 'store'])->name('musyawarah.store');
     Route::get('/musyawarah/{id}', [MusyawarahController::class, 'show'])->name('musyawarah.show');
     Route::patch('/musyawarah/{id}', [MusyawarahController::class, 'update'])->name('musyawarah.update');
+    Route::delete('/musyawarah/{id}', [MusyawarahController::class, 'destroy'])->name('musyawarah.destroy');
 
     Route::get('/mediasi', [MediasiController::class, 'index'])->name('mediasi.index');
     Route::post('/mediasi/{id}', [MediasiController::class, 'store'])->name('mediasi.store');
     Route::get('/mediasi/{id}', [MediasiController::class, 'show'])->name('mediasi.show');
     Route::patch('/mediasi/{id}', [MediasiController::class, 'update'])->name('mediasi.update');
+    Route::delete('/mediasi/{id}', [MediasiController::class, 'destroy'])->name('mediasi.destroy');
 
     Route::post('/kesepakatan/{id}', [KesepakatanController::class, 'store'])->name('kesepakatan.store');
     Route::patch('/kesepakatan/{id}', [KesepakatanController::class, 'update'])->name('kesepakatan.update');

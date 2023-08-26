@@ -77,8 +77,9 @@ class MusyawarahController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Musyawarah $musyawarah)
+    public function destroy(Request $request, $id)
     {
-        //
+        $musyawarah = $this->musyawarahService->cancelMusyawarah($request, $id);
+        return Redirect::route('musyawarah.show', $id)->with('status', 'musyawarah-cancelled');
     }
 }

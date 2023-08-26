@@ -7,6 +7,9 @@ use App\Http\Requests\UpdateMusyawarahRequest;
 use App\Interfaces\MusyawarahServiceInterface;
 use App\Models\Complaint\Musyawarah;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+
+use function PHPSTORM_META\map;
 
 class MusyawarahService implements MusyawarahServiceInterface
 {
@@ -34,6 +37,13 @@ class MusyawarahService implements MusyawarahServiceInterface
         if ($request->file('file_hasil')) {
             $musyawarah->file_hasil =  $request->file('file_hasil')->store('pengaduan');
         }
+        $musyawarah->save();
+        return $musyawarah;
+    }
+    public function cancelMusyawarah(Request $request, $id): Musyawarah
+    {
+        $musyawarah = Musyawarah::findOrFail($id);
+        $musyawarah->hasil = Musyawarah::HASIL_BATAL;
         $musyawarah->save();
         return $musyawarah;
     }

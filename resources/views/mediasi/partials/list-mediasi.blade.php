@@ -16,7 +16,7 @@
                 <td>Action</td>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="capitalize">
             @if (!$items->isEmpty())
                 @foreach ($items as $item)
                     <tr>
@@ -25,9 +25,9 @@
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('H:mm') . '  WIB' }}</td>
                         <td>{{ $item->tempat }}</td>
                         <td>{{ $item->getStatus() }}</td>
-                        <td>{{ $item->hasil ?? '-' }}</td>
+                        <td>{{ strtolower($item->hasil ?? '-') }}</td>
                         <td>
-                            <a href="{{ route('musyawarah.show', $item->id) }}">
+                            <a href="{{ route('mediasi.show', $item->id) }}">
                                 <x-secondary-button>
                                     <p>Detail &#128065;</p>
                                 </x-secondary-button>

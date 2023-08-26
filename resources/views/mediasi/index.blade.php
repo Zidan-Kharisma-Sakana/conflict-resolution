@@ -39,7 +39,7 @@
                                 <td>{{ \Carbon\Carbon::parse($mediasi->tanggal_waktu)->isoFormat('dddd, D MMMM Y HH:mm') }}
                                 <td>{{ $mediasi->tempat }}</td>
                                 <td>{{ $mediasi->getStatus() }}</td>
-                                <td>{{ $mediasi->hasil ?? 'Belum Diisi' }}</td>
+                                <td>{{ strtolower($mediasi->hasil ?? '-') }}</td>
                                 <td><a href="{{ route('mediasi.show', $mediasi->id) }}">
                                         <x-primary-button>Lihat</x-primary-button>
                                     </a></td>

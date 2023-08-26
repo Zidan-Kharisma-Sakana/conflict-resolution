@@ -78,8 +78,9 @@ class MediasiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Mediasi $mediasi)
+    public function destroy(Request $request, $id)
     {
-        //
+        $mediasi = $this->mediasiService->cancelMediasi($request, $id);
+        return Redirect::route('mediasi.show', $id)->with('status', 'mediasi-cancelled');
     }
 }

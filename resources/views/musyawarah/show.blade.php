@@ -22,9 +22,22 @@
         </a>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
-                    Detail Musyawarah
-                </h2>
+                <div class="flex justify-between">
+                    <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
+                        Detail Musyawarah
+                    </h2>
+                    @if ($user->role == \App\Models\User::IS_PIALANG && empty($musyawarah->hasil))
+                        <a>
+                            <form action="{{route('musyawarah.destroy', $musyawarah->id)}}" method="POST" >
+                                @csrf
+                                @method('delete')
+                                <x-danger-button>
+                                    Batalkan Musyawarah
+                                </x-danger-button>
+                            </form>
+                        </a>
+                    @endif
+                </div>
                 <table>
                     <tr>
                         <td>Status</td>
