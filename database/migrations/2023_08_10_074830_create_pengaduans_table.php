@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger("kerugian");
             $table->string("status");
             $table->string("alasan_penolakan")->nullable();
+            $table->dateTime("force_close_time")->nullable();
             $table->foreignId('nasabah_id')->constrained(
                 table: 'nasabahs',
                 column: 'id',

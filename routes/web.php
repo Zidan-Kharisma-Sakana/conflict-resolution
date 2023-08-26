@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
     Route::get('/pengaduan/{id}', [PengaduanController::class, 'show'])->name('pengaduan.show');
     Route::patch('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');
+    Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.destroy');
 
     Route::get('/musyawarah', [MusyawarahController::class, 'index'])->name('musyawarah.index');
     Route::post('/musyawarah/{id}', [MusyawarahController::class, 'store'])->name('musyawarah.store');

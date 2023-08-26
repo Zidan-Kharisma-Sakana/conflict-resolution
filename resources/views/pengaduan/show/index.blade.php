@@ -22,9 +22,22 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-6xl grid grid-cols-1 gap-y-6">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        Detail Pengaduan
-                    </h2>
+                    <div class="flex justify-between">
+                        <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
+                            Detail Pengaduan
+                        </h2>
+                        @if ($user->role == \App\Models\User::IS_BAPPEBTI && $pengaduan->isOpen())
+                            <a>
+                                <form action="{{ route('pengaduan.destroy', $pengaduan->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <x-danger-button>
+                                        Batalkan Pengaduan
+                                    </x-danger-button>
+                                </form>
+                            </a>
+                        @endif
+                    </div>
                     <div>
                         <table>
                             <tr>
@@ -57,6 +70,17 @@
                                     </div>
                                 </td>
                             </tr>
+                            @if ($pengaduan->status == \App\Models\Complaint\Pengaduan::STATUS_REJECTED)
+                                <tr>
+                                    <td>Alasan Penolakan</td>
+                                    <td>:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <textarea disabled class="border-gray-300 rounded-md shadow-sm w-full">{{ $pengaduan->alasan_penolakan }}</textarea>
+                                    </td>
+                                </tr>
+                            @endif
                         </table>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -81,40 +105,41 @@
                     @include('mediasi.partials.list-mediasi', ['items' => $pengaduan->mediasis])
                 </div>
             </div>
+            @include('kesepakatan.partials.show-kesepakatan', ['kesepakatan' => $pengaduan->kesepakatan])
         @endif
 
-        @include('kesepakatan.partials.show-kesepakatan', ['kesepakatan' => $pengaduan->kesepakatan])
 
-        @switch($user->role)
-            @case('nasabah')
-            @break
+        @if ($pengaduan->isOpen())
+            @switch($user->role)
+                @case('nasabah')
+                @break
 
-            @case('pialang')
-                {{-- ahow form tambah musyawarah --}}
-                @if ($pengaduan->status == App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_PIALANG)
-                    @include('musyawarah.partials.add-musyawarah')
-                    @include('kesepakatan.partials.add-kesepakatan')
-                @endif
-            @break
+                @case('pialang')
+                    {{-- ahow form tambah musyawarah --}}
+                    @if ($pengaduan->status == App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_PIALANG)
+                        @include('musyawarah.partials.add-musyawarah')
+                        @include('kesepakatan.partials.add-kesepakatan')
+                    @endif
+                @break
 
-            @case('bursa')
-                {{-- ahow form tambah mediasi --}}
-                @if (in_array($pengaduan->status, [
-                        App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_BURSA,
-                        App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED,
-                    ]))
-                    @include('mediasi.partials.add-mediasi')
-                    @include('kesepakatan.partials.add-kesepakatan')
-                @endif
-            @break
+                @case('bursa')
+                    {{-- ahow form tambah mediasi --}}
+                    @if (in_array($pengaduan->status, [
+                            App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_BURSA,
+                            App\Models\Complaint\Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED,
+                        ]))
+                        @include('mediasi.partials.add-mediasi')
+                        @include('kesepakatan.partials.add-kesepakatan')
+                    @endif
+                @break
 
-            @case('bappebti')
-                @if ($pengaduan->status == App\Models\Complaint\Pengaduan::STATUS_CREATED)
-                    @include('pengaduan.form.partials.approval.index')
-                @endif
-            @break
-
-        @endswitch
+                @case('bappebti')
+                    @if ($pengaduan->status == App\Models\Complaint\Pengaduan::STATUS_CREATED)
+                        @include('pengaduan.form.partials.approval.index')
+                    @endif
+                @break
+            @endswitch
+        @endif
 
     </div>
 </x-app-layout>

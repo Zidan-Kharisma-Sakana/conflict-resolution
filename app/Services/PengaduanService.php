@@ -57,10 +57,18 @@ class PengaduanService implements PengaduanServiceInterface
     {
         $pengaduan = Pengaduan::where('id', $id)->where('status', Pengaduan::STATUS_CREATED)->firstOrFail();
         $pengaduan->status = Pengaduan::STATUS_REJECTED;
-        $pengaduan->alasan_penolakan = $pengaduan->alasan_penolakan;
+        $pengaduan->alasan_penolakan = $request->alasan_penolakan;
         $pengaduan->save();
         return $pengaduan;
     }
+    public function forceClosePengaduan(Request $request, $id): Pengaduan
+    {
+        $pengaduan = Pengaduan::where('id', $id)->where('status', '!=', Pengaduan::STATUS_CLOSED)->firstOrFail();
+        $pengaduan->force_close_time = Carbon::now();
+        $pengaduan->save();
+        return $pengaduan;
+    }
+
     private function saveDocuments(StorePengaduanRequest $request, Pengaduan $pengaduan)
     {
         foreach ($request->file("documents") as $key => $value) {
@@ -85,5 +93,4 @@ class PengaduanService implements PengaduanServiceInterface
             ]);
         }
     }
-
 }

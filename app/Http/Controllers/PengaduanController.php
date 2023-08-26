@@ -97,8 +97,9 @@ class PengaduanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pengaduan $pengaduan)
+    public function destroy(Request $request, $id)
     {
-        //
+        $pengaduan = $this->pengaduanService->forceClosePengaduan($request, $id);
+        return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-force-close');
     }
 }

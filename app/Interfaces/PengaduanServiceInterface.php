@@ -12,4 +12,5 @@ interface PengaduanServiceInterface
     public function createPengaduan(StorePengaduanRequest $request) : Pengaduan;
     public function approvePengaduan(Request $request, $id) : Pengaduan;
     public function rejectPengaduan(Request $request, $id) : Pengaduan;
+    public function forceClosePengaduan(Request $request, $id): Pengaduan;
 }

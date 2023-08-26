@@ -114,7 +114,8 @@ class Pengaduan extends Model
                 return '-';
         }
     }
-    public function closestDeadlineTime()
+    public function isOpen()
     {
+        return empty($this->force_close_time) && in_array($this->status, array($this::STATUS_DISPOSISI_PIALANG, $this::STATUS_DISPOSISI_BURSA, $this::STATUS_DISPOSISI_BURSA_EXPIRED, $this::STATUS_CREATED));
     }
 }
