@@ -9,27 +9,20 @@ use Illuminate\Auth\Access\Response;
 class MediasiPolicy
 {
     /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Mediasi $mediasi): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
-    {
-        //
+        switch($user->role){
+            case User::IS_BAPPEBTI:
+                return true;
+            case User::IS_BURSA:
+                return $mediasi->pengaduan->bursa_id == $user->bursa->id;
+            case User::IS_PIALANG:
+                return $mediasi->pengaduan->pialang_id == $user->pialang->id;
+            case User::IS_NASABAH:
+                return $mediasi->pengaduan->nasabah_id == $user->nasabah->id;
+        }
     }
 
     /**
@@ -37,7 +30,7 @@ class MediasiPolicy
      */
     public function update(User $user, Mediasi $mediasi): bool
     {
-        //
+        return $user->role == User::IS_BURSA && $mediasi->pengaduan->bursa_id == $user->bursa->id;
     }
 
     /**
@@ -45,22 +38,6 @@ class MediasiPolicy
      */
     public function delete(User $user, Mediasi $mediasi): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Mediasi $mediasi): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Mediasi $mediasi): bool
-    {
-        //
+        return $user->role == User::IS_BURSA && $mediasi->pengaduan->bursa_id == $user->bursa->id;
     }
 }
