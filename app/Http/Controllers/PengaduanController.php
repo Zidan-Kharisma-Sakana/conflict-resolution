@@ -37,6 +37,7 @@ class PengaduanController extends Controller
      */
     public function create(Request $request)
     {
+        $this->authorize('create', Pengaduan::class);
         return view('pengaduan.form.create', [
             'user' => $request->user(),
             'companies' => Pialang::with("user")->get()
@@ -48,6 +49,7 @@ class PengaduanController extends Controller
      */
     public function store(StorePengaduanRequest $request)
     {
+        $this->authorize('create', Pengaduan::class);
         $pengaduan = $this->pengaduanService->createPengaduan($request);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-created');
     }
@@ -55,15 +57,11 @@ class PengaduanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, int $id)
+    public function show(Pengaduan $pengaduan)
     {
-        $pengaduan = Pengaduan::with(
-            ['nasabah', 'pialang', 'bursa', 'berkasPengaduans', 'pertanyaanPengaduans', 'musyawarahs', 'mediasis', 'kesepakatan']
-        )
-            ->findOrFail($id);
-
+        $this->authorize('view', [$pengaduan]);
         return view('pengaduan.show.index', [
-            'user' => $request->user(),
+            'user' => auth()->user(),
             'pengaduan' => $pengaduan
         ]);
     }
@@ -79,27 +77,28 @@ class PengaduanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pengaduan $pengaduan)
     {
-        //
+        $this->authorize("update", [$pengaduan]);
         if ($request->subject == 'reject') {
             $request->validate([
                 "alasan_penolakan" => ['required', 'string']
             ]);
-            $pengaduan = $this->pengaduanService->rejectPengaduan($request, $id);
+            $pengaduan = $this->pengaduanService->rejectPengaduan($request, $pengaduan->id);
             return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-rejected');
         }
         // do approve
-        $pengaduan = $this->pengaduanService->approvePengaduan($request, $id);
+        $pengaduan = $this->pengaduanService->approvePengaduan($request, $pengaduan->id);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-approved');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Pengaduan $pengaduan)
     {
-        $pengaduan = $this->pengaduanService->forceClosePengaduan($request, $id);
+        $this->authorize("delete",[$pengaduan]);
+        $pengaduan = $this->pengaduanService->forceClosePengaduan($request, $pengaduan->id);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-force-close');
     }
 }

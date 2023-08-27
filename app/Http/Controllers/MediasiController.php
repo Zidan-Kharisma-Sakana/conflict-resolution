@@ -6,6 +6,7 @@ use App\Http\Requests\StoreMediasiRequest;
 use App\Http\Requests\UpdateMediasiRequest;
 use App\Interfaces\MediasiServiceInterface;
 use App\Models\Complaint\Mediasi;
+use App\Models\Complaint\Pengaduan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -30,57 +31,43 @@ class MediasiController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMediasiRequest $request, $id)
+    public function store(StoreMediasiRequest $request, Pengaduan $pengaduan)
     {
-        //
-        $mediasi = $this->mediasiService->createMediasi($request, $id);
+        $this->authorize('addMediasi', [$pengaduan]);
+        $mediasi = $this->mediasiService->createMediasi($request, $pengaduan->id);
         return Redirect::route('musyawarah.show', $mediasi->id)->with('status', 'mediasi-created');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, Mediasi $mediasi)
     {
         return view('mediasi.show', [
             'user' => $request->user(),
-            'mediasi' => Mediasi::findOrFail((int) $id)
+            'mediasi' => $mediasi
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Mediasi $mediasi)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMediasiRequest $request, $id)
+    public function update(UpdateMediasiRequest $request, Mediasi $mediasi)
     {
-        $mediasi = $this->mediasiService->updateMediasi($request, $id);
-        return Redirect::route('mediasi.show', $id)->with('status', 'mediasi-updated');
+        $this->authorize('update', [$mediasi]);
+        $mediasi = $this->mediasiService->updateMediasi($request, $mediasi->id);
+        return Redirect::route('mediasi.show', $mediasi->id)->with('status', 'mediasi-updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Mediasi $mediasi)
     {
-        $mediasi = $this->mediasiService->cancelMediasi($request, $id);
-        return Redirect::route('mediasi.show', $id)->with('status', 'mediasi-cancelled');
+        $this->authorize('delete', [$mediasi]);
+        $mediasi = $this->mediasiService->cancelMediasi($request, $mediasi->id);
+        return Redirect::route('mediasi.show', $mediasi->id)->with('status', 'mediasi-cancelled');
     }
 }

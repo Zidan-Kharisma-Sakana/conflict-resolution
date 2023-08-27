@@ -6,6 +6,7 @@ use App\Http\Requests\StoreKesepakatanRequest;
 use App\Http\Requests\UpdateKesepakatanRequest;
 use App\Interfaces\KesepakatanServiceInterface;
 use App\Models\Complaint\Kesepakatan;
+use App\Models\Complaint\Pengaduan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,61 +20,22 @@ class KesepakatanController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreKesepakatanRequest $request, $id)
+    public function store(StoreKesepakatanRequest $request, Pengaduan $pengaduan)
     {
-        //
-        $kesepakatan = $this->kesepakatanService->createKesepakatan($request, $id);
-        return Redirect::route('pengaduan.show', $id)->with('status', 'kesepakatan-created');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Kesepakatan $kesepakatan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Kesepakatan $kesepakatan)
-    {
-        //
+        $this->authorize('addKesepakatan', [$pengaduan]);
+        $kesepakatan = $this->kesepakatanService->createKesepakatan($request, $pengaduan->id);
+        return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'kesepakatan-created');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Kesepakatan $kesepakatan)
     {
-        $pengaduan = $this->kesepakatanService->confirmKesepakatan($request, $id);
+        $this->authorize("update", [$kesepakatan]);
+        $pengaduan = $this->kesepakatanService->confirmKesepakatan($request, $kesepakatan->id);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'kesepakatan-updated');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Kesepakatan $kesepakatan)
-    {
-        //
     }
 }
