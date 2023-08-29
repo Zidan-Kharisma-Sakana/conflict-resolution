@@ -32,13 +32,6 @@
                                     <p>Detail &#128065;</p>
                                 </x-secondary-button>
                             </a>
-                            @if ($user->role == \App\Models\User::IS_BURSA)
-                                <a>
-                                    <x-danger-button>
-                                        <p>Batal</p>
-                                    </x-danger-button>
-                                </a>
-                            @endif
                         </td>
                     </tr>
                 @endforeach

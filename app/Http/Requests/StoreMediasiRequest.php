@@ -26,7 +26,7 @@ class StoreMediasiRequest extends FormRequest
         return [
             'tanggal_waktu' => ['required', 'string'],
             'tempat' => ['required', 'string'],
-            'link_pertemuan' => ['string'],
+            'link_pertemuan' => [''],
             'file_undangan' => ['mimes:jpeg,pdf,jpg,png']
         ];
     }

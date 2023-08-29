@@ -37,7 +37,7 @@ class MediasiController extends Controller
     {
         $this->authorize('addMediasi', [$pengaduan]);
         $mediasi = $this->mediasiService->createMediasi($request, $pengaduan->id);
-        return Redirect::route('musyawarah.show', $mediasi->id)->with('status', 'mediasi-created');
+        return Redirect::route('mediasi.show', $mediasi->id)->with('status', 'mediasi-created');
     }
 
     /**

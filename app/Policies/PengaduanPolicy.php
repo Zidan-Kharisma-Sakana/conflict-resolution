@@ -42,7 +42,7 @@ class PengaduanPolicy
     }
 
     public function addKesepakatan(User $user, Pengaduan $pengaduan): bool{
-        return in_array($user->role, [User::IS_BURSA, User::IS_PIALANG]) && empty($pengaduan->kesepakatan());
+        return in_array($user->role, [User::IS_BURSA, User::IS_PIALANG]) && empty($pengaduan->kesepakatan);
     }
 
     /**

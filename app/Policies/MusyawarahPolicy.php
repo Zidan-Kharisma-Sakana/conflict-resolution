@@ -30,7 +30,7 @@ class MusyawarahPolicy
      */
     public function update(User $user, Musyawarah $musyawarah): bool
     {
-        return $user->role == User::IS_BURSA && $musyawarah->pengaduan->bursa_id == $user->bursa->id;
+        return $user->role == User::IS_PIALANG && $musyawarah->pengaduan->pialang_id == $user->pialang->id;
     }
 
     /**
@@ -38,6 +38,6 @@ class MusyawarahPolicy
      */
     public function delete(User $user, Musyawarah $musyawarah): bool
     {
-        return $user->role == User::IS_BURSA && $musyawarah->pengaduan->bursa_id == $user->bursa->id;
+        return $user->role == User::IS_PIALANG && $musyawarah->pengaduan->pialang_id == $user->pialang->id;
     }
 }

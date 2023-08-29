@@ -65,6 +65,7 @@ class PengaduanService implements PengaduanServiceInterface
     {
         $pengaduan = Pengaduan::where('id', $id)->where('status', '!=', Pengaduan::STATUS_CLOSED)->firstOrFail();
         $pengaduan->force_close_time = Carbon::now();
+        $pengaduan->status = Pengaduan::STATUS_REJECTED;
         $pengaduan->save();
         return $pengaduan;
     }

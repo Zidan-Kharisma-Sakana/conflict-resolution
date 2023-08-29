@@ -31,7 +31,7 @@
         <td>File Hasil (Opsional)</td>
         <td class="flex gap-x-1">
             <span>:</span>
-            @if (empty($mediasi->hasil) && $user->role == \App\Models\User::IS_PIALANG)
+            @if (empty($mediasi->hasil) && $user->role == \App\Models\User::IS_BURSA)
                 {{-- show form --}}
                 <div>
                     <x-form.input.text-input type="file" id="file_hasil" name="file_hasil" class="ml-1" />

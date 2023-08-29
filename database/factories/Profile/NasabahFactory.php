@@ -26,6 +26,8 @@ class NasabahFactory extends Factory
             'provinsi'=> fake()->city(),
             'kota_kabupaten' => fake()->city(),
             'nomor_hp'=> fake()->phoneNumber(),
+            'pekerjaan' => 'Legal',
+            'jabatan' => 'Head of Legal'
         ];
     }
 }

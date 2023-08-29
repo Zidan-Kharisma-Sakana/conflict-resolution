@@ -20,20 +20,22 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             $pengaduans = Pengaduan::where('status', Pengaduan::STATUS_DISPOSISI_PIALANG)
                 ->where('waktu_expires_pialang', '<', Carbon::now())
+                ->whereNull('waktu_kesepakatan')
                 ->update([
                     'status' => Pengaduan::STATUS_DISPOSISI_BURSA,
                     'waktu_expires_bursa' => Carbon::now()->addWeekdays(21)
                 ]);
-        })->everyThirtyMinutes();
+        })->everyThirtySeconds();
 
         $schedule->call(function () {
             error_log(Carbon::now());
             $pengaduans = Pengaduan::where('status', Pengaduan::STATUS_DISPOSISI_BURSA)
+                ->whereNull('waktu_kesepakatan')
                 ->where('waktu_expires_bursa', '<', Carbon::now())
                 ->update([
                     'status' => Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED,
                 ]);
-        })->everyThirtyMinutes();
+        })->everyThirtySeconds();
     }
 
     /**
@@ -46,4 +48,3 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
     }
 }
-

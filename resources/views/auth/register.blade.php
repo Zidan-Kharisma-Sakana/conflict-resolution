@@ -38,18 +38,6 @@
             <x-form.input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="mt-4">
-            <x-form.input-label for="role" :value="__('role')" />
-            <x-form.input.select-input id="role" class="block mt-1 w-full" name=role>
-                <option value="" disabled selected>Pilih Role</option>
-                <option value="nasabah" {{ old('role') == 'nasabah' ? 'selected' : '' }}>Nasabah</option>
-                <option value="pialang" {{ old('role') == 'pialang' ? 'selected' : '' }}>Pialang</option>
-                <option value="bursa" {{ old('role') == 'bursa' ? 'selected' : '' }}>Bursa</option>
-                <option value="bappebti" {{ old('role') == 'bappebti' ? 'selected' : '' }}>Bappebti</option>
-            </x-form.input.select-input>
-            <x-form.input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
-
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 href="{{ route('login') }}">
