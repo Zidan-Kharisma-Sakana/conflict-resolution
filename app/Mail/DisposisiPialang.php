@@ -41,6 +41,9 @@ class DisposisiPialang extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.pengaduan.disposisi-pialang',
+            with: [
+                'pengaduan' => $this->pengaduan
+            ]
         );
     }
 

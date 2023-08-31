@@ -41,6 +41,9 @@ class DisposisiBursa extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.pengaduan.disposisi-bursa',
+            with: [
+                'pengaduan' => $this->pengaduan
+            ]
         );
     }
 

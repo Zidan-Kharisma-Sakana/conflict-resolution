@@ -21,7 +21,7 @@
         </a>
         <div class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-6xl grid grid-cols-1 gap-y-6">
+                <div class="grid grid-cols-1 gap-y-6">
                     <div class="flex justify-between">
                         <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
                             Detail Pengaduan

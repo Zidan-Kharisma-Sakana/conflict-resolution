@@ -36,6 +36,9 @@ class MediasiCreated extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.mediasi.created',
+            with: [
+                'mediasi' => $this->mediasi
+            ]
         );
     }
 

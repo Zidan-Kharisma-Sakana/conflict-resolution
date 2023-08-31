@@ -1,12 +1,11 @@
 <x-mail::message>
-# Introduction
+# Disposisi Pengaduan ke Pialang
 
-The body of your message.
-
-<x-mail::button :url="''">
-Button Text
+{{ 'BAPPEBTI mendisposisikan pialang ' . $pengaduan->pialang->user->name .' untuk menyelesaikan pengaduan hingga ' . \Carbon\Carbon::parse($pengaduan->waktu_expires_pialang)->isoFormat('dddd, D MMMM Y') }}
+<x-mail::button :url="url('/pengaduan/'. $pengaduan->id)">
+    Lihat Pengaduan
 </x-mail::button>
 
-Thanks,<br>
-{{ config('app.name') }}
+Terima Kasih,<br>
+Badan Pengawas Perdagangan Berjangka dan Komoditi (BAPPEBTI)
 </x-mail::message>

@@ -38,6 +38,9 @@ class DeadlinePialang extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.pengaduan.deadline-pialang',
+            with: [
+                'pengaduan' => $this->pengaduan
+            ]
         );
     }
 

@@ -38,6 +38,9 @@ class DeadlineBursa extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.pengaduan.deadline-bursa',
+            with: [
+                'pengaduan' => $this->pengaduan
+            ]
         );
     }
 

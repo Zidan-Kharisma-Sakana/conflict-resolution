@@ -1,12 +1,11 @@
 <x-mail::message>
-# Introduction
+# Musyawarah Terjadwalkan
 
-The body of your message.
-
-<x-mail::button :url="''">
-Button Text
+{{"Pialang " . $pengaduan->pialang->user->name ." menjadwalkan musyawarah pada " . \Carbon\Carbon::parse($musyawarah->tanggal_waktu)->isoFormat('dddd, D MMMM Y')}}
+<x-mail::button :url="route('musyawarah.show', $musyawarah->id)">
+Lihat Musyawarah
 </x-mail::button>
 
-Thanks,<br>
-{{ config('app.name') }}
+Terima Kasih,<br>
+Badan Pengawas Perdagangan Berjangka dan Komoditi (BAPPEBTI)
 </x-mail::message>

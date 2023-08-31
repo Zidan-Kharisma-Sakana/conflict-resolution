@@ -43,6 +43,9 @@ class MusyawarahCreated extends Mailable implements ShouldQueue
     {
         return new Content(
             markdown: 'emails.musyawarah.created',
+            with: [
+                'musyawarah' => $this->musyawarah
+            ]
         );
     }
 

@@ -4,6 +4,9 @@ namespace App\Services;
 
 use App\Interfaces\NotificationServiceInterface;
 use App\Interfaces\NotifikasiServiceInterface;
+use App\Mail\DisposisiPialang;
+use App\Mail\MediasiCreated;
+use App\Mail\MusyawarahCreated;
 use App\Models\Complaint\Kesepakatan;
 use App\Models\Complaint\Mediasi;
 use App\Models\Complaint\Musyawarah;
@@ -12,6 +15,7 @@ use App\Models\Notifikasi;
 use App\Models\Profile\Bappebti;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class NotifikasiService implements NotifikasiServiceInterface
 {
@@ -47,6 +51,7 @@ class NotifikasiService implements NotifikasiServiceInterface
                 ]);
             });
         Notifikasi::insert($notifications->toArray());
+        Mail::send(new DisposisiPialang($pengaduan));
     }
     public function pengaduanRejected(Pengaduan $pengaduan)
     {
@@ -109,6 +114,7 @@ class NotifikasiService implements NotifikasiServiceInterface
                 ]);
             });
         Notifikasi::insert($notifications->toArray());
+        Mail::send(new MusyawarahCreated($musyawarah));
     }
     public function mediasiCreated(Mediasi $mediasi)
     {
@@ -127,6 +133,7 @@ class NotifikasiService implements NotifikasiServiceInterface
                 ]);
             });
         Notifikasi::insert($notifications->toArray());
+        Mail::send(new MediasiCreated($mediasi));
     }
     public function kesepakatanCreated(Kesepakatan $kesepakatan)
     {
