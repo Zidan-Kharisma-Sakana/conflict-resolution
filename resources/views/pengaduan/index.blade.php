@@ -10,21 +10,22 @@
                 <p>{{ $error }}</p>
             @endforeach
         </div>
-        <div class="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="flex justify-between my-4">
                     <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
                         Daftar Pengaduan
                     </h2>
-                    <a href="{{ route('pengaduan.create') }}">
-                        <x-primary-button>Tambah Pengaduan</x-primary-button>
-                    </a>
+                    @can('create', \App\Models\Complaint\Pengaduan::class)
+                        <a href="{{ route('pengaduan.create') }}">
+                            <x-primary-button>Tambah Pengaduan</x-primary-button>
+                        </a>
+                    @endcan
                 </div>
 
-                <table style="max-width: 95%" id="myTable" class="display table-fixed">
+                <table style="max-width: 95%" id="myTable" class="display table-fixed cell-border">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Tanggal Dibuat</th>
                             <th>Nasabah</th>
                             <th>Pialang</th>
@@ -37,7 +38,6 @@
                     <tbody>
                         @foreach ($pengaduans as $pengaduan)
                             <tr>
-                                <td>{{ $pengaduan->id }}</td>
                                 <td>{{ \Carbon\Carbon::parse($pengaduan->waktu_dibuat)->isoFormat('dddd, D MMMM Y') }}
                                 <td>{{ $pengaduan->nasabah->user->name }}</td>
                                 <td>{{ $pengaduan->pialang->user->name }}</td>
@@ -60,7 +60,6 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -74,18 +73,18 @@
                 let table = new DataTable('#myTable', {
                     "ordering": false,
                     "columnDefs": [{
-                        "targets": [0, 2, 3, 4, 5, 6, 7],
+                        "targets": [1, 2, 3, 4, 5, 6],
                         "orderable": false
                     }, {
-                        "targets": [1, 2, 3, 4, 5, 6],
-                        "width": '15%'
+                        "targets": [0, 5],
+                        "width": '20%'
                     }, {
-                        "targets": [7],
+                        "targets": [6],
                         "width": '80px'
                     }],
                     initComplete: function() {
                         this.api()
-                            .columns([3, 4, 5])
+                            .columns([2, 3, 4])
                             .every(function() {
                                 let column = this;
                                 // console.log(this)

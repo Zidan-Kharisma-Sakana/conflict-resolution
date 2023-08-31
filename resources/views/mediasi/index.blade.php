@@ -10,12 +10,12 @@
                 <p>{{ $error }}</p>
             @endforeach
         </div>
-        <div class="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
                     Daftar mediasi
                 </h2>
-                <table style="max-width: 95%" id="myTable" class="display table-fixed">
+                <table style="max-width: 95%" id="myTable" class="display table-fixed cell-border">
                     <thead>
                         <tr>
                             <th>Pihak</th>

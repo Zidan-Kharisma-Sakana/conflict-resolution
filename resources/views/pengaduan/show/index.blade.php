@@ -10,7 +10,7 @@
         </div>
         <a href="{{ route('pengaduan.index') }}">
             <div
-                class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center gap-x-4 font-semibold text-lg text-gray-800 leading-tight mb-4">
+                class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 flex items-center gap-x-4 font-semibold text-lg text-gray-800 leading-tight mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -19,7 +19,7 @@
                 <span>Daftar Pengaduan</span>
             </div>
         </a>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-6xl grid grid-cols-1 gap-y-6">
                     <div class="flex justify-between">
@@ -99,7 +99,7 @@
         {{-- Show tabel jadwal mediasi dan musyawarah --}}
         @if ($pengaduan->status != App\Models\Complaint\Pengaduan::STATUS_CREATED)
             {{-- <div>show table mediasi & musyawarah</div> --}}
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 mt-8">
+            <div class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 space-y-6 mt-8">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg grid grid-cols-1 gap-4">
                     @include('musyawarah.partials.list-musyawarah', ['items' => $pengaduan->musyawarahs])
                     @include('mediasi.partials.list-mediasi', ['items' => $pengaduan->mediasis])
