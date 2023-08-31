@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMediasiRequest;
 use App\Http\Requests\UpdateMediasiRequest;
 use App\Interfaces\MediasiServiceInterface;
+use App\Interfaces\NotifikasiServiceInterface;
 use App\Models\Complaint\Mediasi;
 use App\Models\Complaint\Pengaduan;
 use Illuminate\Http\Request;
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\Redirect;
 class MediasiController extends Controller
 {
     private MediasiServiceInterface $mediasiService;
+    private NotifikasiServiceInterface $notifikasiService;
 
-    public function __construct(MediasiServiceInterface $mediasiService)
+    public function __construct(MediasiServiceInterface $mediasiService, NotifikasiServiceInterface $notifikasiService)
     {
         $this->mediasiService = $mediasiService;
+        $this->notifikasiService = $notifikasiService;
     }
 
     /**
@@ -37,6 +40,7 @@ class MediasiController extends Controller
     {
         $this->authorize('addMediasi', [$pengaduan]);
         $mediasi = $this->mediasiService->createMediasi($request, $pengaduan->id);
+        $this->notifikasiService->mediasiCreated($mediasi);
         return Redirect::route('mediasi.show', $mediasi->id)->with('status', 'mediasi-created');
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePengaduanRequest;
 use App\Http\Requests\UpdatePengaduanRequest;
+use App\Interfaces\NotifikasiServiceInterface;
 use App\Interfaces\PengaduanServiceInterface;
 use App\Models\Complaint\Pengaduan;
 use App\Models\Profile\Pialang;
@@ -18,10 +19,12 @@ class PengaduanController extends Controller
      * Display a listing of the resource.
      */
     private PengaduanServiceInterface $pengaduanService;
+    private NotifikasiServiceInterface $notifikasiService;
 
-    public function __construct(PengaduanServiceInterface $pengaduanService)
+    public function __construct(PengaduanServiceInterface $pengaduanService, NotifikasiServiceInterface $notifikasiService)
     {
         $this->pengaduanService = $pengaduanService;
+        $this->notifikasiService = $notifikasiService;
     }
 
     public function index(Request $request)
@@ -51,6 +54,7 @@ class PengaduanController extends Controller
     {
         $this->authorize('create', Pengaduan::class);
         $pengaduan = $this->pengaduanService->createPengaduan($request);
+        $this->notifikasiService->pengaduanCreated($pengaduan);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-created');
     }
 
@@ -85,10 +89,12 @@ class PengaduanController extends Controller
                 "alasan_penolakan" => ['required', 'string']
             ]);
             $pengaduan = $this->pengaduanService->rejectPengaduan($request, $pengaduan->id);
+            $this->notifikasiService->pengaduanRejected($pengaduan);
             return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-rejected');
         }
         // do approve
         $pengaduan = $this->pengaduanService->approvePengaduan($request, $pengaduan->id);
+        $this->notifikasiService->pengaduanApproved($pengaduan);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-approved');
     }
 
@@ -99,6 +105,7 @@ class PengaduanController extends Controller
     {
         $this->authorize("delete",[$pengaduan]);
         $pengaduan = $this->pengaduanService->forceClosePengaduan($request, $pengaduan->id);
+        $this->notifikasiService->pengaduanCancelled($pengaduan);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-force-close');
     }
 }

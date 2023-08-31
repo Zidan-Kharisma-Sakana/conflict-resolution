@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('subject');
             $table->text('content');
-            $table->boolean('is_warning');
-            $table->boolean('is_seen');
+            $table->boolean('is_warning')->default(false);
+            $table->boolean('is_seen')->default(false);
             $table->string('link');
             $table->foreignId('user_id')->constrained(
                 table: 'users',
