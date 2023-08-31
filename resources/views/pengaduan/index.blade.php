@@ -45,7 +45,7 @@
                                 <td>{{ $pengaduan->bursa->user->name }}</td>
                                 <td>{{ $pengaduan->getStatusMeaning() }}</td>
                                 <td>{{ $pengaduan->getDeadlineDate() }}</td>
-                                <td><a href="{{ route('pengaduan.show', $pengaduan->id) }}">
+                                <td><a target="_blank" rel="noopener noreferrer" href="{{ route('pengaduan.show', $pengaduan->id) }}">
                                         <x-primary-button>Lihat</x-primary-button>
                                     </a></td>
                             </tr>

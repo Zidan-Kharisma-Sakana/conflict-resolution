@@ -39,7 +39,7 @@
                                 <td>{{ $musyawarah->tempat }}</td>
                                 <td>{{ $musyawarah->getStatus() }}</td>
                                 <td>{{ strtolower($musyawarah->hasil ?? '-') }}</td>
-                                <td><a href="{{ route('musyawarah.show', $musyawarah->id) }}">
+                                <td><a target="_blank" rel="noopener noreferrer" href="{{ route('musyawarah.show', $musyawarah->id) }}">
                                         <x-primary-button>Lihat</x-primary-button>
                                     </a></td>
                             </tr>
