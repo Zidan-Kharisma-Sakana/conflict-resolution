@@ -8,7 +8,7 @@ use App\Models\Complaint\Musyawarah;
 use App\Models\Complaint\Pengaduan;
 use App\Models\User;
 
-interface NotificationServiceInterface
+interface NotifikasiServiceInterface
 {
     public function pengaduanCreated(Pengaduan $pengaduan);
     public function pengaduanApproved(Pengaduan $pengaduan);
