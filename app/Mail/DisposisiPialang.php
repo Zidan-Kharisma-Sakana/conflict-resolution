@@ -17,7 +17,9 @@ class DisposisiPialang extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct(private Pengaduan $pengaduan){}
+    public function __construct(private Pengaduan $pengaduan)
+    {
+    }
 
 
     /**
@@ -29,7 +31,10 @@ class DisposisiPialang extends Mailable implements ShouldQueue
             subject: 'Disposisi Pialang',
             to: [
                 $this->pengaduan->pialang->user->email,
+            ],
+            cc: [
                 $this->pengaduan->nasabah->user->email,
+                $this->pengaduan->bursa->user->email,
             ]
         );
     }

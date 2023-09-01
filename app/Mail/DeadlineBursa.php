@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Complaint\Pengaduan;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -26,8 +27,15 @@ class DeadlineBursa extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
+        $allBappebti = User::where('role', User::IS_BAPPEBTI)->get()->map(function(User $user){
+            return $user->email;
+        });
         return new Envelope(
             subject: 'Deadline Bursa',
+            to:[
+                $this->pengaduan->pialang->user->email
+            ],
+            cc: $allBappebti
         );
     }
 

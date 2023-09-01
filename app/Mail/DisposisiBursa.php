@@ -17,7 +17,9 @@ class DisposisiBursa extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct(private Pengaduan $pengaduan){}
+    public function __construct(private Pengaduan $pengaduan)
+    {
+    }
 
     /**
      * Get the message envelope.
@@ -27,9 +29,11 @@ class DisposisiBursa extends Mailable implements ShouldQueue
         return new Envelope(
             subject: 'Disposisi Bursa',
             to: [
+                $this->pengaduan->bursa->user->email
+            ],
+            cc: [
                 $this->pengaduan->pialang->user->email,
                 $this->pengaduan->nasabah->user->email,
-                $this->pengaduan->bursa->user->email
             ]
         );
     }
