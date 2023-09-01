@@ -2,7 +2,13 @@
 
 namespace App\Console;
 
+use App\Invokables\EscalateDisposisiBursa;
+use App\Invokables\EscalateDisposisiPialang;
+use App\Invokables\ThrowDeadlineBursaWarning;
+use App\Invokables\ThrowDeadlinePialangWarning;
 use App\Models\Complaint\Pengaduan;
+use App\Services\NotifikasiService;
+use App\Services\ScheduleService;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -16,26 +22,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->call(function () {
-            $pengaduans = Pengaduan::where('status', Pengaduan::STATUS_DISPOSISI_PIALANG)
-                ->where('waktu_expires_pialang', '<', Carbon::now())
-                ->whereNull('waktu_kesepakatan')
-                ->update([
-                    'status' => Pengaduan::STATUS_DISPOSISI_BURSA,
-                    'waktu_expires_bursa' => Carbon::now()->addWeekdays(21)
-                ]);
-        })->everyThirtySeconds();
-
-        $schedule->call(function () {
-            error_log(Carbon::now());
-            $pengaduans = Pengaduan::where('status', Pengaduan::STATUS_DISPOSISI_BURSA)
-                ->whereNull('waktu_kesepakatan')
-                ->where('waktu_expires_bursa', '<', Carbon::now())
-                ->update([
-                    'status' => Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED,
-                ]);
-        })->everyThirtySeconds();
+        $schedule->call(new EscalateDisposisiPialang)->everyThirtySeconds();
+        $schedule->call(new EscalateDisposisiBursa)->everyThirtySeconds();
+        $schedule->call(new ThrowDeadlineBursaWarning)->everyThirtySeconds();
+        $schedule->call(new ThrowDeadlinePialangWarning)->everyThirtySeconds();
     }
 
     /**
