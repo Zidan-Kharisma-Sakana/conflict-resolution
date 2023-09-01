@@ -17,7 +17,6 @@ class EscalateDisposisiPialang
 {
     public function __invoke()
     {
-        // error_log("");
         $pengaduanTotal = DB::transaction(function () {
             $pengaduansQuery = Pengaduan::where('status', Pengaduan::STATUS_DISPOSISI_PIALANG)
                 ->where('waktu_expires_pialang', '<=', Carbon::now())
@@ -27,33 +26,32 @@ class EscalateDisposisiPialang
                 $this->createNotifikasi($pengaduan);
                 Mail::send(new DisposisiBursa($pengaduan));
             });
-            $pengaduanTotal = $pengaduansQuery->update([
+            return $pengaduansQuery->update([
                 'status' => Pengaduan::STATUS_DISPOSISI_BURSA,
                 'waktu_expires_bursa' => Carbon::now()->addWeekdays(21)
             ]);
-            return $pengaduanTotal;
         });
-        error_log("EscalateDisposisiPialang: ".$pengaduanTotal);
+        error_log("EscalateDisposisiPialang: " . $pengaduanTotal);
     }
 
     private function createNotifikasi(Pengaduan $pengaduan)
     {
         $notifications1 = User::where('role', User::IS_BAPPEBTI)->get()
-        ->map(function (User $user) use ($pengaduan) {
-            $subject = "Pialang Terlambat Melaksanakan Disposisi";
-            $content = 'Pialang ' . $pengaduan->pialang->user->name . ' gagal membuat kesepakatan dalam deadline yang ditentukan';
-            return new Notifikasi([
-                'subject' => $subject,
-                'content' => $content,
-                'link' => route('pengaduan.show', $pengaduan->id),
-                'user_id' => $user->id
-            ]);
-        });
+            ->map(function (User $user) use ($pengaduan) {
+                $subject = "Pialang Terlambat";
+                $content = 'Pialang ' . $pengaduan->pialang->user->name . ' gagal membuat kesepakatan dalam deadline yang ditentukan';
+                return new Notifikasi([
+                    'subject' => $subject,
+                    'content' => $content,
+                    'link' => route('pengaduan.show', $pengaduan->id),
+                    'user_id' => $user->id
+                ]);
+            });
         Notifikasi::insert($notifications1->toArray());
 
         $notifications2 = collect([$pengaduan->nasabah->user, $pengaduan->pialang->user, $pengaduan->bursa->user])
             ->map(function (User $user) use ($pengaduan) {
-                $subject = "Disposisi Pengaduan ke Bursa";
+                $subject = "Disposisi Bursa";
                 $waktuexpires =  Carbon::now()->addWeekdays(21);
                 $content = 'BAPPEBTI mendisposisikan bursa ' . $pengaduan->bursa->user->name . ' untuk menyelesaikan pengaduan hingga ' . $waktuexpires->isoFormat('dddd, D MMMM Y');
                 return new Notifikasi([

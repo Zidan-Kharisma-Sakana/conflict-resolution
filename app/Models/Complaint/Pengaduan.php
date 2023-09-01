@@ -71,12 +71,12 @@ class Pengaduan extends Model
     public const STATUS_FINISHED = 'finished';
     public const STATUS_CLOSED = 'closed';
     public const STATUS_MEANING = [
-        'created' => "Menunggu Pengecekan Bappebti",
-        'rejected' => "Berkas Pengaduan Ditolak Bappebti",
+        'created' => "Menunggu Bappebti",
+        'rejected' => "Berkas Ditolak",
         'disposisi_pialang' => "Diproses Pialang",
         'disposisi_bursa' => "Diproses Bursa",
         'disposisi_bursa_expired' => 'Bursa Terlambat',
-        'finished' => "Kesepakatan Sudah Dibuat",
+        'finished' => "Kesepakatan Dibuat",
         'closed' => "Pengaduan Ditutup",
     ];
 

@@ -40,7 +40,7 @@ class NotifikasiService implements NotifikasiServiceInterface
         // notify pialang & nasabah
         $notifications = collect([$pengaduan->nasabah->user, $pengaduan->pialang->user])
             ->map(function (User $user) use ($pengaduan) {
-                $subject = "Disposisi Pengaduan ke Pialang ";
+                $subject = "Disposisi Pialang ";
                 $content = "BAPPEBTI mendisposisikan pialang " . $pengaduan->pialang->user->name .
                     " untuk menyelesaikan pengaduan hingga " . Carbon::parse($pengaduan->waktu_expires_pialang)->isoFormat('dddd, D MMMM Y');
                 return new Notifikasi([
@@ -103,7 +103,7 @@ class NotifikasiService implements NotifikasiServiceInterface
         $pengaduan = $musyawarah->pengaduan;
         $notifications = collect([$pengaduan->nasabah->user, $pengaduan->pialang->user])
             ->map(function (User $user) use ($pengaduan, $musyawarah) {
-                $subject = "Musyawarah Baru Dijadwalkan";
+                $subject = "Musyawarah Dijadwalkan";
                 $content = "Pialang " . $pengaduan->pialang->user->name .
                     " menjadwalkan musyawarah pada " . Carbon::parse($musyawarah->tanggal_waktu)->isoFormat('dddd, D MMMM Y');
                 return new Notifikasi([
@@ -122,7 +122,7 @@ class NotifikasiService implements NotifikasiServiceInterface
         $pengaduan = $mediasi->pengaduan;
         $notifications = collect([$pengaduan->nasabah->user, $pengaduan->pialang->user, $pengaduan->bursa->user])
             ->map(function (User $user) use ($pengaduan, $mediasi) {
-                $subject = "Mediasi Baru Dijadwalkan";
+                $subject = "Mediasi Dijadwalkan";
                 $content = "Bursa " . $pengaduan->bursa->user->name .
                     " menjadwalkan mediasi pada " . Carbon::parse($mediasi->tanggal_waktu)->isoFormat('dddd, D MMMM Y');
                 return new Notifikasi([
@@ -139,7 +139,7 @@ class NotifikasiService implements NotifikasiServiceInterface
     {
         // notify bappebti
         $notifications =  Bappebti::with('user')->get()->map(function (Bappebti $item) use ($kesepakatan) {
-            $subject = "Kesepakatan Baru Dibuat";
+            $subject = "Kesepakatan Dibuat";
             $content = "Kesepakatan untuk pengaduan dengan ID " . $kesepakatan->pengaduan_id . " dibuat oleh pihak " . $kesepakatan->user->name;
             return new Notifikasi([
                 'subject' => $subject,
