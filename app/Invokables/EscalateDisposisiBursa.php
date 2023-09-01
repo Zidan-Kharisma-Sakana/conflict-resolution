@@ -26,6 +26,7 @@ class EscalateDisposisiBursa
 
             return $pengaduansQuery->update([
                 'status' => Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED,
+                'is_bursa_late' => true
             ]);
         });
         error_log("EscalateDisposisiBursa: " . $pengaduanTotal);

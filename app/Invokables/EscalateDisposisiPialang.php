@@ -28,6 +28,7 @@ class EscalateDisposisiPialang
             });
             return $pengaduansQuery->update([
                 'status' => Pengaduan::STATUS_DISPOSISI_BURSA,
+                'is_pialang_late'=>true,
                 'waktu_expires_bursa' => Carbon::now()->addWeekdays(21)
             ]);
         });
