@@ -28,7 +28,7 @@ class DisposisiPialang extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Disposisi Pialang',
+            subject: 'Disposisi Pengaduan untuk Pialang',
             to: [
                 $this->pengaduan->pialang->user->email,
             ],

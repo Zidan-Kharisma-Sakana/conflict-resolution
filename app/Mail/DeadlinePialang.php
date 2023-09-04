@@ -31,7 +31,7 @@ class DeadlinePialang extends Mailable implements ShouldQueue
             return $user->email;
         });
         return new Envelope(
-            subject: 'Deadline Pialang',
+            subject: 'Peringatan Deadline Pengaduan',
             to:[
                 $this->pengaduan->pialang->user->email
             ],

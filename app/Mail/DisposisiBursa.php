@@ -27,7 +27,7 @@ class DisposisiBursa extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Disposisi Bursa',
+            subject: 'Disposisi Pengaduan untuk Bursa',
             to: [
                 $this->pengaduan->bursa->user->email
             ],
