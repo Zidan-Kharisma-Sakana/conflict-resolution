@@ -35,9 +35,17 @@
                             <th>Action</th>
                         </tr>
                     </thead>
+                    @php
+                        $sortedPengaduans = $pengaduans->sortByDesc(function ($pengaduan, $index) use ($user) {
+                            return $pengaduan->checkIfImportant($user);
+                        });
+                    @endphp
                     <tbody>
-                        @foreach ($pengaduans as $pengaduan)
-                            <tr>
+                        @foreach ($sortedPengaduans as $pengaduan)
+                            @php
+                                $is_important = $pengaduan->checkIfImportant($user);
+                            @endphp
+                            <tr class="{{ $is_important ? 'font-bold text-red-500' : '' }}">
                                 <td>{{ \Carbon\Carbon::parse($pengaduan->waktu_dibuat)->isoFormat('dddd, D MMMM Y') }}
                                 <td>{{ $pengaduan->nasabah->user->name }}</td>
                                 <td>{{ $pengaduan->pialang->user->name }}</td>
@@ -45,8 +53,13 @@
                                 <td>{{ $pengaduan->bursa->user->name }}</td>
                                 <td>{{ $pengaduan->getStatusMeaning() }}</td>
                                 <td>{{ $pengaduan->getDeadlineDate() }}</td>
-                                <td><a target="_blank" rel="noopener noreferrer" href="{{ route('pengaduan.show', $pengaduan->id) }}">
-                                        <x-primary-button>Lihat</x-primary-button>
+                                <td><a target="_blank" rel="noopener noreferrer"
+                                        href="{{ route('pengaduan.show', $pengaduan->id) }}">
+                                        @if ($is_important)
+                                            <x-danger-button>Lihat</x-danger-button>
+                                        @else
+                                            <x-primary-button>Lihat</x-primary-button>
+                                        @endif
                                     </a></td>
                             </tr>
                         @endforeach

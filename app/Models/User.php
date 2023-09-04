@@ -81,11 +81,16 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Kesepakatan::class);
     }
+    public function notifikasis(): HasMany
+    {
+        return $this->hasMany(Notifikasi::class);
+    }
 
     public const IS_NASABAH = 'nasabah';
     public const IS_PIALANG = 'pialang';
     public const IS_BURSA = 'bursa';
     public const IS_BAPPEBTI = 'bappebti';
+
     public function getRelatedPengaduans(): Collection
     {
         switch ($this->role) {
@@ -158,5 +163,9 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->orderBy('tanggal_waktu', 'desc')->get();
         }
         return collect([]);
+    }
+    public function  countNewNotification(): int
+    {
+        return Notifikasi::where('user_id', $this->id)->where('is_seen', 0)->count();
     }
 }

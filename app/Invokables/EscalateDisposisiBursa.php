@@ -34,17 +34,16 @@ class EscalateDisposisiBursa
 
     private function createNotifikasi(Pengaduan $pengaduan)
     {
-        $notifications =  User::where('role', User::IS_BAPPEBTI)->get()
-            ->map(function (User $user) use ($pengaduan) {
+        User::where('role', User::IS_BAPPEBTI)->get()
+            ->each(function (User $user) use ($pengaduan) {
                 $subject = "Bursa Terlambat";
                 $content = 'Bursa ' . $pengaduan->bursa->user->name . ' gagal membuat kesepakatan dalam deadline yang ditentukan';
-                return new Notifikasi([
+                Notifikasi::create([
                     'subject' => $subject,
                     'content' => $content,
                     'link' => route('pengaduan.show', $pengaduan->id),
                     'user_id' => $user->id
                 ]);
             });
-        Notifikasi::insert($notifications->toArray());
     }
 }

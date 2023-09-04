@@ -11,6 +11,7 @@ class Notifikasi extends Model
     use HasFactory;
 
     protected $guarded = [];
+    public $timestamps = true;
 
     public function user(): BelongsTo
     {

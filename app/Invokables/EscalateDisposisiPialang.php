@@ -28,7 +28,7 @@ class EscalateDisposisiPialang
             });
             return $pengaduansQuery->update([
                 'status' => Pengaduan::STATUS_DISPOSISI_BURSA,
-                'is_pialang_late'=>true,
+                'is_pialang_late' => true,
                 'waktu_expires_bursa' => Carbon::now()->addWeekdays(21)
             ]);
         });
@@ -37,31 +37,29 @@ class EscalateDisposisiPialang
 
     private function createNotifikasi(Pengaduan $pengaduan)
     {
-        $notifications1 = User::where('role', User::IS_BAPPEBTI)->get()
-            ->map(function (User $user) use ($pengaduan) {
+        User::where('role', User::IS_BAPPEBTI)->get()
+            ->each(function (User $user) use ($pengaduan) {
                 $subject = "Pialang Terlambat";
                 $content = 'Pialang ' . $pengaduan->pialang->user->name . ' gagal membuat kesepakatan dalam deadline yang ditentukan';
-                return new Notifikasi([
+                Notifikasi::create([
                     'subject' => $subject,
                     'content' => $content,
                     'link' => route('pengaduan.show', $pengaduan->id),
                     'user_id' => $user->id
                 ]);
             });
-        Notifikasi::insert($notifications1->toArray());
 
-        $notifications2 = collect([$pengaduan->nasabah->user, $pengaduan->pialang->user, $pengaduan->bursa->user])
-            ->map(function (User $user) use ($pengaduan) {
+        collect([$pengaduan->nasabah->user, $pengaduan->pialang->user, $pengaduan->bursa->user])
+            ->each(function (User $user) use ($pengaduan) {
                 $subject = "Disposisi Bursa";
                 $waktuexpires =  Carbon::now()->addWeekdays(21);
                 $content = 'BAPPEBTI mendisposisikan bursa ' . $pengaduan->bursa->user->name . ' untuk menyelesaikan pengaduan hingga ' . $waktuexpires->isoFormat('dddd, D MMMM Y');
-                return new Notifikasi([
+                Notifikasi::create([
                     'subject' => $subject,
                     'content' => $content,
                     'link' => route('pengaduan.show', $pengaduan->id),
                     'user_id' => $user->id
                 ]);
             });
-        Notifikasi::insert($notifications2->toArray());
     }
 }

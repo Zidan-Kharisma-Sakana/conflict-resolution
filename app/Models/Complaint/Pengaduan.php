@@ -118,4 +118,17 @@ class Pengaduan extends Model
     {
         return empty($this->force_close_time) && in_array($this->status, array($this::STATUS_DISPOSISI_PIALANG, $this::STATUS_DISPOSISI_BURSA, $this::STATUS_DISPOSISI_BURSA_EXPIRED, $this::STATUS_CREATED));
     }
+    public function checkIfImportant(User $user)
+    {
+        switch ($user->role) {
+            case User::IS_BAPPEBTI:
+                return in_array($this->status, [$this::STATUS_CREATED]);
+            case User::IS_NASABAH:
+                return in_array($this->status, [$this::STATUS_DISPOSISI_PIALANG, $this::STATUS_DISPOSISI_BURSA]);
+            case User::IS_PIALANG:
+                return in_array($this->status, [$this::STATUS_DISPOSISI_PIALANG]);
+            case User::IS_BURSA:
+                return in_array($this->status, [$this::STATUS_DISPOSISI_BURSA]);
+        }
+    }
 }

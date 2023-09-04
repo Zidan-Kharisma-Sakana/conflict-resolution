@@ -34,5 +34,6 @@ require __DIR__ . '/pengaduan.php';
 require __DIR__ . '/musyawarah.php';
 require __DIR__ . '/mediasi.php';
 require __DIR__ . '/kesepakatan.php';
+require __DIR__ . '/notifikasi.php';
 
 require __DIR__ . '/auth.php';

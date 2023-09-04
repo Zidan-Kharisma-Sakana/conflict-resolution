@@ -33,18 +33,17 @@ class ThrowDeadlineBursaWarning
 
     private function createNotifikasi(Pengaduan $pengaduan)
     {
-        $notifications = collect([$pengaduan->bursa->user])
-            ->map(function (User $user) use ($pengaduan) {
+        collect([$pengaduan->bursa->user])
+            ->each(function (User $user) use ($pengaduan) {
                 $subject = "Peringatan Deadline dalam 7 hari";
                 $waktuexpires =  Carbon::now()->addWeekdays(7);
                 $content = 'BAPPEBTI memperingatkan bursa ' . $pengaduan->bursa->user->name . ' untuk menyelesaikan pengaduan hingga ' . $waktuexpires->isoFormat('dddd, D MMMM Y');
-                return new Notifikasi([
+                Notifikasi::create([
                     'subject' => $subject,
                     'content' => $content,
                     'link' => route('pengaduan.show', $pengaduan->id),
                     'user_id' => $user->id
                 ]);
             });
-        Notifikasi::insert($notifications->toArray());
     }
 }

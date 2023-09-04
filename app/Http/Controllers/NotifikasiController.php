@@ -12,9 +12,16 @@ class NotifikasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('notifikasi.index', [
+            'user' => $request->user(),
+            'notifikasis' => Notifikasi::where('user_id', $request->user()->id)
+                ->orderBy('is_seen', "ASC")
+                ->orderBy('created_at', "DESC")
+                ->limit(50)
+                ->get()
+        ]);
     }
 
     /**
@@ -22,6 +29,8 @@ class NotifikasiController extends Controller
      */
     public function update(Request $request, Notifikasi $notifikasi)
     {
-        //
+        $notifikasi->is_seen = true;
+        $notifikasi->save();
+        return redirect()->away($notifikasi->link);
     }
 }

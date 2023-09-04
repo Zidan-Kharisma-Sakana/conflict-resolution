@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Invokables;
+
 use App\Mail\DeadlineBursa;
 use App\Mail\DeadlinePialang;
 use App\Models\Complaint\Pengaduan;
@@ -9,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+
 class ThrowDeadlinePialangWarning
 {
     public function __invoke()
@@ -32,18 +34,16 @@ class ThrowDeadlinePialangWarning
 
     private function createNotifikasi(Pengaduan $pengaduan)
     {
-        $notifications = collect([$pengaduan->pialang->user])
-            ->map(function (User $user) use ($pengaduan) {
+        collect([$pengaduan->pialang->user])->each(function (User $user) use ($pengaduan) {
                 $subject = "Peringatan Deadline dalam 7 hari";
                 $waktuexpires =  Carbon::now()->addWeekdays(7);
                 $content = 'BAPPEBTI memperingatkan pialang ' . $pengaduan->pialang->user->name . ' untuk menyelesaikan pengaduan hingga ' . $waktuexpires->isoFormat('dddd, D MMMM Y');
-                return new Notifikasi([
+                Notifikasi::create([
                     'subject' => $subject,
                     'content' => $content,
                     'link' => route('pengaduan.show', $pengaduan->id),
                     'user_id' => $user->id
                 ]);
             });
-        Notifikasi::insert($notifications->toArray());
     }
 }
