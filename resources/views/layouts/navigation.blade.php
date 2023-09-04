@@ -34,9 +34,16 @@
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('notifikasi.index')" :active="request()->routeIs('notifikasi.index')">
+                        @php
+                            $count = Auth::user()->countNewNotification();
+                        @endphp
                         <div class="relative">
                             <p>Notifikasi</p>
-                            <div class="absolute -right-6 -top-2 p-1 text-white font-bold bg-red-500 rounded-full text-xs w-5 h-5 flex items-center justify-center">{{ Auth::user()->countNewNotification() }}</div>
+                            @if ($count)
+                                <div
+                                    class="absolute -right-6 -top-2 p-1 text-white font-bold bg-red-500 rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                                    {{ $count }}</div>
+                            @endif
                         </div>
                     </x-nav-link>
                 </div>
