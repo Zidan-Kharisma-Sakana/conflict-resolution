@@ -3,19 +3,36 @@
     <table>
         <tr>
             <td>Harian</td>
-            <td>{{ ': ' . $data['pengaduanCount']['daily'] . ' pengaduan'}}</td>
+            <td>{{ ': ' . $data['pengaduanCount']['daily'] . ' pengaduan' }}</td>
         </tr>
         <tr>
             <td>Mingguan</td>
-            <td>{{ ': ' . $data['pengaduanCount']['weekly'] . ' pengaduan'}}</td>
+            <td>{{ ': ' . $data['pengaduanCount']['weekly'] . ' pengaduan' }}</td>
         </tr>
         <tr>
             <td>Bulanan</td>
-            <td>{{ ': ' . $data['pengaduanCount']['monthly'] . ' pengaduan'}}</td>
+            <td>{{ ': ' . $data['pengaduanCount']['monthly'] . ' pengaduan' }}</td>
         </tr>
         <tr>
             <td>Total</td>
-            <td>{{ ': ' . $data['pengaduanCount']['allTime'] . ' pengaduan'}}</td>
+            <td>{{ ': ' . $data['pengaduanCount']['total'] . ' pengaduan' }}</td>
         </tr>
     </table>
+    @if (in_array($user->role, [\App\Models\User::IS_BAPPEBTI, \App\Models\User::IS_BURSA, \App\Models\User::IS_PIALANG]))
+        <h6 class="text-xl font-medium mt-4">Total Pengaduan Terlambat</h6>
+        <table>
+            @if (in_array($user->role, [\App\Models\User::IS_BAPPEBTI, \App\Models\User::IS_PIALANG]))
+                <tr>
+                    <td>Pialang Terlambat</td>
+                    <td>{{ ': ' . $data['pengaduanCount']['total_pialang_late'] . ' pengaduan' }}</td>
+                </tr>
+            @endif
+            @if (in_array($user->role, [\App\Models\User::IS_BAPPEBTI, \App\Models\User::IS_BURSA]))
+                <tr>
+                    <td>Bursa Terlambat</td>
+                    <td>{{ ': ' . $data['pengaduanCount']['total_bursa_late'] . ' pengaduan' }}</td>
+                </tr>
+            @endif
+        </table>
+    @endif
 </div>

@@ -2,8 +2,8 @@ import { months as getMonths } from "./utils";
 
 document.addEventListener("DOMContentLoaded", function (event) {
     console.log(data);
-    createBarChartStatusYearly(data.pengaduanStats);
-    createLineChartYearly(data.pengaduanTrend);
+    createBarChartStatusYearly(data.yearly.byStatus);
+    createLineChartYearly(data.yearly.byMonth);
 });
 function createBarChartStatusYearly({
     created,
@@ -39,6 +39,7 @@ function createBarChartStatusYearly({
                         finished,
                         closed,
                     ],
+                    backgroundColor: "rgb(75, 192, 192)",
                     borderWidth: 1,
                 },
             ],
@@ -71,7 +72,12 @@ function createLineChartYearly(pengaduanTrend) {
                     label: "Jumlah Pengaduan",
                     data: pengaduanTrend,
                     fill: false,
-                    borderColor: "rgb(75, 192, 192)",
+                    tension: 0.1,
+                },
+                {
+                    label: "Jumlah Pengaduan Terlambat",
+                    data: pengaduanTrend.map((x)=> 0),
+                    fill: false,
                     tension: 0.1,
                 },
             ],
