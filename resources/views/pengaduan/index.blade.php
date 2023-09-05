@@ -81,56 +81,7 @@
 
     </div>
     <x-slot name="script">
-        <script>
-            document.addEventListener("DOMContentLoaded", function(event) {
-                let table = new DataTable('#myTable', {
-                    "ordering": false,
-                    "columnDefs": [{
-                        "targets": [1, 2, 3, 4, 5, 6],
-                        "orderable": false
-                    }, {
-                        "targets": [0, 5],
-                        "width": '20%'
-                    }, {
-                        "targets": [6],
-                        "width": '80px'
-                    }],
-                    initComplete: function() {
-                        this.api()
-                            .columns([2, 3, 4])
-                            .every(function() {
-                                let column = this;
-                                // console.log(this)
-
-                                // Create select element
-                                let select = document.createElement('select');
-
-                                select.add(new Option('Semua', ''));
-                                console.log(column.footer())
-                                column.footer().replaceChildren(select);
-
-                                // Apply listener for user change in value
-                                select.addEventListener('change', function() {
-                                    var val = DataTable.util.escapeRegex(select.value);
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                                // Add list of options
-                                column
-                                    .data()
-                                    .unique()
-                                    .sort()
-                                    .each(function(d, j) {
-                                        select.add(new Option(d));
-                                    });
-                            });
-                    }
-                });
-            });
-        </script>
+        @vite(['resources/js/pengaduan.js'])
         {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> --}}

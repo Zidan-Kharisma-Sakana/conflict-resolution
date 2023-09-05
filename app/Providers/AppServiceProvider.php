@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Interfaces\AuthServiceInterface;
+use App\Interfaces\DashboardServiceInterface;
 use App\Interfaces\KesepakatanServiceInterface;
 use App\Interfaces\MediasiServiceInterface;
 use App\Interfaces\MusyawarahServiceInterface;
 use App\Interfaces\NotifikasiServiceInterface;
 use App\Interfaces\PengaduanServiceInterface;
 use App\Services\AuthService;
+use App\Services\DashboardService;
 use App\Services\KesepakatanService;
 use App\Services\MediasiService;
 use App\Services\MusyawarahService;
@@ -33,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MediasiServiceInterface::class, MediasiService::class);
         $this->app->bind(KesepakatanServiceInterface::class, KesepakatanService::class);
         $this->app->bind(NotifikasiServiceInterface::class, NotifikasiService::class);
+        $this->app->bind(DashboardServiceInterface::class, DashboardService::class);
     }
 
     /**

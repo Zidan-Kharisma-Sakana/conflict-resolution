@@ -103,7 +103,7 @@ class PengaduanController extends Controller
      */
     public function destroy(Request $request, Pengaduan $pengaduan)
     {
-        $this->authorize("delete",[$pengaduan]);
+        $this->authorize("delete", [$pengaduan]);
         $pengaduan = $this->pengaduanService->forceClosePengaduan($request, $pengaduan->id);
         $this->notifikasiService->pengaduanCancelled($pengaduan);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-force-close');

@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Profile;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Interfaces\DashboardServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,12 +13,22 @@ use Illuminate\View\View;
 
 class AccountController extends Controller
 {
+    public function __construct(private DashboardServiceInterface $dashboardService)
+    {
+    }
+
+    public function index(Request $request)
+    {
+        return view('dashboard.index', [
+            'user' => $request->user(),
+            'data' => $this->dashboardService->getDashboardData($request->user())
+        ]);
+    }
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        // dd($request->user());
         return view('account.edit', [
             'user' => $request->user(),
         ]);

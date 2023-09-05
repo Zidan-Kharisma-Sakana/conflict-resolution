@@ -122,7 +122,7 @@ class Pengaduan extends Model
     {
         switch ($user->role) {
             case User::IS_BAPPEBTI:
-                return in_array($this->status, [$this::STATUS_CREATED]);
+                return in_array($this->status, [$this::STATUS_CREATED, $this::STATUS_DISPOSISI_BURSA_EXPIRED, $this::STATUS_FINISHED]);
             case User::IS_NASABAH:
                 return in_array($this->status, [$this::STATUS_DISPOSISI_PIALANG, $this::STATUS_DISPOSISI_BURSA]);
             case User::IS_PIALANG:
