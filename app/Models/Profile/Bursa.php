@@ -2,6 +2,7 @@
 
 namespace App\Models\Profile;
 
+use App\Models\Complaint\Pengaduan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
