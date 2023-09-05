@@ -52,14 +52,23 @@ class DashboardService implements DashboardServiceInterface
 
     private function findPengaduanYearlyByMonths(Collection $pengaduans)
     {
-        $pengaduanNotRejected = $pengaduans->filter(fn ($item) => $item->status != Pengaduan::STATUS_REJECTED);
-        $result = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        $counts = $pengaduanNotRejected->map(function ($pengaduan) {
+        $pengaduans = $pengaduans->filter(fn ($item) => $item->status != Pengaduan::STATUS_REJECTED);
+        $results = [
+            'total' => array_fill(0, 12, 0),
+            'pialang_late' => array_fill(0, 12, 0),
+            'bursa_late' => array_fill(0, 12, 0),
+        ];
+        $countsByMonth = $pengaduans->map(function ($pengaduan) {
             return Carbon::parse($pengaduan->waktu_dibuat)->month;
         })->countBy();
-        foreach ($counts as $key => $value) {
-            $result[($key - 1)] = $value;
+        foreach ($countsByMonth as $key => $value) {
+            $results['total'][($key - 1)] = $value;
         }
-        return collect($result);
+        foreach($pengaduans as $pengaduan){
+            $index = (Carbon::parse($pengaduan->waktu_dibuat)->month) - 1;
+            $results['pialang_late'][$index] += $pengaduan->is_pialang_late ?? 0;
+            $results['bursa_late'][$index] += $pengaduan->is_bursa_late ?? 0;
+        }
+        return collect($results);
     }
 }

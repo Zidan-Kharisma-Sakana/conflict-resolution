@@ -59,7 +59,7 @@ function createBarChartStatusYearly({
         },
     });
 }
-function createLineChartYearly(pengaduanTrend) {
+function createLineChartYearly(byMonth) {
     const months = getMonths({ count: 12 });
     console.log(months);
     const ctx = document.getElementById("lineChart");
@@ -70,13 +70,19 @@ function createLineChartYearly(pengaduanTrend) {
             datasets: [
                 {
                     label: "Jumlah Pengaduan",
-                    data: pengaduanTrend,
+                    data: byMonth.total,
                     fill: false,
                     tension: 0.1,
                 },
                 {
-                    label: "Jumlah Pengaduan Terlambat",
-                    data: pengaduanTrend.map((x)=> 0),
+                    label: "Pialang Terlambat",
+                    data: byMonth.pialang_late,
+                    fill: false,
+                    tension: 0.1,
+                },
+                {
+                    label: "Bursa Terlambat",
+                    data: byMonth.bursa_late,
                     fill: false,
                     tension: 0.1,
                 },
