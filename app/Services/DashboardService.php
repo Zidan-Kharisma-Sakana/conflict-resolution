@@ -11,24 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DashboardService implements DashboardServiceInterface
 {
-    public function getDashboardData(User $user)
-    {
-        $pengaduans = $user->getRelatedPengaduans();
-        return [
-            'pengaduanCount' =>  $this->findPengaduanCount($pengaduans),
-            'yearly' => $this->findYearly($user, $pengaduans)
-        ];
-    }
-    private function findYearly(User $user, Collection $pengaduans)
-    {
-        return [
-            'byMonth' => $this->findPengaduanYearlyByMonths($pengaduans),
-            'byStatus' =>  $pengaduans->countBy(function ($pengaduan) {
-                return $pengaduan['status'];
-            })
-        ];
-    }
-    private function findPengaduanCount(Collection $pengaduans)
+    public function getPengaduanStatsData(Collection $pengaduans)
     {
         $pengaduanNotRejected = $pengaduans->filter(fn ($item) => $item->status != Pengaduan::STATUS_REJECTED);
         $count = [
@@ -50,7 +33,20 @@ class DashboardService implements DashboardServiceInterface
         return collect($count);
     }
 
-    private function findPengaduanYearlyByMonths(Collection $pengaduans)
+    public function getYearlyPengaduanData(Collection $pengaduans)
+    {
+        return [
+            'byMonth' => $this->groupYearlyPengaduanByMonth($pengaduans),
+            'byStatus' => $this->groupYearlyPengaduanByStatus($pengaduans)
+        ];
+    }
+
+    public function getActivePengaduanData(Collection $pengaduans)
+    {
+
+    }
+
+    private function groupYearlyPengaduanByMonth(Collection $pengaduans)
     {
         $pengaduans = $pengaduans->filter(fn ($item) => $item->status != Pengaduan::STATUS_REJECTED);
         $results = [
@@ -64,11 +60,16 @@ class DashboardService implements DashboardServiceInterface
         foreach ($countsByMonth as $key => $value) {
             $results['total'][($key - 1)] = $value;
         }
-        foreach($pengaduans as $pengaduan){
+        foreach ($pengaduans as $pengaduan) {
             $index = (Carbon::parse($pengaduan->waktu_dibuat)->month) - 1;
             $results['pialang_late'][$index] += $pengaduan->is_pialang_late ?? 0;
             $results['bursa_late'][$index] += $pengaduan->is_bursa_late ?? 0;
         }
         return collect($results);
+    }
+    private function groupYearlyPengaduanByStatus(Collection $pengaduans){
+        return $pengaduans->countBy(function ($pengaduan) {
+            return $pengaduan['status'];
+        });
     }
 }

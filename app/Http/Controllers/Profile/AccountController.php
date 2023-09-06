@@ -20,9 +20,13 @@ class AccountController extends Controller
 
     public function index(Request $request)
     {
+        $pengaduans = $request->user()->getRelatedPengaduans();
         return view('dashboard.index', [
             'user' => $request->user(),
-            'data' => $this->dashboardService->getDashboardData($request->user())
+            'data' => [
+                'pengaduanCount' => $this->dashboardService->getPengaduanStatsData($pengaduans),
+                'yearly' => $this->dashboardService->getYearlyPengaduanData($pengaduans)
+            ]
         ]);
     }
     /**
