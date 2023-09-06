@@ -54,6 +54,9 @@ class PengaduanService implements PengaduanServiceInterface
         $pengaduan = Pengaduan::where('id', $id)->where('status', Pengaduan::STATUS_CREATED)->firstOrFail();
         $pengaduan->status = Pengaduan::STATUS_REJECTED;
         $pengaduan->alasan_penolakan = $request->alasan_penolakan;
+        if (!empty($request->file("dokumen_penolakan"))) {
+            $pengaduan->alasan_penolakan_file = $request->file("dokumen_penolakan")->store("pengaduan");
+        }
         $pengaduan->save();
         return $pengaduan;
     }

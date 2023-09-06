@@ -15,7 +15,7 @@
                     <h6>KTP Pelapor</h6>
                 </td>
                 <td>
-                    <input type="file" id="documents[ktp]" name="documents[ktp]" accept="image/*,.pdf" />
+                    <x-form.input.file-input id="documents[ktp]" name="documents[ktp]" />
                 </td>
             </tr>
             <tr>
@@ -23,15 +23,14 @@
                     <h6>Bukti Transfer</h6>
                 </td>
                 <td>
-                    <input type="file" id="documents[transfer]" name="documents[transfer]" accept="image/*,.pdf" />
+                    <x-form.input.file-input id="documents[transfer]" name="documents[transfer]" />
                 </td>
             </tr>
             <tr>
                 <td>
                     <h6>Dokumen Pendukung (opsional)</h6>
                 </td>
-                <td> <input type="file" id="documents[pendukung]" name="documents[pendukung]"
-                        accept="image/*,.pdf" />
+                <td> <x-form.input.file-input id="documents[pendukung]" name="documents[pendukung]" />
                 </td>
             </tr>
             <tr>
@@ -39,7 +38,7 @@
                     <h6>Surat Kuasa (jika dikuasakan)</h6>
                 </td>
                 <td>
-                    <input type="file" id="documents[kuasa]" name="documents[kuasa]" accept="image/*,.pdf" />
+                    <x-form.input.file-input id="documents[kuasa]" name="documents[kuasa]" />
                 </td>
             </tr>
         </table>

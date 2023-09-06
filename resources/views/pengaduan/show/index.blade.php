@@ -72,6 +72,19 @@
                             </tr>
                             @if ($pengaduan->status == \App\Models\Complaint\Pengaduan::STATUS_REJECTED)
                                 <tr>
+                                    <td>File Alasan Penolakan</td>
+                                    <td>
+                                        @if (!empty($pengaduan->alasan_penolakan_file))
+                                            <a target="_blank" rel="noopener noreferrer"
+                                                href="/storage/{{ $pengaduan->alasan_penolakan_file }}">
+                                                : [File]
+                                            </a>
+                                        @else
+                                            <p>: -</p>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Alasan Penolakan</td>
                                     <td>:</td>
                                 </tr>

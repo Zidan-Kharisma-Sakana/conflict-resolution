@@ -15,7 +15,7 @@
                 <tr>
                     <td> <x-form.input-label for="kesepakatan[file]" value="File Pendukung" />
                     </td>
-                    <td class="flex items-center pt-1">: <x-form.input.text-input type="file" id="kesepakatan[file]"
+                    <td class="flex items-center pt-1">: <x-form.input.file-input type="file" id="kesepakatan[file]"
                             name="kesepakatan[file]" class="ml-1" /></td>
                 </tr>
             </table>

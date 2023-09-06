@@ -34,7 +34,7 @@
             @if (empty($musyawarah->hasil) && $user->role == \App\Models\User::IS_PIALANG)
                 {{-- show form --}}
                 <div>
-                    <x-form.input.text-input type="file" id="file_hasil" name="file_hasil" class="ml-1" />
+                    <x-form.input.file-input type="file" id="file_hasil" name="file_hasil" class="ml-1" />
                     @error('file_hasil')
                         <x-form.input-error :messages="$errors->get('file_hasil')" />
                     @enderror

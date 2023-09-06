@@ -86,7 +86,8 @@ class PengaduanController extends Controller
         $this->authorize("update", [$pengaduan]);
         if ($request->subject == 'reject') {
             $request->validate([
-                "alasan_penolakan" => ['required', 'string']
+                "alasan_penolakan" => ['required', 'string'],
+                "dokumen_penolakan" => ['nullable', 'mimes:jpeg,pdf,jpg,png'],
             ]);
             $pengaduan = $this->pengaduanService->rejectPengaduan($request, $pengaduan->id);
             $this->notifikasiService->pengaduanRejected($pengaduan);

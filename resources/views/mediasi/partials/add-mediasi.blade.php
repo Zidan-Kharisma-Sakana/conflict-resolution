@@ -35,7 +35,7 @@
                 <tr>
                     <td> <x-form.input-label for="file_undangan" value="File Undangan" />
                     </td>
-                    <td class="flex items-center pt-1">: <x-form.input.text-input type="file" id="file_undangan" name="file_undangan" class="ml-1" /></td>
+                    <td class="flex items-center pt-1">: <x-form.input.file-input type="file" id="file_undangan" name="file_undangan" class="ml-1" /></td>
                 </tr>
             </table>
             <x-primary-button class="mt-4">Save</x-primary-button>

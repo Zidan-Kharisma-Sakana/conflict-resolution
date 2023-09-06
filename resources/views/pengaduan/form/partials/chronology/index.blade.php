@@ -28,8 +28,7 @@
                 </td>
                 <td>
                     <div>
-                        <input type="file" id="documents[kronologi]" name="documents[kronologi]"
-                            accept="image/*,.pdf" />
+                        <x-form.input.file-input  id="documents[kronologi]" name="documents[kronologi]"/>
                         @error('documents.kronologi')
                             <x-form.input-error class="mt-2" messages="this field only accept pdf & image" />
                         @enderror
