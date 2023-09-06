@@ -43,7 +43,10 @@ class DashboardService implements DashboardServiceInterface
 
     public function getActivePengaduanData(Collection $pengaduans)
     {
-
+        return [
+            'byYear' => $this->groupActivePengaduanByYear($pengaduans),
+            'byPialang'=>$this->groupActivePengaduanByPialang($pengaduans)
+        ];
     }
 
     private function groupYearlyPengaduanByMonth(Collection $pengaduans)
@@ -67,9 +70,20 @@ class DashboardService implements DashboardServiceInterface
         }
         return collect($results);
     }
-    private function groupYearlyPengaduanByStatus(Collection $pengaduans){
-        return $pengaduans->countBy(function ($pengaduan) {
-            return $pengaduan['status'];
+    private function groupYearlyPengaduanByStatus(Collection $pengaduans)
+    {
+        return $pengaduans->countBy('status');
+    }
+    private function groupActivePengaduanByYear(Collection $pengaduans)
+    {
+        return $pengaduans->filter(fn ($pengaduan) => !in_array($pengaduan->status, [Pengaduan::STATUS_CLOSED, Pengaduan::STATUS_REJECTED]))->countBy(function ($pengaduan) {
+            return Carbon::parse($pengaduan->waktu_dibuat)->year;
+        });
+    }
+    private function groupActivePengaduanByPialang(Collection $pengaduans)
+    {
+        return $pengaduans->filter(fn ($pengaduan) => !in_array($pengaduan->status, [Pengaduan::STATUS_CLOSED, Pengaduan::STATUS_REJECTED]))->countBy(function ($pengaduan) {
+            return $pengaduan->pialang->user->name;
         });
     }
 }

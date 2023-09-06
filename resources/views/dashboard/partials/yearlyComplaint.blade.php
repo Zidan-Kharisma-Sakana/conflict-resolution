@@ -10,10 +10,10 @@
     </div>
     <div class="grid grid-cols-2 gap-x-8">
         <div class="">
-            <canvas id="statusChart"></canvas>
+            <canvas id="yearlyByStatus"></canvas>
         </div>
         <div class="">
-            <canvas id="lineChart"></canvas>
+            <canvas id="yearlyByMonth"></canvas>
         </div>
     </div>
 </section>

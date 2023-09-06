@@ -14,7 +14,7 @@ function createBarChartStatusYearly({
     finished,
     rejected,
 }) {
-    const ctx = document.getElementById("statusChart");
+    const ctx = document.getElementById("yearlyByStatus");
     new Chart(ctx, {
         type: "bar",
         data: {
@@ -62,7 +62,7 @@ function createBarChartStatusYearly({
 function createLineChartYearly(byMonth) {
     const months = getMonths({ count: 12 });
     console.log(months);
-    const ctx = document.getElementById("lineChart");
+    const ctx = document.getElementById("yearlyByMonth");
     new Chart(ctx, {
         type: "line",
         data: {

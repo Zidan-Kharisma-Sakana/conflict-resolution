@@ -25,7 +25,8 @@ class AccountController extends Controller
             'user' => $request->user(),
             'data' => [
                 'pengaduanCount' => $this->dashboardService->getPengaduanStatsData($pengaduans),
-                'yearly' => $this->dashboardService->getYearlyPengaduanData($pengaduans)
+                'yearly' => $this->dashboardService->getYearlyPengaduanData($pengaduans),
+                'active' => $this->dashboardService->getActivePengaduanData($pengaduans)
             ]
         ]);
     }
