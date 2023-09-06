@@ -6,9 +6,13 @@
     </header>
     <table class="">
         <tbody>
-            <tr>
+            <tr class="capitalize">
                 <td>Nama Pialang</td>
                 <td>{{ ': ' . $pengaduan->pialang->user->name }}</td>
+            </tr>
+            <tr class="capitalize">
+                <td>Cabang Pialang</td>
+                <td>{{ ': ' . $pengaduan->pialang_cabang }}</td>
             </tr>
             <tr>
                 <td>Email Pialang</td>
@@ -18,7 +22,7 @@
                 <td>Alamat Pialang</td>
                 <td>{{ ': ' . ($pengaduan->pialang->alamat ?? '-') }}</td>
             </tr>
-            <tr>
+            <tr class="capitalize">
                 <td>Nama Bursa</td>
                 <td>{{ ': ' . $pengaduan->bursa->user->name }}</td>
             </tr>

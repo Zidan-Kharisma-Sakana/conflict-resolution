@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('pengaduans', function (Blueprint $table) {
             $table->string('alasan_penolakan_file')->nullable();
+            $table->string('pialang_cabang')->default('Jakarta');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('pengaduans', function (Blueprint $table) {
             $table->dropColumn('alasan_penolakan_file');
+            $table->dropColumn('pialang_cabang');
         });
     }
 };

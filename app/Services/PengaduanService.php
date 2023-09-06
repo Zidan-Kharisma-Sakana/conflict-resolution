@@ -23,11 +23,17 @@ class PengaduanService implements PengaduanServiceInterface
             unset($terlapor['company']);
             $pialang = Pialang::with("bursa")->find((int) $validated['terlapor']['company']['id']);
             $pengaduan = Pengaduan::create([
-                'terlapor' => $terlapor,
+                'terlapor' => collect($terlapor)->map(function ($orang) {
+                    return [
+                        'nama' => $orang['nama'],
+                        'jabatan' => isset($orang['nama']) ?  ($orang['jabatan'] ?? 'Lainnya/Karyawan') : null
+                    ];
+                }),
                 'kerugian' => $validated['kerugian'],
                 'status' => Pengaduan::STATUS_CREATED,
                 'nasabah_id' => (int) $request->user()->nasabah->id,
                 'pialang_id' => (int) $pialang->id,
+                'pialang_cabang' => $validated['terlapor']['company']['cabang'],
                 'bursa_id' => (int) $pialang->bursa->id,
                 'kronologi' => $validated['kronologi']['description'],
                 'waktu_dibuat' => Carbon::now(),

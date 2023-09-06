@@ -12,10 +12,10 @@
         <h3 class="text-lg font-medium text-gray-900">
             {{ __('A. Identitas Perusahaan Terlapor') }}
         </h3>
-        <div class="grid grid-cols-3 items-center">
-            <x-form.input-label for="terlapor[company][id]" :value="__('Nama Perusahaan')" />
+        <div class="grid grid-cols-3 items-baseline gap-4">
+            <x-form.input-label required for="terlapor[company][id]" :value="__('Nama Perusahaan')" />
             <div class="col-span-2">
-                <select autofocus id="terlapor[company][id]" name="terlapor[company][id]"
+                <select required autofocus id="terlapor[company][id]" name="terlapor[company][id]"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
                     <option value="" disabled selected>Not Selected</option>
                     @foreach ($companies as $company)
@@ -28,9 +28,13 @@
                     <x-form.input-error class="mt-2" messages="this field is required" />
                 @enderror
             </div>
+            <x-form.input-label required for="terlapor[company][cabang]" :value="__('Cabang Perusahaan')" />
+            <div class="col-span-2 flex items-baseline">
+                <x-form.input.text-input id="terlapor[company][cabang]" name="terlapor[company][cabang]" type="text"
+                    class="w-full" :value="old('terlapor.company.cabang')" required autofocus />˝
+            </div>
         </div>
     </div>
-
 
     <div class="mt-4">
         <h3 class="text-lg font-medium text-gray-900">
@@ -46,9 +50,12 @@
                         <x-form.input-error class="mt-2" :messages="$errors->get('terlapor[orang_1][nama]')" />
                     </div>
                     <div>
-                        <x-form.input.text-input id="terlapor[orang_1][jabatan]"
-                            name="terlapor[orang_1][jabatan]" type="text" class="mt-1 block w-full"
-                            :value="old('terlapor.orang_1.jabatan')" autofocus />
+                        <select id="terlapor[orang_1][jabatan]" name="terlapor[orang_1][jabatan]"
+                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                            @include('pengaduan.form.partials.accused.options', [
+                                'key' => 'terlapor.orang_1.jabatan',
+                            ])
+                        </select>
                         <x-form.input-error class="mt-2" :messages="$errors->get('terlapor.orang_1.jabatan')" />
                     </div>
                 </div>
@@ -62,9 +69,12 @@
                         <x-form.input-error class="mt-2" :messages="$errors->get('terlapor.orang_2.nama')" />
                     </div>
                     <div>
-                        <x-form.input.text-input id="terlapor[orang_2][jabatan]"
-                            name="terlapor[orang_2][jabatan]" type="text" class="mt-1 block w-full"
-                            :value="old('terlapor.orang_2.jabatan')" autofocus />
+                        <select id="terlapor[orang_2][jabatan]" name="terlapor[orang_2][jabatan]"
+                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                            @include('pengaduan.form.partials.accused.options', [
+                                'key' => 'terlapor.orang_2.jabatan',
+                            ])
+                        </select>
                         <x-form.input-error class="mt-2" :messages="$errors->get('terlapor.orang_2.jabatan')" />
                     </div>
                 </div>
@@ -78,9 +88,12 @@
                         <x-form.input-error class="mt-2" :messages="$errors->get('terlapor.orang_3.nama')" />
                     </div>
                     <div>
-                        <x-form.input.text-input id="terlapor[orang_3][jabatan"
-                            name="terlapor[orang_3][jabatan]" type="text" class="mt-1 block w-full"
-                            :value="old('terlapor.orang_3.jabatan')" autofocus />
+                        <select id="terlapor[orang_3][jabatan]" name="terlapor[orang_3][jabatan]"
+                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                            @include('pengaduan.form.partials.accused.options', [
+                                'key' => 'terlapor.orang_3.jabatan',
+                            ])
+                        </select>
                         <x-form.input-error class="mt-2" :messages="$errors->get('terlapor.orang_3.jabatan')" />
                     </div>
                 </div>

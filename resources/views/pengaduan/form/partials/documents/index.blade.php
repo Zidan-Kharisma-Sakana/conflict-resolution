@@ -12,7 +12,7 @@
         <table>
             <tr>
                 <td>
-                    <h6>KTP Pelapor</h6>
+                    <x-form.input-label required for="documents[ktp]" :value="__('Scan KTP Pelapor')" />
                 </td>
                 <td>
                     <x-form.input.file-input id="documents[ktp]" name="documents[ktp]" />
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>
-                    <h6>Bukti Transfer</h6>
+                    <x-form.input-label required for="documents[transfer]" :value="__('Bukti Transfer')" />
                 </td>
                 <td>
                     <x-form.input.file-input id="documents[transfer]" name="documents[transfer]" />
@@ -28,14 +28,14 @@
             </tr>
             <tr>
                 <td>
-                    <h6>Dokumen Pendukung (opsional)</h6>
+                    <x-form.input-label for="documents[pendukung]" :value="__('Dokumen Pendukung Lain (opsional)')" />
                 </td>
                 <td> <x-form.input.file-input id="documents[pendukung]" name="documents[pendukung]" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h6>Surat Kuasa (jika dikuasakan)</h6>
+                    <x-form.input-label for="documents[kuasa]" :value="__('Surat Kuasa (Jika Dikuasakan)')" />
                 </td>
                 <td>
                     <x-form.input.file-input id="documents[kuasa]" name="documents[kuasa]" />

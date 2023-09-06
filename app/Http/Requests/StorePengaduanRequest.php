@@ -25,6 +25,7 @@ class StorePengaduanRequest extends FormRequest
     {
         return [
             "terlapor.company.id" => ['required'],
+            'terlapor.company.cabang' => ['required', 'string'],
             "terlapor.*.*" => [''],
             "pertanyaan.kuasa.*" => ['required', 'string'],
             "pertanyaan.broker.*" => ['required', 'string'],
