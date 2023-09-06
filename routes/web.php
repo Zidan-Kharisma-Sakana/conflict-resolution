@@ -19,10 +19,14 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard');
-    Route::get('/account', [AccountController::class, 'edit'])->name('account.edit');
-    Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
-    Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
+    Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
+    Route::get('/account', [AccountController::class, 'index'])->name('account.index');
+    Route::get('/account/{user}', [AccountController::class, 'show'])->name('account.show');
+    Route::delete('/account/{user}', [AccountController::class, 'delete'])->name('account.delete');
+
+    Route::get('/account/me', [AccountController::class, 'edit'])->name('account.edit');
+    Route::patch('/account/me', [AccountController::class, 'update'])->name('account.update');
+    Route::delete('/account/me', [AccountController::class, 'destroy'])->name('account.destroy');
 });
 
 

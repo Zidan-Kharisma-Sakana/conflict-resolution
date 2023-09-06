@@ -7,24 +7,27 @@
     </x-slot>
     <div class="py-8">
         {{-- @dd($data) --}}
+        <a href="{{ route('account.index') }}">
+            <div
+                class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 flex items-center gap-x-4 font-semibold text-lg text-gray-800 leading-tight mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Daftar Semua Pengguna</span>
+            </div>
+        </a>
         <div class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 space-y-6">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 sm:p-8 grid grid-cols-1 gap-y-4">
-                <h4 class="text-2xl font-bold">Selamat Datang di Sistem Pengaduan Online BAPPEBTI</h4>
-                @can('create', \App\Models\Complaint\Pengaduan::class)
-                    <div class="w-full flex justify-end">
-                        <a href="{{ route('pengaduan.create') }}">
-                            <x-primary-button>Tambah Pengaduan</x-primary-button>
-                        </a>
-                    </div>
-                @endcan
                 <section id="identity" class="grid grid-cols-2 gap-8">
-                    @include('dashboard.partials.identity')
-                    @include('dashboard.partials.period')
+                    @include('account.partials.dashboard.identity')
+                    @include('account.partials.dashboard.period')
                 </section>
                 <div class="border-t w-full"></div>
-                @include('dashboard.partials.activeComplaint')
+                @include('account.partials.dashboard.activeComplaint')
                 <div class="border-t w-full"></div>
-                @include('dashboard.partials.yearlyComplaint')
+                @include('account.partials.dashboard.yearlyComplaint')
             </div>
         </div>
     </div>

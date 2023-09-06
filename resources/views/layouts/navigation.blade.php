@@ -32,6 +32,13 @@
                         Mediasi
                     </x-nav-link>
                 </div>
+                @if (Auth::user()->role == \App\Models\User::IS_BAPPEBTI)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('account.index')" :active="request()->routeIs('account.index')">
+                            Daftar Pengguna
+                        </x-nav-link>
+                    </div>
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('notifikasi.index')" :active="request()->routeIs('notifikasi.index')">
                         @php

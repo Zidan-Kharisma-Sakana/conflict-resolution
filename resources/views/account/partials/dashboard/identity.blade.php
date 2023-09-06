@@ -1,5 +1,5 @@
 <div>
-    <h6 class="text-xl font-medium">Identitas Anda</h6>
+    <h6 class="text-xl font-medium">Identitas Pengguna</h6>
     <table>
         <tr>
             <td>Nama</td>

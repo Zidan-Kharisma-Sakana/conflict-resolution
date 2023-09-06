@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Interfaces\DashboardServiceInterface;
 use App\Models\Complaint\Pengaduan;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +19,10 @@ class AccountController extends Controller
     {
     }
 
-    public function index(Request $request)
+    public function dashboard(Request $request)
     {
         $pengaduans = $request->user()->getRelatedPengaduans();
-        return view('dashboard.index', [
+        return view('account.dashboard', [
             'user' => $request->user(),
             'data' => [
                 'pengaduanCount' => $this->dashboardService->getPengaduanStatsData($pengaduans),
@@ -30,6 +31,36 @@ class AccountController extends Controller
             ]
         ]);
     }
+
+    public function index(Request $request)
+    {
+        $this->authorize('viewAny', User::class);
+        return view('account.index', [
+            'user' => $request->user(),
+            'shownUsers' => User::whereNotNull('email_verified_at')->orderByDesc('created_at')->get()
+        ]);
+    }
+
+    public function show(Request $request, User $user)
+    {
+        $this->authorize('viewAny', User::class);
+        $pengaduans = $user->getRelatedPengaduans();
+        return view('account.show', [
+            'user' => $user,
+            'data' => [
+                'pengaduanCount' => $this->dashboardService->getPengaduanStatsData($pengaduans),
+                'yearly' => $this->dashboardService->getYearlyPengaduanData($pengaduans),
+                'active' => $this->dashboardService->getActivePengaduanData($pengaduans)
+            ]
+        ]);
+    }
+
+    public function delete(Request $request)
+    {
+        $this->authorize('delete', User::class);
+
+    }
+
     /**
      * Display the user's profile form.
      */

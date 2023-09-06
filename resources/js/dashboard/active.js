@@ -66,7 +66,7 @@ function createActiveByPialang(data) {
                 },
                 title: {
                     display: true,
-                    text: "Pengaduan Aktif Berdasarkan Tahun",
+                    text: "Pengaduan Aktif Berdasarkan Pialang",
                 },
             },
         },
