@@ -52,7 +52,7 @@ class PengaduanController extends Controller
      */
     public function store(StorePengaduanRequest $request)
     {
-        $this->authorize('create', Pengaduan::class);
+        $this->authorize('store', Pengaduan::class);
         $pengaduan = $this->pengaduanService->createPengaduan($request);
         $this->notifikasiService->pengaduanCreated($pengaduan);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'pengaduan-created');

@@ -33,15 +33,26 @@ class PengaduanPolicy
         return $user->role == User::IS_NASABAH;
     }
 
-    public function addMusyawarah(User $user, Pengaduan $pengaduan): bool{
+    /**
+     * Determine whether the user can store models.
+     */
+    public function store(User $user): bool
+    {
+        return $user->role == User::IS_NASABAH && isset($user->nasabah->profile_completed_at);
+    }
+
+    public function addMusyawarah(User $user, Pengaduan $pengaduan): bool
+    {
         return $user->role == User::IS_PIALANG && $pengaduan->status == Pengaduan::STATUS_DISPOSISI_PIALANG;
     }
 
-    public function addMediasi(User $user, Pengaduan $pengaduan): bool{
+    public function addMediasi(User $user, Pengaduan $pengaduan): bool
+    {
         return $user->role == User::IS_BURSA && in_array($pengaduan->status, [Pengaduan::STATUS_DISPOSISI_BURSA, Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED]);
     }
 
-    public function addKesepakatan(User $user, Pengaduan $pengaduan): bool{
+    public function addKesepakatan(User $user, Pengaduan $pengaduan): bool
+    {
         return in_array($user->role, [User::IS_BURSA, User::IS_PIALANG]) && empty($pengaduan->kesepakatan);
     }
 
