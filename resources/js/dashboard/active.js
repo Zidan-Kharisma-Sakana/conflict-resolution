@@ -1,5 +1,3 @@
-import { months as getMonths } from "./utils";
-
 document.addEventListener("DOMContentLoaded", function (event) {
     console.log(data);
     createActiveByYear(data.active.byYear);

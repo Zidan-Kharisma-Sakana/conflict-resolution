@@ -32,5 +32,5 @@
     <script>
         const data = @json($data);
     </script>
-    @vite(['resources/js/dashboard/yearly.js', 'resources/js/dashboard/active.js'])
+    @vite(['resources/js/dashboard/index.js'])
 </x-app-layout>

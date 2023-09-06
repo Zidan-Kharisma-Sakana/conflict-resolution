@@ -35,6 +35,9 @@ class DashboardService implements DashboardServiceInterface
 
     public function getYearlyPengaduanData(Collection $pengaduans)
     {
+        $query = request()->query();
+        $year = array_key_exists('year', $query) ? (int) $query['year'] : Carbon::now()->year;
+        $pengaduans = $pengaduans->filter(fn($pengaduan)=> Carbon::parse($pengaduan->waktu_dibuat)->year == $year);
         return [
             'byMonth' => $this->groupYearlyPengaduanByMonth($pengaduans),
             'byStatus' => $this->groupYearlyPengaduanByStatus($pengaduans)
