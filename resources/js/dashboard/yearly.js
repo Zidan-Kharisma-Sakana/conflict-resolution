@@ -48,6 +48,9 @@ function createBarChartStatusYearly({
             scales: {
                 y: {
                     beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,
+                    },
                 },
             },
             plugins: {
@@ -89,12 +92,19 @@ function createLineChartYearly(byMonth) {
             ],
         },
         options: {
+            y: {
+                beginAtZero: true,
+                min:0,
+                ticks: {
+                    stepSize: 1,
+                },
+            },
             plugins: {
                 title: {
-                  display: true,
-                  text: 'Trend Pengaduan Tahun Ini',
-                }
-              }
+                    display: true,
+                    text: "Trend Pengaduan Tahun Ini",
+                },
+            },
         },
     });
 }
