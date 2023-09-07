@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
+    Route::get('/excel', [AccountController::class, 'excel'])->name('excel');
     Route::get('/account/me', [AccountController::class, 'edit'])->name('account.edit');
     Route::patch('/account/me', [AccountController::class, 'update'])->name('account.update');
     Route::delete('/account/me', [AccountController::class, 'destroy'])->name('account.destroy');

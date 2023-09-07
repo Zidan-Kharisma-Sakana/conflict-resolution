@@ -5,20 +5,42 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Interfaces\DashboardServiceInterface;
+use App\Interfaces\ExcelServiceInterface;
 use App\Models\Complaint\Pengaduan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class AccountController extends Controller
 {
-    public function __construct(private DashboardServiceInterface $dashboardService)
+    public function __construct(private DashboardServiceInterface $dashboardService, private ExcelServiceInterface $excelService)
     {
     }
 
+    public function excel(Request $request)
+    {
+        try {
+            $pengaduans = $request->user()->getRelatedPengaduans();
+            $filename = "Laporan Pengaduan BAPPEBTI " . Carbon::now()->isoFormat('D MMMM Y hh:mm:ss');
+            $Excel_writer = new Xls($this->excelService->getPengaduanExcel($pengaduans));
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="'. $filename . '.xlsx"' );
+            header('Cache-Control: max-age=0');
+            ob_end_clean();
+            $Excel_writer->save('php://output');
+            exit();
+        } catch (Exception $e) {
+            return;
+        }
+    }
     public function dashboard(Request $request)
     {
         $pengaduans = $request->user()->getRelatedPengaduans();
@@ -58,7 +80,6 @@ class AccountController extends Controller
     public function delete(Request $request)
     {
         $this->authorize('delete', User::class);
-
     }
 
     /**
