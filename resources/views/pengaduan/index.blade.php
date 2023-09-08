@@ -21,6 +21,11 @@
                             <x-primary-button>Tambah Pengaduan</x-primary-button>
                         </a>
                     @endcan
+                    @if ($user->role == \App\Models\User::IS_BAPPEBTI)
+                        <a href="{{ route('excel') }}">
+                            <x-primary-button>Eksport Data</x-primary-button>
+                        </a>
+                    @endif
                 </div>
 
                 <table style="max-width: 95%" id="myTable" class="display table-fixed cell-border">

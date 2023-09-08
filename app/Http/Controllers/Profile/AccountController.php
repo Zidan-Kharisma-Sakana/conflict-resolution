@@ -28,11 +28,11 @@ class AccountController extends Controller
     public function excel(Request $request)
     {
         try {
-            $pengaduans = $request->user()->getRelatedPengaduans();
+            $pengaduans = $request->user()->getRelatedPengaduans()->filter(fn ($pengaduan) => $pengaduan->status != Pengaduan::STATUS_REJECTED);
             $filename = "Laporan Pengaduan BAPPEBTI " . Carbon::now()->isoFormat('D MMMM Y hh:mm:ss');
             $Excel_writer = new Xls($this->excelService->getPengaduanExcel($pengaduans));
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="'. $filename . '.xlsx"' );
+            header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
             header('Cache-Control: max-age=0');
             ob_end_clean();
             $Excel_writer->save('php://output');

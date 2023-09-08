@@ -17,6 +17,13 @@
                         </a>
                     </div>
                 @endcan
+                @if ($user->role == \App\Models\User::IS_BAPPEBTI)
+                    <div class="w-full flex justify-end">
+                        <a href="{{ route('excel') }}">
+                            <x-primary-button>Eksport Data</x-primary-button>
+                        </a>
+                    </div>
+                @endif
                 <section id="identity" class="grid grid-cols-2 gap-8">
                     @include('account.partials.dashboard.identity')
                     @include('account.partials.dashboard.period')
