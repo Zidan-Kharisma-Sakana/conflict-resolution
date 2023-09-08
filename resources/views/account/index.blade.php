@@ -34,8 +34,7 @@
                                 <td class="capitalize">{{ $shownUser->name }}</td>
                                 <td>{{ $shownUser->email }}</td>
                                 <td class="capitalize">{{ $shownUser->role }}</td>
-                                <td><a target="_blank" rel="noopener noreferrer"
-                                        href="{{ route('account.show', $shownUser->id) }}">
+                                <td><a href="{{ route('account.show', $shownUser->id) }}">
                                         <x-primary-button>Lihat</x-primary-button>
                                     </a></td>
                             </tr>
