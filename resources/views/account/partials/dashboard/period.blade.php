@@ -24,14 +24,31 @@
             @if (in_array($user->role, [\App\Models\User::IS_BAPPEBTI, \App\Models\User::IS_PIALANG]))
                 <tr>
                     <td>Pialang Terlambat</td>
-                    <td>{{ ': ' . $data['pengaduanCount']['total_pialang_late'] . ' pengaduan' }}</td>
+                    <td>: <a href="{{ route('pengaduan.index', ['pialang_terlambat' => 1]) }}" target="_blank"
+                            rel="noopener noreferrer">
+                            {{ $data['pengaduanCount']['total_pialang_late'] . ' pengaduan' }}</a></td>
                 </tr>
             @endif
             @if (in_array($user->role, [\App\Models\User::IS_BAPPEBTI, \App\Models\User::IS_BURSA]))
                 <tr>
                     <td>Bursa Terlambat</td>
-                    <td>{{ ': ' . $data['pengaduanCount']['total_bursa_late'] . ' pengaduan' }}</td>
+                    <td>: <a href="{{ route('pengaduan.index', ['bursa_terlambat' => 1]) }}" target="_blank"
+                            rel="noopener noreferrer">
+                            {{ $data['pengaduanCount']['total_bursa_late'] . ' pengaduan' }}</a></td>
                 </tr>
+            @endif
+        </table>
+        <h6 class="text-xl font-medium mt-4">Total Pengaduan Aktif</h6>
+        <table>
+            @if (count($data['active']['byYear']))
+                @foreach ($data['active']['byYear'] as $key => $value)
+                    <tr>
+                        <td>{{ 'Tahun ' . $key }}</td>
+                        <td>{{ ': ' . $value . ' pengaduan' }}</td>
+                    </tr>
+                @endforeach
+            @else
+                <p>Belum Ada</p>
             @endif
         </table>
     @endif

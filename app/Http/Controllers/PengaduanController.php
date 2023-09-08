@@ -29,9 +29,31 @@ class PengaduanController extends Controller
 
     public function index(Request $request)
     {
+        $pengaduan = $request->user()->getRelatedPengaduans();
+        $query = $request->query();
+        $title = null;
+        if(count($query)){
+            if(array_key_exists('pialang_terlambat', $query)){
+                $pengaduan = $pengaduan->filter(fn($pengaduan)=> $pengaduan->is_pialang_late);
+                $title = "Pialang Terlambat";
+            }
+            if(array_key_exists('bursa_terlambat', $query)){
+                $pengaduan = $pengaduan->filter(fn($pengaduan)=> $pengaduan->is_bursa_late);
+                $title = "Bursa Terlambat";
+            }
+            if(array_key_exists('closed', $query)){
+                $pengaduan = $pengaduan->filter(fn($pengaduan)=> $pengaduan->status == Pengaduan::STATUS_CLOSED);
+                $title = "Telah Ditutup";
+            }
+            if(array_key_exists('rejected', $query)){
+                $pengaduan = $pengaduan->filter(fn($pengaduan)=> $pengaduan->status == Pengaduan::STATUS_REJECTED);
+                $title = "Telah Ditolak";
+            }
+        }
         return view('pengaduan.index', [
             'user' => $request->user(),
-            'pengaduans' => $request->user()->getRelatedPengaduans()
+            'pengaduans' => $pengaduan,
+            'judul' => $title
         ]);
     }
 

@@ -14,7 +14,7 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="flex justify-between my-4">
                     <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
-                        Daftar Pengaduan
+                        Daftar Pengaduan {{ $judul }}
                     </h2>
                     @can('create', \App\Models\Complaint\Pengaduan::class)
                         <a href="{{ route('pengaduan.create') }}">

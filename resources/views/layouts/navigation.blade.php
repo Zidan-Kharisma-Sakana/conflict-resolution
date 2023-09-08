@@ -17,10 +17,35 @@
                     </x-nav-link>
                 </div>
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('pengaduan.index')" :active="request()->routeIs('pengaduan.index')">
-                        Daftar Pengaduan
-                    </x-nav-link>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex h-full justify-center items-center">
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                <div>Pengaduan</div>
+
+                                <div class="ml-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('pengaduan.index', [])">
+                                Daftar Pengaduan
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('pengaduan.index', ['closed' => 1])">
+                                Ditutup
+                            </x-dropdown-link> <x-dropdown-link :href="route('pengaduan.index', ['rejected' => 1])">
+                                Ditolak
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('musyawarah.index')" :active="request()->routeIs('musyawarah.index')">
@@ -35,7 +60,7 @@
                 @if (Auth::user()->role == \App\Models\User::IS_BAPPEBTI)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('account.index')" :active="request()->routeIs('account.index')">
-                            Daftar Pengguna
+                            Pengguna
                         </x-nav-link>
                     </div>
                 @endif
