@@ -5,7 +5,7 @@
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's name and email address.") }}
+            {{ __("Update your account's name.") }}
         </p>
     </header>
 
@@ -23,7 +23,7 @@
             <x-form.input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
-        <div>
+        <div class="hidden">
             <x-form.input-label for="email" :value="__('Email')" />
             <x-form.input.text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-form.input-error class="mt-2" :messages="$errors->get('email')" />

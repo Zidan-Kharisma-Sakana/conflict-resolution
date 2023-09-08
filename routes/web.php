@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Profile\AccountController;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Redirect::route('login');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [AccountController::class, 'dashboard'])->middleware('verified')->name('dashboard');
     Route::get('/excel', [AccountController::class, 'excel'])->name('excel');
     Route::get('/account/me', [AccountController::class, 'edit'])->name('account.edit');
     Route::patch('/account/me', [AccountController::class, 'update'])->name('account.update');
