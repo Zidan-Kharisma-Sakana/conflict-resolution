@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(e){new DataTable("#myTable",{ordering:!1,columnDefs:[{targets:[0,1,2,3],orderable:!1},{targets:[1],width:"20%"},{targets:[0],width:"180px"},{targets:[3],width:"100px"}]})});

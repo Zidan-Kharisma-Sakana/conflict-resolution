@@ -1,0 +1,83 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-8428ec65.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/css/datatable.css": {
+    "file": "assets/datatable-45f258ab.css",
+    "isEntry": true,
+    "src": "resources/css/datatable.css"
+  },
+  "resources/css/pengaduan.css": {
+    "file": "assets/pengaduan-53d29e2b.css",
+    "isEntry": true,
+    "src": "resources/css/pengaduan.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-6a901983.js",
+    "imports": [
+      "resources/js/bootstrap.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/bootstrap.js": {
+    "file": "assets/bootstrap-0d91dc04.js",
+    "isEntry": true,
+    "src": "resources/js/bootstrap.js"
+  },
+  "resources/js/dashboard/active.js": {
+    "file": "assets/active-a5365886.js",
+    "isEntry": true,
+    "src": "resources/js/dashboard/active.js"
+  },
+  "resources/js/dashboard/index.js": {
+    "file": "assets/index-994db9fe.js",
+    "imports": [
+      "resources/js/dashboard/active.js",
+      "resources/js/dashboard/yearly.js",
+      "resources/js/dashboard/utils.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/dashboard/index.js"
+  },
+  "resources/js/dashboard/utils.js": {
+    "file": "assets/utils-fe6b9033.js",
+    "isEntry": true,
+    "src": "resources/js/dashboard/utils.js"
+  },
+  "resources/js/dashboard/yearly.js": {
+    "file": "assets/yearly-db7a5c1b.js",
+    "imports": [
+      "resources/js/dashboard/utils.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/dashboard/yearly.js"
+  },
+  "resources/js/datatable/mediasi.js": {
+    "file": "assets/mediasi-63376a9d.js",
+    "isEntry": true,
+    "src": "resources/js/datatable/mediasi.js"
+  },
+  "resources/js/datatable/musyawarah.js": {
+    "file": "assets/musyawarah-63376a9d.js",
+    "isEntry": true,
+    "src": "resources/js/datatable/musyawarah.js"
+  },
+  "resources/js/datatable/notifikasi.js": {
+    "file": "assets/notifikasi-0b958383.js",
+    "isEntry": true,
+    "src": "resources/js/datatable/notifikasi.js"
+  },
+  "resources/js/datatable/pengaduan.js": {
+    "file": "assets/pengaduan-8c724b02.js",
+    "isEntry": true,
+    "src": "resources/js/datatable/pengaduan.js"
+  },
+  "resources/js/datatable/users.js": {
+    "file": "assets/users-7a5ddec8.js",
+    "isEntry": true,
+    "src": "resources/js/datatable/users.js"
+  }
+}

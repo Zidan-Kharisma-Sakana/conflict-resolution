@@ -1,0 +1,1 @@
+const o=["January","February","March","April","May","June","July","August","September","October","November","December"];function s(u){var e=u||{},n=e.count||12,c=e.section,a=[],r,t;for(r=0;r<n;++r)t=o[Math.ceil(r)%12],a.push(t.substring(0,c));return a}export{s as m};
