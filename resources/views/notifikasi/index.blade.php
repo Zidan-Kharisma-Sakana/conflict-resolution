@@ -2,7 +2,7 @@
     <x-slot name="cssFile">
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-        @vite(['resources/css/app.css', 'resources/css/datatable.css', 'resources/js/app.js', 'resources/js/datatable.js'])
+        @vite(['resources/css/app.css', 'resources/css/datatable.css', 'resources/js/app.js'])
     </x-slot>
     <div class="py-8">
         <div>
@@ -13,7 +13,7 @@
         <div class="max-w-full mx-auto px-4 sm:px-8 lg:px-16 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="flex justify-between my-4">
-                    <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
+                    <h2 id="judul" class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
                         Semua Notifikasi
                     </h2>
                 </div>
@@ -61,25 +61,7 @@
 
     </div>
     <x-slot name="script">
-        <script>
-            document.addEventListener("DOMContentLoaded", function(event) {
-                let table = new DataTable('#myTable', {
-                    "ordering": false,
-                    "columnDefs": [{
-                        "targets": [0, 1, 2, 3],
-                        "orderable": false
-                    }, {
-                        "targets": [1],
-                        "width": '20%'
-                    }, {
-                        "targets": [0],
-                        "width": '180px'
-                    }, {
-                        "targets": [3],
-                        "width": '100px'
-                    }]
-                });
-            });
-        </script>
+        <script type="module" src="{{ asset('/custom/datatable.js') }}"></script>
+        @vite(['resources/js/datatable/notifikasi.js'])
     </x-slot>
 </x-app-layout>

@@ -2,8 +2,8 @@
     <x-slot name="cssFile">
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-        @vite(['resources/css/app.css', 'resources/css/datatable.css', 'resources/js/app.js', 'resources/js/datatable.js'])
-    </x-slot>
+            @vite(['resources/css/app.css', 'resources/css/datatable.css', 'resources/js/app.js'])
+        </x-slot>
     <div class="py-8">
         <div>
             @foreach ($errors->all() as $error)
@@ -55,54 +55,7 @@
 
     </div>
     <x-slot name="script">
-        <script>
-            document.addEventListener("DOMContentLoaded", function(event) {
-                let table = new DataTable('#myTable', {
-                    "ordering": false,
-                    "columnDefs": [
-                        {
-                        "targets": [0],
-                        "width": '40px'
-                    },
-                    {
-                        "targets": [4],
-                        "width": '80px'
-                    }],
-                    initComplete: function() {
-                        this.api()
-                            .columns([3])
-                            .every(function() {
-                                let column = this;
-                                // console.log(this)
-
-                                // Create select element
-                                let select = document.createElement('select');
-
-                                select.add(new Option('Semua', ''));
-                                console.log(column.footer())
-                                column.footer().replaceChildren(select);
-
-                                // Apply listener for user change in value
-                                select.addEventListener('change', function() {
-                                    var val = DataTable.util.escapeRegex(select.value);
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                                // Add list of options
-                                column
-                                    .data()
-                                    .unique()
-                                    .sort()
-                                    .each(function(d, j) {
-                                        select.add(new Option(d));
-                                    });
-                            });
-                    }
-                });
-            });
-        </script>
+        <script type="module" src="{{ asset('/custom/datatable.js') }}"></script>
+        @vite(['resources/js/datatable/users.js'])
     </x-slot>
 </x-app-layout>

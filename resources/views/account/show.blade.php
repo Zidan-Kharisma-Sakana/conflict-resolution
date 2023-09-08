@@ -2,8 +2,8 @@
     <x-slot name="cssFile">
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-        @vite(['resources/css/app.css', 'resources/css/datatable.css', 'resources/js/app.js', 'resources/js/datatable.js'])
-        @vite(['resources/css/pengaduan.css'])
+            @vite(['resources/css/app.css', 'resources/css/datatable.css', 'resources/js/app.js'])
+            @vite(['resources/css/pengaduan.css'])
     </x-slot>
     <div class="py-8">
         {{-- @dd($data) --}}
