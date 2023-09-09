@@ -86,7 +86,11 @@ class DashboardService implements DashboardServiceInterface
     private function groupActivePengaduanByPialang(Collection $pengaduans)
     {
         return $pengaduans->filter(fn ($pengaduan) => !in_array($pengaduan->status, [Pengaduan::STATUS_CLOSED, Pengaduan::STATUS_REJECTED]))->countBy(function ($pengaduan) {
-            return $pengaduan->pialang->user->name;
+            $name = str_replace('PT', '', $pengaduan->pialang->user->name);
+            if (strlen($name) > 20) {
+                $name = substr($name, 0, 20);
+            };
+            return str_replace('.', '', $name);
         });
     }
 }
