@@ -8,7 +8,11 @@ use Illuminate\Auth\Access\Response;
 
 class KesepakatanPolicy
 {
-    public function update(User $user, Kesepakatan $kesepakatan): bool
+    public function confirm(User $user, Kesepakatan $kesepakatan): bool
+    {
+        return $user->role == User::IS_BAPPEBTI && !empty($kesepakatan);
+    }
+    public function destroy(User $user, Kesepakatan $kesepakatan): bool
     {
         return $user->role == User::IS_BAPPEBTI && !empty($kesepakatan);
     }

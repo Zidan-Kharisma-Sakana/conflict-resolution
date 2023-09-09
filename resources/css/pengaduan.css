@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 td:nth-child(1){
-    vertical-align: middle;
+    vertical-align: top;
     min-width: 200px;
 }
 td:nth-child(2){

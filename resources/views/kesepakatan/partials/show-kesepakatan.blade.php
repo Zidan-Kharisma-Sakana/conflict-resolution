@@ -52,6 +52,14 @@
                     <x-primary-button class="mt-4">Konfirmasi</x-primary-button>
                 @endif
             </form>
+            <form class="" action="{{ route('kesepakatan.destroy', $kesepakatan->id) }}" method="post"
+                enctype="multipart/form-data">
+                @csrf
+                @method('delete')
+                @if (!$kesepakatan->confirmed)
+                    <x-danger-button class="mt-4">Tolak</x-danger-button>
+                @endif
+            </form>
         @endif
 
         @if (empty($kesepakatan))

@@ -12,4 +12,5 @@ interface KesepakatanServiceInterface
 {
     public function createKesepakatan(StoreKesepakatanRequest $request, $id) : Kesepakatan;
     public function confirmKesepakatan(Request $request, $id) : Pengaduan;
+    public function destroyKesepakatan(Request $request, $id) : Pengaduan;
 }

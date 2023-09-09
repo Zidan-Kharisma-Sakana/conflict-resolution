@@ -18,4 +18,5 @@ interface NotifikasiServiceInterface
     public function musyawarahCreated(Musyawarah $musyawarah);
     public function mediasiCreated(Mediasi $mediasi);
     public function kesepakatanCreated(Kesepakatan $kesepakatan);
+    public function kesepakatanDestroyed(Pengaduan $pengaduan);
 }

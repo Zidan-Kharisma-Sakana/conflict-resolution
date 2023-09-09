@@ -38,9 +38,17 @@ class KesepakatanController extends Controller
      */
     public function update(Request $request, Kesepakatan $kesepakatan)
     {
-        $this->authorize("update", [$kesepakatan]);
+        $this->authorize("confirm", [$kesepakatan]);
         $pengaduan = $this->kesepakatanService->confirmKesepakatan($request, $kesepakatan->id);
         $this->notifikasiService->pengaduanClosed($pengaduan);
+        return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'kesepakatan-updated');
+    }
+
+    public function destroy(Request $request, Kesepakatan $kesepakatan)
+    {
+        $this->authorize("destroy", [$kesepakatan]);
+        $pengaduan = $this->kesepakatanService->destroyKesepakatan($request, $kesepakatan->id);
+        $this->notifikasiService->kesepakatanDestroyed($pengaduan);
         return Redirect::route('pengaduan.show', $pengaduan->id)->with('status', 'kesepakatan-updated');
     }
 }

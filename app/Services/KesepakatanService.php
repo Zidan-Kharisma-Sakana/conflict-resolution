@@ -16,7 +16,8 @@ class KesepakatanService implements KesepakatanServiceInterface
 {
     public function createKesepakatan(StoreKesepakatanRequest $request, $id): Kesepakatan
     {
-        $kesepakatan = DB::transaction(function () use($request, $id){
+        // dd($id);
+        $kesepakatan = DB::transaction(function () use ($request, $id) {
             $file = '';
             if ($request->file('kesepakatan.file')) {
                 $file = $request->file('kesepakatan.file')->store('pengaduan');
@@ -29,7 +30,7 @@ class KesepakatanService implements KesepakatanServiceInterface
                 'user_id' => $request->user()->id
             ]);
 
-            $pengaduan = Pengaduan::findOrFail((int) $kesepakatan->user_id);
+            $pengaduan = Pengaduan::findOrFail((int) $kesepakatan->pengaduan_id);
             $pengaduan->status = Pengaduan::STATUS_FINISHED;
             $pengaduan->waktu_kesepakatan = Carbon::now();
             $pengaduan->save();
@@ -39,13 +40,34 @@ class KesepakatanService implements KesepakatanServiceInterface
 
         return $kesepakatan;
     }
+    public function destroyKesepakatan(Request $request, $id) : Pengaduan
+    {
+        $pengaduan = DB::transaction(function () use ($id) {
+            $pengaduan = Kesepakatan::findOrFail((int) $id)->pengaduan;
+            Kesepakatan::destroy((int) $id);
+            $last_status = Pengaduan::STATUS_DISPOSISI_BURSA_EXPIRED;
+            if (!$pengaduan->is_bursa_late) {
+                $last_status = Pengaduan::STATUS_DISPOSISI_BURSA;
+            }
+            if (!$pengaduan->is_pialang_late) {
+                $last_status = Pengaduan::STATUS_DISPOSISI_PIALANG;
+            }
+            Pengaduan::where('id', $pengaduan->id)->update([
+                'status' => $last_status,
+                'waktu_kesepakatan' => null,
+            ]);
+            return $pengaduan;
+        });
+        return $pengaduan;
+    }
+
     public function confirmKesepakatan(Request $request, $id): Pengaduan
     {
         $pengaduan = DB::transaction(function () use ($id) {
             $kesepakatan = Kesepakatan::findOrFail((int) $id);
             $kesepakatan->confirmed = true;
             $kesepakatan->save();
-            $pengaduan = Pengaduan::findOrFail((int) $kesepakatan->user_id);
+            $pengaduan = Pengaduan::findOrFail((int) $kesepakatan->pengaduan_id);
             $pengaduan->status = Pengaduan::STATUS_CLOSED;
             $pengaduan->waktu_selesai = Carbon::now();
             $pengaduan->save();

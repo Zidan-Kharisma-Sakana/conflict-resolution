@@ -142,4 +142,19 @@ class NotifikasiService implements NotifikasiServiceInterface
             ]);
         });
     }
+    public function kesepakatanDestroyed(Pengaduan $pengaduan)
+    {
+        // notify all party
+        collect([$pengaduan->nasabah->user, $pengaduan->pialang->user, $pengaduan->bursa->user])
+            ->each(function (User $user) use ($pengaduan) {
+                $subject = "Kesepakatan Ditolak Bappebti";
+                $content = "Kesepakatan Ditolak Bappebti untuk pengaduan nasabah " . $pengaduan->nasabah->user->name;
+                Notifikasi::create([
+                    'subject' => $subject,
+                    'content' => $content,
+                    'link' => route('pengaduan.show', $pengaduan->id),
+                    'user_id' => $user->id,
+                ]);
+            });
+    }
 }
