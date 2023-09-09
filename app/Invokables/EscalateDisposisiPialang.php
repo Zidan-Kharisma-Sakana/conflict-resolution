@@ -29,7 +29,7 @@ class EscalateDisposisiPialang
             return $pengaduansQuery->update([
                 'status' => Pengaduan::STATUS_DISPOSISI_BURSA,
                 'is_pialang_late' => true,
-                'waktu_expires_bursa' => Carbon::now()->addWeekdays(21)
+                'waktu_expires_bursa' => Carbon::now()->addWeekdays(21)->endOfDay()
             ]);
         });
         error_log("EscalateDisposisiPialang: " . $pengaduanTotal);
@@ -52,7 +52,7 @@ class EscalateDisposisiPialang
         collect([$pengaduan->nasabah->user, $pengaduan->pialang->user, $pengaduan->bursa->user])
             ->each(function (User $user) use ($pengaduan) {
                 $subject = "Disposisi Bursa";
-                $waktuexpires =  Carbon::now()->addWeekdays(21);
+                $waktuexpires =  Carbon::now()->addWeekdays(21)->endOfDay();
                 $content = 'BAPPEBTI mendisposisikan bursa ' . $pengaduan->bursa->user->name . ' untuk menyelesaikan pengaduan hingga ' . $waktuexpires->isoFormat('dddd, D MMMM Y');
                 Notifikasi::create([
                     'subject' => $subject,

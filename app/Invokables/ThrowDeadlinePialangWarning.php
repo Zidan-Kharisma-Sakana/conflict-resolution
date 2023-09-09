@@ -17,7 +17,7 @@ class ThrowDeadlinePialangWarning
     {
         $pengaduanTotal = DB::transaction(function () {
             $pengaduansQuery = Pengaduan::where('status', Pengaduan::STATUS_DISPOSISI_PIALANG)
-                ->whereBetween('waktu_expires_pialang', [Carbon::now()->addWeekday(6), Carbon::now()->addWeekdays(7)])
+                ->whereBetween('waktu_expires_pialang', [Carbon::now()->startOfDay(), Carbon::now()->addWeekdays(7)->endOfDay()])
                 ->whereNull('waktu_kesepakatan')
                 ->where('is_pialang_warning_sent', false);
             $pengaduansQuery->get()->each(function (Pengaduan $pengaduan) {
@@ -35,15 +35,15 @@ class ThrowDeadlinePialangWarning
     private function createNotifikasi(Pengaduan $pengaduan)
     {
         collect([$pengaduan->pialang->user])->each(function (User $user) use ($pengaduan) {
-                $subject = "Peringatan Deadline dalam 7 hari";
-                $waktuexpires =  Carbon::now()->addWeekdays(7);
-                $content = 'BAPPEBTI memperingatkan pialang ' . $pengaduan->pialang->user->name . ' untuk menyelesaikan pengaduan hingga ' . $waktuexpires->isoFormat('dddd, D MMMM Y');
-                Notifikasi::create([
-                    'subject' => $subject,
-                    'content' => $content,
-                    'link' => route('pengaduan.show', $pengaduan->id),
-                    'user_id' => $user->id
-                ]);
-            });
+            $subject = "Peringatan Deadline dalam 7 hari";
+            $waktuexpires =  Carbon::parse($pengaduan->waktu_expires_pialang);
+            $content = 'BAPPEBTI memperingatkan pialang ' . $pengaduan->pialang->user->name . ' untuk menyelesaikan pengaduan hingga ' . $waktuexpires->isoFormat('dddd, D MMMM Y');
+            Notifikasi::create([
+                'subject' => $subject,
+                'content' => $content,
+                'link' => route('pengaduan.show', $pengaduan->id),
+                'user_id' => $user->id
+            ]);
+        });
     }
 }

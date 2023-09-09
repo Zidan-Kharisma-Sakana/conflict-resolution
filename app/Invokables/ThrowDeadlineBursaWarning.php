@@ -16,7 +16,7 @@ class ThrowDeadlineBursaWarning
     {
         $pengaduanTotal = DB::transaction(function () {
             $pengaduansQuery = Pengaduan::where('status', Pengaduan::STATUS_DISPOSISI_BURSA)
-                ->whereBetween('waktu_expires_bursa', [Carbon::now()->addWeekday(6), Carbon::now()->addWeekdays(7)])
+                ->whereBetween('waktu_expires_bursa', [Carbon::now()->startOfDay(), Carbon::now()->addWeekdays(7)->endOfDay()])
                 ->whereNull('waktu_kesepakatan')
                 ->where('is_bursa_warning_sent', false);
             $pengaduansQuery->get()->each(function (Pengaduan $pengaduan) {
@@ -36,7 +36,7 @@ class ThrowDeadlineBursaWarning
         collect([$pengaduan->bursa->user])
             ->each(function (User $user) use ($pengaduan) {
                 $subject = "Peringatan Deadline dalam 7 hari";
-                $waktuexpires =  Carbon::now()->addWeekdays(7);
+                $waktuexpires =  Carbon::parse($pengaduan->waktu_expires_bursa);
                 $content = 'BAPPEBTI memperingatkan bursa ' . $pengaduan->bursa->user->name . ' untuk menyelesaikan pengaduan hingga ' . $waktuexpires->isoFormat('dddd, D MMMM Y');
                 Notifikasi::create([
                     'subject' => $subject,

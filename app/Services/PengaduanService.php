@@ -37,7 +37,7 @@ class PengaduanService implements PengaduanServiceInterface
                 'bursa_id' => (int) $pialang->bursa->id,
                 'kronologi' => $validated['kronologi']['description'],
                 'waktu_dibuat' => Carbon::now(),
-                'waktu_expires_bappebti' => Carbon::now()->addWeekdays(3)
+                'waktu_expires_bappebti' => Carbon::now()->addWeekdays(3)->endOfDay()
             ]);
             $this->saveDocuments($request, $pengaduan);
             $this->saveQuestions($request, $pengaduan);
@@ -50,7 +50,7 @@ class PengaduanService implements PengaduanServiceInterface
     {
         $pengaduan = Pengaduan::where('id', $id)->where('status', Pengaduan::STATUS_CREATED)->firstOrFail();
         $pengaduan->status = Pengaduan::STATUS_DISPOSISI_PIALANG;
-        $pengaduan->waktu_expires_pialang = Carbon::now()->addWeekdays(21);
+        $pengaduan->waktu_expires_pialang = Carbon::now()->addWeekdays(21)->endOfDay();
         $pengaduan->save();
         return $pengaduan;
     }
