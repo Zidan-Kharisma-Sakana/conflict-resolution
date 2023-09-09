@@ -7,8 +7,7 @@
     <section>
         <div>
             <h4>Kronologis Kejadian</h4>
-            <textarea name="kronologi[description]" disabled
-                class="mt-1 w-full border-gray-300 rounded-md shadow-sm">{{ $pengaduan->kronologi }}</textarea>
+            <div name="kronologi[description]" class="my-2 w-full border-gray-300 p-2 border rounded-md shadow-sm">{{ $pengaduan->kronologi }}</div>
         </div>
         <table>
             <tbody>

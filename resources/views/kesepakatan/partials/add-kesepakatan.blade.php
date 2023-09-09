@@ -5,21 +5,31 @@
                 {{ __('Tambahkan Kesepakatan') }}
             </h2>
         </header>
-        <form class="" action="{{ route('kesepakatan.store', $pengaduan->id) }}" method="POST"
-            enctype="multipart/form-data">
-            @csrf
-            <x-form.input-label for="kesepakatan.isi" value="Isi Kesepakatan" required />
-            <textarea name="kesepakatan[isi]" id="kesepakatan[isi"
-                class="mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('kesepakatan.isi') }}</textarea>
-            <table>
-                <tr>
-                    <td> <x-form.input-label for="kesepakatan[file]" value="File Pendukung" />
-                    </td>
-                    <td class="flex items-center pt-1">: <x-form.input.file-input type="file" id="kesepakatan[file]"
-                            name="kesepakatan[file]" class="ml-1" /></td>
-                </tr>
-            </table>
-            <x-primary-button class="mt-4">Save</x-primary-button>
-        </form>
+        @php
+            $bursaAble = $user->role == \App\Models\User::IS_BURSA && count($pengaduan->mediasis->filter(fn($mediasi) => !empty($mediasi->hasil)));
+            $pialangAble = $user->role == \App\Models\User::IS_PIALANG && count($pengaduan->musyawarahs->filter(fn($musyawarah) => !empty($musyawarah->hasil)));
+        @endphp
+        @if ($bursaAble || $pialangAble)
+            <form class="" action="{{ route('kesepakatan.store', $pengaduan->id) }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <x-form.input-label for="kesepakatan.isi" value="Isi Kesepakatan" required />
+                <textarea name="kesepakatan[isi]" id="kesepakatan[isi"
+                    class="mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('kesepakatan.isi') }}</textarea>
+                <table>
+                    <tr>
+                        <td> <x-form.input-label for="kesepakatan[file]" value="File Pendukung" />
+                        </td>
+                        <td class="flex items-center pt-1">: <x-form.input.file-input type="file"
+                                id="kesepakatan[file]" name="kesepakatan[file]" class="ml-1" /></td>
+                    </tr>
+                </table>
+                <x-primary-button class="mt-4">Save</x-primary-button>
+            </form>
+        @else
+            <div>
+                <h2>Anda perlu membuat mediasi/musyawarah terlebih dahulu, lalu masukan hasilnya</h2>
+            </div>
+        @endif
     </div>
 </div>

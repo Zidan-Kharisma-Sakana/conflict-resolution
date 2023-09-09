@@ -26,7 +26,7 @@
                         <h2 class="font-semibold text-2xl text-gray-800 leading-tight mb-4">
                             Detail Pengaduan
                         </h2>
-                        @if ($user->role == \App\Models\User::IS_BAPPEBTI && $pengaduan->isOpen())
+                        @if ($user->role == \App\Models\User::IS_BAPPEBTI && $pengaduan->isOpen() && $pengaduan->status !=  \App\Models\Complaint\Pengaduan::STATUS_CREATED)
                             <a>
                                 <form action="{{ route('pengaduan.destroy', $pengaduan->id) }}" method="POST">
                                     @csrf

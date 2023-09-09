@@ -8,8 +8,7 @@
         @foreach ($pengaduan->pertanyaanPengaduans as $item)
             <div>
                 <h6>{{ ($loop->index + 1) . '.  ' . $item->pertanyaan }}</h6>
-                <textarea name="kronologi[description]" disabled
-                class="mt-1 w-full border-gray-300 rounded-md shadow-sm">{{ $item->jawaban }}</textarea>
+                <div  class="my-2 w-full border-gray-300 p-2 border rounded-md shadow-sm">{{ $item->jawaban }}</div>
             </div>
         @endforeach
     </section>
